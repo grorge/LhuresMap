@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D3D.cpp">
+      <Filter>Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="D2D.cpp">
+      <Filter>Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>BackendLoop</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>BackendLoop</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameCont</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseInput.cpp">
+      <Filter>BackendLoop</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>BackendLoop\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderInputOrganizer.cpp">
+      <Filter>BackendLoop\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Locator.cpp">
+      <Filter>Structure\Locator</Filter>
+    </ClCompile>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>Structure\States</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D3D.h">
+      <Filter>Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="D2D.h">
+      <Filter>Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>GameCont</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>BackendLoop</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>BackendLoop</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameCont</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsComponent.h">
+      <Filter>GameCont</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseInput.h">
+      <Filter>BackendLoop</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderInputOrganizer.h">
+      <Filter>BackendLoop\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>BackendLoop\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="ID2D.h">
+      <Filter>Structure\Locator</Filter>
+    </ClInclude>
+    <ClInclude Include="ID3D.h">
+      <Filter>Structure\Locator</Filter>
+    </ClInclude>
+    <ClInclude Include="Locator.h">
+      <Filter>Structure\Locator</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Structure\States</Filter>
+    </ClInclude>
+    <ClInclude Include="StateManager.h">
+      <Filter>Structure\States</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Setup">
+      <UniqueIdentifier>{975d4149-b3c5-4dae-bdef-dd66633a57f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameCont">
+      <UniqueIdentifier>{7ebff5ad-dc6f-4661-abcc-f089dfdb3ad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Structure">
+      <UniqueIdentifier>{4534d65d-f739-48df-839c-30ccf3fe1409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BackendLoop">
+      <UniqueIdentifier>{c256b835-b0b6-4f4c-86d8-e5d829aeb3fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BackendLoop\Render">
+      <UniqueIdentifier>{b92ac5e3-26a3-4005-8281-0abadef344f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Structure\Locator">
+      <UniqueIdentifier>{1c31a6e2-4c8b-4e5e-8355-a4b7a55a77b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Structure\States">
+      <UniqueIdentifier>{afbc6c5e-9973-418c-939c-ad1a13a04e4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{fe852230-8ecf-47ea-a8e9-76957c145284}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <Filter>BackendLoop</Filter>
+    </None>
+  </ItemGroup>
+</Project>
