@@ -2,6 +2,7 @@
 #include "D3D.h"
 #include "StateManager.h"
 #include "State.h"
+#include "BasicRenderState.h"
 #include "Locator.h"
 #include "Renderer.h"
 void GameManager::init(HINSTANCE hInstance, int nCmdShow)
@@ -10,7 +11,7 @@ void GameManager::init(HINSTANCE hInstance, int nCmdShow)
 
 	this->renderer.init();
 	// Set the first state of the game
-	//StateManager::pushState(GamePlayState::getInstance());
+	StateManager::pushState(BasicRenderState::getInstance());
 }
 
 void GameManager::cleanUp()

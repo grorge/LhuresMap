@@ -37,6 +37,9 @@
     <ClCompile Include="MouseInput.cpp">
       <Filter>BackendLoop\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="BasicRenderState.cpp">
+      <Filter>Structure\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -87,6 +90,9 @@
     <ClInclude Include="GameManager.h">
       <Filter>BackendLoop\Logic</Filter>
     </ClInclude>
+    <ClInclude Include="BasicRenderState.h">
+      <Filter>Structure\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Setup">
@@ -123,16 +129,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\LittleGame\LittleGame\geoPassPixelColor.hlsl">
+    <FxCompile Include="geoPassPixelColor.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="..\..\LittleGame\LittleGame\geoPassVertColor.hlsl">
+    <FxCompile Include="geoPassVertColor.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="..\..\LittleGame\LittleGame\lightPassPixel.hlsl">
+    <FxCompile Include="lightPassPixel.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="..\..\LittleGame\LittleGame\lightPassVert.hlsl">
+    <FxCompile Include="lightPassVert.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

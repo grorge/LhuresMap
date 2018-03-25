@@ -41,7 +41,7 @@ void Shader::Release()
 bool Shader::CreateVertexShader(ID3D11Device* gDevice, const wchar_t* fileName, const D3D11_INPUT_ELEMENT_DESC* inputDesc, int inputDescSize)
 {
 	ID3DBlob* pVS = nullptr;
-	D3DCompileFromFile(
+	hr = D3DCompileFromFile(
 		fileName,		// filename
 		nullptr,			// optional macros
 		nullptr,			// optional include files
