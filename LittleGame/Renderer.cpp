@@ -9,8 +9,6 @@
 
 void Renderer::initShaders()
 {
-	this->geoTexShaders.CreateShaders(Locator::getD3D()->GETgDevice(), this->fileNameGeoTexVertex, this->fileNameGeoTexPixel, this->geoTexInputDesc, GEOTEX_INPUT_DESC_SIZE);
-
 	this->geoColorShaders.CreateShaders(Locator::getD3D()->GETgDevice(), this->fileNameGeoColorVertex, this->fileNameGeoColorPixel, this->geoColorInputDesc, GEOCOLOR_INPUT_DESC_SIZE);
 
 	this->lightShaders.CreateShaders(Locator::getD3D()->GETgDevice(), this->fileNameLightVertex, this->fileNameLightPixel, this->lightInputDesc, LIGHT_INPUT_DESC_SIZE);
@@ -316,7 +314,7 @@ void Renderer::setShaderType(SHADERTYPE type)
 		this->currentGeoShaders = &this->geoColorShaders;
 		break;
 	case SHADERTYPE::TEXTURE:
-		this->currentGeoShaders = &this->geoTexShaders;
+		//this->currentGeoShaders = &this->geoTexShaders;
 		break;
 	}
 }
@@ -344,6 +342,6 @@ void Renderer::cleanUp()
 	this->gQuadVertexBuffer->Release();
 
 	this->geoColorShaders.Release();
-	this->geoTexShaders.Release();
+	//this->geoTexShaders.Release();
 	this->lightShaders.Release();
 }

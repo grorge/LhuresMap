@@ -33,7 +33,7 @@ private:
 	size_t vertBufferStride = 0;
 	size_t vertBufferOffset = 0;
 	Shader geoColorShaders;
-	Shader geoTexShaders;
+	//Shader geoTexShaders;
 	Shader lightShaders;
 	Shader* currentGeoShaders = nullptr;
 	Shader* currentLightShaders = nullptr;
@@ -110,9 +110,6 @@ private:
 
 	const wchar_t* fileNameGeoColorVertex = L"geoPassVertColor.hlsl";
 	const wchar_t* fileNameGeoColorPixel = L"geoPassPixelColor.hlsl";
-
-	const wchar_t* fileNameGeoTexVertex = L"geoPassVertTex.hlsl";
-	const wchar_t* fileNameGeoTexPixel = L"geoPassPixelTex.hlsl";
 };
 
 #endif // !RENDERER_H

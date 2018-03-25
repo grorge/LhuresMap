@@ -47,7 +47,7 @@ void RenderInputOrganizer::drawGraphics(GraphicsComponent *& graphics)
 }
 
 void RenderInputOrganizer::initialize(Camera& camera) {
-	this->lights = &lights;
+	//this->lights = &lights;
 
 	this->rawMatrixData.view = &camera.GETviewMatrix();
 	this->rawMatrixData.proj = &camera.GETprojMatrix();

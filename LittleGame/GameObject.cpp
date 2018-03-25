@@ -17,13 +17,6 @@ void GameObject::addComponent(Component* component)
 	this->components.push_back(component);
 }
 
-void GameObject::nudgePos() 
-{
-	float nudgeValue = Locator::getRandomGenerator()->GenerateFloat(1.0f, 3.0f);
-
-	this->pos.x += nudgeValue;
-	this->pos.y += (nudgeValue * 0.5f);
-}
 
 DirectX::XMFLOAT4X4& GameObject::getWorld()
 {

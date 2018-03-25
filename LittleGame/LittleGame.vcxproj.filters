@@ -7,20 +7,11 @@
     <ClCompile Include="D2D.cpp">
       <Filter>Setup</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>BackendLoop</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Setup</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>BackendLoop</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>GameCont</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseInput.cpp">
-      <Filter>BackendLoop</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Setup</Filter>
@@ -37,6 +28,15 @@
     <ClCompile Include="StateManager.cpp">
       <Filter>Structure\States</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>BackendLoop\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>BackendLoop\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseInput.cpp">
+      <Filter>BackendLoop\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -48,23 +48,14 @@
     <ClInclude Include="Component.h">
       <Filter>GameCont</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>BackendLoop</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Setup</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>BackendLoop</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>GameCont</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsComponent.h">
       <Filter>GameCont</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseInput.h">
-      <Filter>BackendLoop</Filter>
     </ClInclude>
     <ClInclude Include="RenderInputOrganizer.h">
       <Filter>BackendLoop\Render</Filter>
@@ -86,6 +77,15 @@
     </ClInclude>
     <ClInclude Include="StateManager.h">
       <Filter>Structure\States</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseInput.h">
+      <Filter>BackendLoop\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>BackendLoop\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>BackendLoop\Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,10 +113,27 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{fe852230-8ecf-47ea-a8e9-76957c145284}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BackendLoop\Logic">
+      <UniqueIdentifier>{6120d205-8791-484c-8129-1d060af3688e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
       <Filter>BackendLoop</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\LittleGame\LittleGame\geoPassPixelColor.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\LittleGame\LittleGame\geoPassVertColor.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\LittleGame\LittleGame\lightPassPixel.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\LittleGame\LittleGame\lightPassVert.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

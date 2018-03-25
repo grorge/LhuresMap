@@ -293,7 +293,7 @@ void D2D::DiscardDeviceResources()
 	SafeRelease(&this->pGridColor);
 }
 
-HRESULT D2D::OnRender(std::vector<MenuObject*> objects)
+HRESULT D2D::OnRender()
 {
 	HRESULT hr = S_OK;
 
@@ -346,11 +346,6 @@ HRESULT D2D::OnRender(std::vector<MenuObject*> objects)
 					2.5f
 				);
 			}
-
-		for (auto &i : objects)
-		{
-			i->render();
-		}
 
 		hr = m_pRenderTarget->EndDraw();
 	}

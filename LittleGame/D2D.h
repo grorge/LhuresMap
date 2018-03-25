@@ -6,6 +6,18 @@
 
 #include "Locator.h"
 
+//SafeRealse function from the D2D tutorial that might be usefull in other parts of the program
+template<class Interface>
+inline void SafeRelease(Interface **ppInterfaceToRelease)
+{
+	if (*ppInterfaceToRelease != nullptr)
+	{
+		(*ppInterfaceToRelease)->Release();
+
+		(*ppInterfaceToRelease) = nullptr;
+	}
+}
+
 class D2D : public ID2D
 {
 public:
@@ -13,7 +25,7 @@ public:
 	virtual HRESULT Initialize();
 
 	// Draw content.
-	virtual HRESULT OnRender(std::vector<MenuObject*> objects);
+	virtual HRESULT OnRender();
 
 	virtual ID2D1HwndRenderTarget* GETRenderTarget() { return this->m_pRenderTarget; }
 	virtual IDWriteTextFormat* GETTextFormat() { return this->m_pTextFormat; }
