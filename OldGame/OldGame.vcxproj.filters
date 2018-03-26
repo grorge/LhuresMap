@@ -10,16 +10,10 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Setup</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>GameCont</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Setup</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>BackendLoop\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderInputOrganizer.cpp">
       <Filter>BackendLoop\Render</Filter>
     </ClCompile>
     <ClCompile Include="Locator.cpp">
@@ -48,20 +42,8 @@
     <ClInclude Include="D2D.h">
       <Filter>Setup</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>GameCont</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Setup</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>GameCont</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsComponent.h">
-      <Filter>GameCont</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderInputOrganizer.h">
-      <Filter>BackendLoop\Render</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>BackendLoop\Render</Filter>
@@ -92,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="BasicRenderState.h">
       <Filter>Structure\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>GameCont</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -133,12 +118,6 @@
       <Filter>Shaders</Filter>
     </FxCompile>
     <FxCompile Include="geoPassVertColor.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="lightPassPixel.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="lightPassVert.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

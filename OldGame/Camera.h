@@ -64,6 +64,7 @@ private:
 	//void rotateCameraHorizontally(POINT mouseMovement);
 
 public:
+	void init();
 	void init(float arenaWidth, float arenaDepth);
 	/*- - - - - - - -<INFORMATION>- - - - - - - -
 	1. Receives a 'characterMessage' of type 'TCHAR', which can result in:

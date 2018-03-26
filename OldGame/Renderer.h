@@ -6,11 +6,24 @@
 #include <array>
 #include "Shader.h"
 
+#include <DirectXMath.h>
+
+using namespace DirectX;
+
 const int NUM_BACKGROUND_IMAGES = 39;
 const int NUM_DEFERRED_OUTPUTS = 3;
 const int GEOCOLOR_INPUT_DESC_SIZE = 3;
 const int GEOTEX_INPUT_DESC_SIZE = 3;
 const int LIGHT_INPUT_DESC_SIZE = 1;
+
+struct Vertex    //Overloaded Vertex Structure
+{
+	Vertex() {}
+	Vertex(float x, float y, float z)
+		: pos(x, y, z) {}
+
+	XMFLOAT3 pos;
+};
 
 enum class SHADERTYPE { COLOR, TEXTURE };
 
@@ -25,24 +38,17 @@ private:
 	ID3D11Texture2D* gDSB = nullptr;
 	ID3D11SamplerState* gSampler = nullptr;
 	ID3D11Buffer* gQuadVertexBuffer = nullptr;
+	ID3D11Buffer* gTriVertexBuffer = nullptr;
 	D3D11_VIEWPORT viewport;
-	std::array<ID3D11ShaderResourceView*, NUM_BACKGROUND_IMAGES> gBackgroundSRVs;
 
-	size_t currBackgroundFrame = 0;
-	float currBackgroundFrameTime = 0.0f;
 	size_t vertBufferStride = 0;
 	size_t vertBufferOffset = 0;
 	Shader geoColorShaders;
-	//Shader geoTexShaders;
-	Shader lightShaders;
 	Shader* currentGeoShaders = nullptr;
-	Shader* currentLightShaders = nullptr;
 
-	std::array<float, 4> clearColor;
+	float clearColor[4];
 
 	void initShaders();
-	void loadBackgroundTexture();
-	void updateBackgroundFrame();
 	void bindTextureToRTVAndSRV(ID3D11Texture2D** gTexure, ID3D11RenderTargetView** gRTV, ID3D11ShaderResourceView** gSRV, int width, int height, DXGI_FORMAT format);
 	void initSampler(ID3D11SamplerState** gSampler, D3D11_FILTER filter, D3D11_TEXTURE_ADDRESS_MODE texAdressModeU, D3D11_TEXTURE_ADDRESS_MODE texAdressModeV, D3D11_TEXTURE_ADDRESS_MODE texAdressModeW, D3D11_COMPARISON_FUNC compFunc);
 	void createQuad();
@@ -70,46 +76,19 @@ public:
 	5. Sets the rendertarget to the deferred rendertargetview
 	*/
 	void firstPass();
-	void secondPassSetup();
-	/*- - - - - - - -<INFORMATION>- - - - - - - -
-	1. Sets current shaders to light shaders
-	2. Sets the vertex buffer for the Quad
-	3. Switches to trianglestrip topology
-	4. Unbinds the deferred rendertargetviews
-	5. Binds the deferred shaderresourceviews to the pixel shader
-	6. Sets the rendertarget to the final rendertargetview
-	7. Draws the Quad
-	8. Presents the backbuffer
-	9. Unbinds the deferred shaderresourceviews
-	*/
-	void secondPass();
 	void setShaderType(SHADERTYPE type);
 	void cleanUp();
 private:
-	const D3D11_INPUT_ELEMENT_DESC geoTexInputDesc[GEOTEX_INPUT_DESC_SIZE] =
-	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORDS", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-
-	const D3D11_INPUT_ELEMENT_DESC geoColorInputDesc[GEOCOLOR_INPUT_DESC_SIZE] =
-	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-
-	const D3D11_INPUT_ELEMENT_DESC lightInputDesc[LIGHT_INPUT_DESC_SIZE] =
-	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-
-	const wchar_t* fileNameLightVertex = L"lightPassVert.hlsl";
-	const wchar_t* fileNameLightPixel = L"lightPassPixel.hlsl";
-
+	
 	const wchar_t* fileNameGeoColorVertex = L"geoPassVertColor.hlsl";
 	const wchar_t* fileNameGeoColorPixel = L"geoPassPixelColor.hlsl";
 };
+
+D3D11_INPUT_ELEMENT_DESC layout[] =
+{
+	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+};
+UINT numElements = ARRAYSIZE(layout);
+
 
 #endif // !RENDERER_H

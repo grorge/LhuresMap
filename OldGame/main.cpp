@@ -33,15 +33,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 #endif
 
 	ID3D* d3d = new D3D();
-	ID2D* d2d = new D2D();
+	//ID2D* d2d = new D2D();
 
 	Locator::provide(d3d);
-	Locator::provide(d2d);
+	//Locator::provide(d2d);
 
-	Locator::getD3D()->initializeWindow(hInstance, true, 1920, 1080, true);
+	Locator::getD3D()->initializeWindow(hInstance, true, 500, 400, true);
 	Locator::getD3D()->createSwapChain();
 
-	Locator::getD2D()->Initialize();
+	//Locator::getD2D()->Initialize();
 	
 	GameManager gm;
 	// Initialize the game
@@ -66,7 +66,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	}
 
-	d2d->cleanUp();
+	//d2d->cleanUp();
 	gm.cleanUp();
 	d3d->cleanup();
 	delete d3d;

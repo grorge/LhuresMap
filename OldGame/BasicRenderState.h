@@ -3,11 +3,15 @@
 #define BASICRENDERSTATE_H
 
 #include "State.h"
+#include "Object.h"
+#include "Camera.h"
 
 class BasicRenderState : public State
 {
 private:
 	static BasicRenderState sBasicRenderState;
+
+	Camera cam;
 
 public:
 	static BasicRenderState* getInstance() {

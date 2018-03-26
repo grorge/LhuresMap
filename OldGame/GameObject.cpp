@@ -12,6 +12,15 @@ void GameObject::send(Message msg)
 	}
 }
 
+void GameObject::update()
+{
+	this->components.front()->update();
+}
+
+void GameObject::cleanUp()
+{
+}
+
 void GameObject::addComponent(Component* component)
 {
 	this->components.push_back(component);

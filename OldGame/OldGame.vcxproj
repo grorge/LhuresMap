@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{A8F44E39-45B5-4E44-BBE4-5435683C8D47}</ProjectGuid>
-    <RootNamespace>LittleGame</RootNamespace>
+    <RootNamespace>OldGame</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>AppBase</ProjectName>
   </PropertyGroup>
@@ -142,19 +142,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BasicRenderState.h" />
-    <ClInclude Include="Component.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="D2D.h" />
     <ClInclude Include="D3D.h" />
     <ClInclude Include="ID2D.h" />
     <ClInclude Include="ID3D.h" />
     <ClInclude Include="MouseInput.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="Locator.h" />
     <ClInclude Include="GameManager.h" />
-    <ClInclude Include="RenderInputOrganizer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />
@@ -166,11 +163,9 @@
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="MouseInput.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Locator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameManager.cpp" />
-    <ClCompile Include="RenderInputOrganizer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="StateManager.cpp" />
   </ItemGroup>
@@ -185,18 +180,6 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="geoPassVertColor.hlsl">
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-    </FxCompile>
-    <FxCompile Include="lightPassPixel.hlsl">
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="lightPassVert.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>

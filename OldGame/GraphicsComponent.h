@@ -31,8 +31,6 @@ struct PrimitiveVertexData
 	PrimitiveVertexData() {}
 };
 
-//class RenderInputOrganizer;
-
 class GraphicsComponent : public Component
 {
 public:
@@ -45,7 +43,6 @@ public:
 	virtual size_t& GEToffset() = 0;
 	virtual size_t& GETnumIndices() = 0;
 	virtual XMFLOAT4X4& getWorld() = 0;
-	virtual OBJECTSTATE::TYPE GETstate() = 0;
 	virtual vColor GETcolorOriginal() = 0;
 	virtual void updateColor(vColor newColor) = 0;
 	

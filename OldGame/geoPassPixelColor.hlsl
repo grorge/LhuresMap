@@ -19,7 +19,8 @@ PS_OUT PS(PS_IN input)
 
 	output.pos_W = input.pos_W;
 	output.normal = float4(input.normal, 1.0f);
-	output.diffuse = input.color;
+	//output.diffuse = input.color;
+	output.diffuse = float4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	return output;
 }

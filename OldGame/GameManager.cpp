@@ -53,12 +53,12 @@ void GameManager::render()
 
 void GameManager::display(State* state)
 {
-	this->renderer.secondPass();
+	//this->renderer.secondPass();
 }
 
 void GameManager::setupSecondRenderPass()
 {
-	this->renderer.secondPassSetup();
+	//this->renderer.secondPassSetup();
 }
 
 bool GameManager::getIsRunning()
