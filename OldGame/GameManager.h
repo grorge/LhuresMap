@@ -7,7 +7,6 @@
 
 #include <Windows.h>
 #include <d3d11.h>
-#include "Renderer.h"
 
 class State;
 
@@ -15,7 +14,6 @@ class GameManager
 {
 private:
 	bool isRunning;
-	Renderer renderer;
 
 public:
 	/*- - - - - - - -<INFORMATION>- - - - - - - -

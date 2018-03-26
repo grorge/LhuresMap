@@ -128,4 +128,5 @@ void Shader::SetPixelShader(ID3D11DeviceContext* gDevCon) const
 void Shader::SetInputlayout(ID3D11DeviceContext* gDevCon) const
 {
 	gDevCon->IASetInputLayout(gVertexLayout);
+	gDevCon->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }

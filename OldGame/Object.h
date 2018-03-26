@@ -7,8 +7,10 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 
-using namespace DirectX;
+#include "RenderData.h"
+//class RenderData;
 
+using namespace DirectX;
 
 class Object
 {
@@ -16,21 +18,21 @@ public:
 	Object();
 	~Object();
 
+	void renderObj();
+
 	ID3D11Buffer** GETvertexBuffer() {return &triVertBuff;};
-
-
+	RenderData GETRenderData() { return this->rndData; };
 private:
 	ID3D11Buffer* triVertBuff;
 	ID3D11InputLayout* vertLayout;
+	size_t stride = 0;
+	size_t offset = 0;
+	size_t numIndices = 0;
+
+
+	RenderData rndData;
 };
 
-Object::Object()
-{
-	
-}
 
-Object::~Object()
-{
-}
 
 #endif // !OBJECT_H

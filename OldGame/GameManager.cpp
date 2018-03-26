@@ -4,12 +4,11 @@
 #include "State.h"
 #include "BasicRenderState.h"
 #include "Locator.h"
-#include "Renderer.h"
+
 void GameManager::init(HINSTANCE hInstance, int nCmdShow)
 {
 	this->isRunning = true;
 
-	this->renderer.init();
 	// Set the first state of the game
 	StateManager::pushState(BasicRenderState::getInstance());
 }
@@ -22,7 +21,6 @@ void GameManager::cleanUp()
 	//	this->gameTime = nullptr;
 	//}
 	
-	this->renderer.cleanUp();
 }
 
 void GameManager::changeState(State* state)
@@ -47,7 +45,7 @@ void GameManager::update()
 
 void GameManager::render()
 {
-	this->renderer.firstPass();
+	//this->renderer.firstPass();
 	StateManager::render(this);
 }
 

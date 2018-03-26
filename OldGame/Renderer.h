@@ -4,7 +4,10 @@
 
 #include <d3d11.h>
 #include <array>
+#include <vector>
 #include "Shader.h"
+#include "RenderData.h"
+#include "Object.h"
 
 #include <DirectXMath.h>
 
@@ -16,14 +19,7 @@ const int GEOCOLOR_INPUT_DESC_SIZE = 3;
 const int GEOTEX_INPUT_DESC_SIZE = 3;
 const int LIGHT_INPUT_DESC_SIZE = 1;
 
-struct Vertex    //Overloaded Vertex Structure
-{
-	Vertex() {}
-	Vertex(float x, float y, float z)
-		: pos(x, y, z) {}
 
-	XMFLOAT3 pos;
-};
 
 enum class SHADERTYPE { COLOR, TEXTURE };
 
@@ -43,6 +39,7 @@ private:
 
 	size_t vertBufferStride = 0;
 	size_t vertBufferOffset = 0;
+
 	Shader geoColorShaders;
 	Shader* currentGeoShaders = nullptr;
 
@@ -68,27 +65,18 @@ public:
 	8. Creates the viewport
 	*/
 	void init();
-	/*- - - - - - - -<INFORMATION>- - - - - - - -
-	1. Clears the final and the deferred rendertargetviews
-	2. Clears the depthstencilview
-	3. Sets current shaders to geo shaders
-	4. Sets the viewport to the default one
-	5. Sets the rendertarget to the deferred rendertargetview
-	*/
+	
+	void render(std::vector<Object> objects);
 	void firstPass();
 	void setShaderType(SHADERTYPE type);
 	void cleanUp();
 private:
+
 	
+
 	const wchar_t* fileNameGeoColorVertex = L"geoPassVertColor.hlsl";
 	const wchar_t* fileNameGeoColorPixel = L"geoPassPixelColor.hlsl";
 };
-
-D3D11_INPUT_ELEMENT_DESC layout[] =
-{
-	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-};
-UINT numElements = ARRAYSIZE(layout);
 
 
 #endif // !RENDERER_H

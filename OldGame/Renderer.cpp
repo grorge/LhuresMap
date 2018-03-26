@@ -6,10 +6,15 @@
 #include "Locator.h"
 #include <WICTextureLoader.h>
 
+D3D11_INPUT_ELEMENT_DESC shaderInputDesc[] =
+{
+	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+};
+UINT numElements = ARRAYSIZE(shaderInputDesc);
 
 void Renderer::initShaders()
 {
-	this->geoColorShaders.CreateShaders(Locator::getD3D()->GETgDevice(), this->fileNameGeoColorVertex, this->fileNameGeoColorPixel, layout, numElements);
+	this->geoColorShaders.CreateShaders(Locator::getD3D()->GETgDevice(), this->fileNameGeoColorVertex, this->fileNameGeoColorPixel, shaderInputDesc, numElements);
 
 }
 
@@ -205,20 +210,22 @@ void Renderer::init()
 	Locator::getD3D()->GETgDevCon()->OMSetRenderTargets(1, &this->gFinalRTV, nullptr);
 
 	this->initShaders();
+	this->setShaderType(SHADERTYPE::COLOR);
 	this->geoColorShaders.SetShaders(Locator::getD3D()->GETgDevCon());
 	
-	Vertex v[] =
-	{
-		Vertex(0.0f, 0.5f, 0.5f),
-		Vertex(0.5f, -0.5f, 0.5f),
-		Vertex(-0.5f, -0.5f, 0.5f),
-	};
+	this->createViewport();
+	Locator::getD3D()->GETgDevCon()->RSSetViewports(1, &this->viewport);
 
+}
+
+void Renderer::render(std::vector<Object> objects)
+{
+
+	Locator::getD3D()->GETgDevCon()->ClearRenderTargetView(this->gFinalRTV, this->clearColor);
 }
 
 void Renderer::firstPass()
 {
-	Locator::getD3D()->GETgDevCon()->ClearRenderTargetView(this->gFinalRTV, this->clearColor);
 
 }
 

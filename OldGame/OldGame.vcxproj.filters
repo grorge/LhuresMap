@@ -34,6 +34,9 @@
     <ClCompile Include="BasicRenderState.cpp">
       <Filter>Structure\States</Filter>
     </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>GameCont</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -77,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>GameCont</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderData.h">
+      <Filter>BackendLoop\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,18 +5,18 @@
 #include "State.h"
 #include "Object.h"
 #include "Camera.h"
+#include "Renderer.h"
 
 class BasicRenderState : public State
 {
 private:
 	static BasicRenderState sBasicRenderState;
+	Renderer renderer;
 
 	Camera cam;
-
+	Object* obj;
 public:
-	static BasicRenderState* getInstance() {
-		return &sBasicRenderState;
-	};
+	static BasicRenderState* getInstance();
 
 	/*- - - - - - - -<INFORMATION>- - - - - - - -
 	1. Virtual Function.

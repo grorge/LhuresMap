@@ -149,6 +149,7 @@
     <ClInclude Include="ID3D.h" />
     <ClInclude Include="MouseInput.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="RenderData.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Locator.h" />
     <ClInclude Include="GameManager.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="D2D.cpp" />
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="MouseInput.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Locator.cpp" />
     <ClCompile Include="main.cpp" />
