@@ -218,10 +218,20 @@ void Renderer::init()
 
 }
 
-void Renderer::render(std::vector<Object> objects)
+void Renderer::render(std::vector<Object*> objects)
 {
-
 	Locator::getD3D()->GETgDevCon()->ClearRenderTargetView(this->gFinalRTV, this->clearColor);
+
+	for (auto &i : objects)
+	{
+		i->renderObj();
+	}
+
+
+	Locator::getD3D()->GETgDevCon()->Draw(3, 0);
+
+	Locator::getD3D()->GETswapChain()->Present(0, 0);
+
 }
 
 void Renderer::firstPass()

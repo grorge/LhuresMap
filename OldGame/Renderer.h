@@ -66,7 +66,8 @@ public:
 	*/
 	void init();
 	
-	void render(std::vector<Object> objects);
+	void render(std::vector<Object*> objects);
+
 	void firstPass();
 	void setShaderType(SHADERTYPE type);
 	void cleanUp();

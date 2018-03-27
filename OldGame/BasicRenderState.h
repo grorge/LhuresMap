@@ -14,7 +14,8 @@ private:
 	Renderer renderer;
 
 	Camera cam;
-	Object* obj;
+	std::vector<Object*> object;
+	//Object* obj;
 public:
 	static BasicRenderState* getInstance();
 
