@@ -8,6 +8,10 @@ struct VS_OUT {
 	float4 color	: TARGET0;
 };
 
+cbuffer objectBuffer
+{
+	float4x4 world;
+};
 
 VS_OUT VS(VS_IN input) 
 {

@@ -165,7 +165,7 @@ void Renderer::createBackBufferRTV()
 	BackBuffer->Release();
 }
 
-void Renderer::createDepthStencilView(size_t width, size_t height, ID3D11DepthStencilView ** gDSV, ID3D11Texture2D ** gDSB)
+void Renderer::createDepthStencilView(/*size_t width, size_t height, ID3D11DepthStencilView ** gDSV, ID3D11Texture2D ** gDSB*/)
 {
 	HRESULT hr;
 
@@ -173,8 +173,8 @@ void Renderer::createDepthStencilView(size_t width, size_t height, ID3D11DepthSt
 	D3D11_TEXTURE2D_DESC depthStencilDesc;
 	memset(&depthStencilDesc, 0, sizeof(D3D11_TEXTURE2D_DESC));
 
-	depthStencilDesc.Width = width;
-	depthStencilDesc.Height = height;
+	depthStencilDesc.Width = Locator::getD3D()->GETwWidth();
+	depthStencilDesc.Height = Locator::getD3D()->GETwHeight();
 	depthStencilDesc.MipLevels = 1;
 	depthStencilDesc.ArraySize = 1;
 	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -186,13 +186,13 @@ void Renderer::createDepthStencilView(size_t width, size_t height, ID3D11DepthSt
 	depthStencilDesc.MiscFlags = 0;
 
 	// Creates the Depth/Stencil View
-	hr = Locator::getD3D()->GETgDevice()->CreateTexture2D(&depthStencilDesc, nullptr, gDSB);
+	hr = Locator::getD3D()->GETgDevice()->CreateTexture2D(&depthStencilDesc, nullptr, &this->gDSB);
 	if (FAILED(hr)) {
 		MessageBox(0, "Create Depth Texture - Failed", "Error", MB_OK);
 		_exit(0);
 	}
 
-	hr = Locator::getD3D()->GETgDevice()->CreateDepthStencilView(*gDSB, nullptr, gDSV);
+	hr = Locator::getD3D()->GETgDevice()->CreateDepthStencilView(this->gDSB, nullptr, &this->gDSV);
 	if (FAILED(hr)) {
 		MessageBox(0, "Create Depth Stencil - Failed", "Error", MB_OK);
 		_exit(0);
@@ -209,7 +209,7 @@ void Renderer::init()
 
 	this->createBackBufferRTV();
 
-	Locator::getD3D()->GETgDevCon()->OMSetRenderTargets(1, &this->gFinalRTV, nullptr);
+	Locator::getD3D()->GETgDevCon()->OMSetRenderTargets(1, &this->gFinalRTV, this->gDSV);
 
 	this->initShaders();
 	this->setShaderType(SHADERTYPE::COLOR);
@@ -218,11 +218,13 @@ void Renderer::init()
 	this->createViewport();
 	Locator::getD3D()->GETgDevCon()->RSSetViewports(1, &this->viewport);
 
+	this->createDepthStencilView();
 }
 
 void Renderer::render(std::vector<Object*> objects)
 {
 	Locator::getD3D()->GETgDevCon()->ClearRenderTargetView(this->gFinalRTV, this->clearColor);
+	Locator::getD3D()->GETgDevCon()->ClearDepthStencilView(this->gDSV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	for (auto &i : objects)
 	{

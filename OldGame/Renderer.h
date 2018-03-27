@@ -30,8 +30,8 @@ private:
 	std::array<ID3D11ShaderResourceView*, NUM_DEFERRED_OUTPUTS> gSRVs;
 	std::array<ID3D11Texture2D*, NUM_DEFERRED_OUTPUTS> gDeferredTexs;
 	ID3D11RenderTargetView* gFinalRTV = nullptr;
-	ID3D11DepthStencilView* gDSV = nullptr;
 	ID3D11Texture2D* gDSB = nullptr;
+	ID3D11DepthStencilView* gDSV = nullptr;
 	ID3D11SamplerState* gSampler = nullptr;
 	ID3D11Buffer* gQuadVertexBuffer = nullptr;
 	D3D11_VIEWPORT viewport;
@@ -50,7 +50,7 @@ private:
 	void createQuad();
 	void createViewport();
 	void createBackBufferRTV();
-	void createDepthStencilView(size_t width, size_t height, ID3D11DepthStencilView** gDSV, ID3D11Texture2D** gDSB);
+	void createDepthStencilView(/*size_t width, size_t height, ID3D11DepthStencilView** gDSV, ID3D11Texture2D** gDSB*/);
 public:
 	Renderer() : gRTVs(), gSRVs(), gDeferredTexs() {}
 	/*- - - - - - - -<INFORMATION>- - - - - - - -

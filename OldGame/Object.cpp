@@ -5,6 +5,7 @@
 Object::Object()
 {
 	this->createVertexData();
+	this->createconstBuffData();
 
 	//rndData.vertBuffer = this->triVertBuff;
 	//Locator::getD3D()->createIndexBuffer()
@@ -16,8 +17,8 @@ Object::~Object()
 
 void Object::renderObj()
 {
-	Locator::getD3D()->setVertexBuffer(&this->triVertBuff, this->stride, this->offset);
-	Locator::getD3D()->setIndexBuffer(this->triIndiceBuff, this->offset);
+	Locator::getD3D()->setVertexBuffer(&this->vertBuff, this->stride, this->offset);
+	Locator::getD3D()->setIndexBuffer(this->indiceBuff, this->offset);
 }
 
 void Object::createVertexData()
@@ -27,9 +28,9 @@ void Object::createVertexData()
 	XMFLOAT4 color = {1.0f, 1.0f, 0.0f, 1.0f};
 
 	/*
-	0  1
+	1  2
 
-	2  3
+	0  3
 	*/
 
 	v[0] = Vertex(-0.5f, -0.5f, 0.5f, color);
@@ -40,7 +41,7 @@ void Object::createVertexData()
 	rndData = RenderData(v.data());
 	this->offset = 0;
 	this->stride = sizeof(Vertex);
-	Locator::getD3D()->createVertexBuffer(&this->triVertBuff, v.data(), this->stride, this->offset, v.size());
+	Locator::getD3D()->createVertexBuffer(&this->vertBuff, v.data(), this->stride, this->offset, v.size());
 
 
 	DWORD indices[] = {
@@ -49,5 +50,10 @@ void Object::createVertexData()
 	};
 	//size_t numbIndices = 6;
 	size_t numbIndices = sizeof(indices);
-	Locator::getD3D()->createIndexBuffer(&this->triIndiceBuff, indices, numbIndices);
+	Locator::getD3D()->createIndexBuffer(&this->indiceBuff, indices, numbIndices);
+}
+
+void Object::createconstBuffData()
+{
+	Locator::getD3D()->createConstantBuffer(&this->constBuff, sizeof(objectBuff));
 }

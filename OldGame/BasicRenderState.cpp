@@ -36,7 +36,7 @@ void BasicRenderState::handleEvents(GameManager * gm)
 		if (msg.message == WM_QUIT) {
 			gm->quit();
 		}
-		else if ( msg.message == VK_ESCAPE) {
+		else if ( msg.wParam == VK_ESCAPE) {
 			gm->quit();
 		}
 

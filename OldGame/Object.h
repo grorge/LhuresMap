@@ -8,7 +8,16 @@
 #include <DirectXMath.h>
 
 #include "RenderData.h"
-//class RenderData;
+
+struct objectBuff
+{
+	objectBuff() {};
+	objectBuff(XMFLOAT4X4 wvp) : WVP(wvp) {};
+
+	XMFLOAT4X4 WVP;
+	
+	//XMFLOAT4X4 cam;
+};
 
 using namespace DirectX;
 
@@ -20,17 +29,18 @@ public:
 
 	void renderObj();
 
-	ID3D11Buffer** GETvertexBuffer() {return &triVertBuff;};
 	RenderData GETRenderData() { return this->rndData; };
 private:
-	ID3D11Buffer * triVertBuff;
-	ID3D11Buffer * triIndiceBuff;
-	//ID3D11InputLayout* vertLayout;
+	ID3D11Buffer * vertBuff;
+	ID3D11Buffer * indiceBuff;
+	ID3D11Buffer * constBuff;
+
 	size_t stride = 0;
 	size_t offset = 0;
 	size_t numIndices = 0;
 
 	void createVertexData();
+	void createconstBuffData();
 	RenderData rndData;
 };
 
