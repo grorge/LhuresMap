@@ -6,14 +6,16 @@
 #include "Locator.h"
 #include <WICTextureLoader.h>
 
-D3D11_INPUT_ELEMENT_DESC shaderInputDesc[] =
-{
-	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-};
-UINT numElements = ARRAYSIZE(shaderInputDesc);
-
 void Renderer::initShaders()
 {
+	D3D11_INPUT_ELEMENT_DESC shaderInputDesc[] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+	UINT numElements = ARRAYSIZE(shaderInputDesc);
+
+
 	this->geoColorShaders.CreateShaders(Locator::getD3D()->GETgDevice(), this->fileNameGeoColorVertex, this->fileNameGeoColorPixel, shaderInputDesc, numElements);
 
 }

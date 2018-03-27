@@ -29,7 +29,7 @@ private:
 	size_t offset = 0;
 	size_t numIndices = 0;
 
-
+	void createVertexData();
 	RenderData rndData;
 };
 
