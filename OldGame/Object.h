@@ -6,34 +6,35 @@
 
 #include <d3d11.h>
 #include <DirectXMath.h>
+#include "Camera.h"	
 
 #include "RenderData.h"
 
-struct objectBuff
-{
-	objectBuff() {};
-	objectBuff(XMFLOAT4X4 wvp) : WVP(wvp) {};
 
-	XMFLOAT4X4 WVP;
-	
-	//XMFLOAT4X4 cam;
-};
 
 using namespace DirectX;
 
 class Object
 {
 public:
-	Object();
+	Object(Camera* cam);
 	~Object();
 
 	void renderObj();
+	void update();
 
-	RenderData GETRenderData() { return this->rndData; };
+	RenderData* GETRenderData() { return this->rndData; };
+protected:
+	XMFLOAT3 pos;
+	float size;
+	XMFLOAT3 up;
+	XMFLOAT3 dir;
+	float rotation;
 private:
 	ID3D11Buffer * vertBuff;
 	ID3D11Buffer * indiceBuff;
-	ID3D11Buffer * constBuff;
+
+	//objectBuff objBuffer;
 
 	size_t stride = 0;
 	size_t offset = 0;
@@ -41,7 +42,8 @@ private:
 
 	void createVertexData();
 	void createconstBuffData();
-	RenderData rndData;
+	RenderData* rndData;
+	Camera* cam;
 };
 
 

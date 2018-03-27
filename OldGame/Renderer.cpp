@@ -14,10 +14,10 @@ void Renderer::initShaders()
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT numElements = ARRAYSIZE(shaderInputDesc);
-
-
+	
 	this->geoColorShaders.CreateShaders(Locator::getD3D()->GETgDevice(), this->fileNameGeoColorVertex, this->fileNameGeoColorPixel, shaderInputDesc, numElements);
 
+	Locator::getD3D()->GETgDevCon()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 void Renderer::bindTextureToRTVAndSRV(ID3D11Texture2D** gTexure, ID3D11RenderTargetView** gRTV, ID3D11ShaderResourceView** gSRV, int width, int height, DXGI_FORMAT format)
@@ -215,6 +215,8 @@ void Renderer::init()
 	this->setShaderType(SHADERTYPE::COLOR);
 	this->geoColorShaders.SetShaders(Locator::getD3D()->GETgDevCon());
 	
+	Locator::getD3D()->createConstantBuffer(&this->constBuff, sizeof(objectBuff));
+
 	this->createViewport();
 	Locator::getD3D()->GETgDevCon()->RSSetViewports(1, &this->viewport);
 
@@ -226,12 +228,21 @@ void Renderer::render(std::vector<Object*> objects)
 	Locator::getD3D()->GETgDevCon()->ClearRenderTargetView(this->gFinalRTV, this->clearColor);
 	Locator::getD3D()->GETgDevCon()->ClearDepthStencilView(this->gDSV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
+	size_t offset = 0;
 	for (auto &i : objects)
 	{
-		i->renderObj();
+		RenderData* rndData = i->GETRenderData();
+		//i->renderObj();
+		Locator::getD3D()->mapConstantBuffer(&this->constBuff, &rndData->objBuffData, sizeof(rndData->objBuffData));
+		Locator::getD3D()->setConstantBuffer(this->constBuff, SHADER::VERTEX, 0, 1);
+
+		Locator::getD3D()->setVertexBuffer(&rndData->vertBuffer, rndData->stride, offset);
+		Locator::getD3D()->setIndexBuffer(rndData->indexBuffer, 0);
+
+		Locator::getD3D()->GETgDevCon()->DrawIndexed(6, 0, 0);
 	}
 
-	Locator::getD3D()->GETgDevCon()->DrawIndexed(6, 0, 0);
+
 	Locator::getD3D()->GETswapChain()->Present(0, 0);
 
 }

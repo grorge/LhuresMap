@@ -39,8 +39,12 @@ private:
 	size_t vertBufferStride = 0;
 	size_t vertBufferOffset = 0;
 
+	//-----SHADERS
 	Shader geoColorShaders;
 	Shader* currentGeoShaders = nullptr;
+
+	//-----BUFFERS
+	ID3D11Buffer * constBuff = nullptr;
 
 	float clearColor[4];
 

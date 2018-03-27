@@ -2,7 +2,7 @@
 #ifndef ID2D_H
 #define ID2D_H
 
-#include <vector>>
+#include <vector>
 #include <d2d1.h>
 #include <d2d1helper.h>
 #include <Dwrite.h>

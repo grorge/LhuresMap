@@ -12,7 +12,8 @@ void BasicRenderState::init()
 {
 	this->renderer.init();
 
-	this->object.push_back(new Object());
+	this->cam = new Camera();
+	this->object.push_back(new Object(this->cam));
 }
 
 void BasicRenderState::cleanUp()
@@ -47,6 +48,10 @@ void BasicRenderState::handleEvents(GameManager * gm)
 
 void BasicRenderState::update(GameManager * gm)
 {
+	for (auto obj : this->object)
+	{
+		obj->update();
+	}
 }
 
 void BasicRenderState::render(GameManager * gm)

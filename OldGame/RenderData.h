@@ -15,17 +15,27 @@ struct Vertex    //Overloaded Vertex Structure
 	XMFLOAT3 pos;
 	XMFLOAT4 color;
 };
-//D3D11_INPUT_ELEMENT_DESC shaderInputDesc[] =
-//{
-//	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-//};
-//UINT numElements = ARRAYSIZE(shaderInputDesc);
+
+struct objectBuff
+{
+	objectBuff() {};
+	objectBuff(XMFLOAT4X4 wvp) : WVP(wvp) {};
+
+	XMFLOAT4X4 WVP;
+
+	//XMFLOAT4X4 cam;
+};
+
 
 struct RenderData
 {
 	ID3D11Buffer* vertBuffer;
+	size_t stride;
+	ID3D11Buffer* indexBuffer;
+	objectBuff objBuffData;
 	Vertex* vertexes;
 	//DirectX::XMFLOAT4 color;
+
 
 	RenderData() {}
 	RenderData(Vertex* v) : vertexes(v)  {}

@@ -13,7 +13,7 @@ private:
 	static BasicRenderState sBasicRenderState;
 	Renderer renderer;
 
-	Camera cam;
+	Camera* cam;
 	std::vector<Object*> object;
 	//Object* obj;
 public:
