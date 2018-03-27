@@ -56,4 +56,5 @@ void Object::createVertexData()
 void Object::createconstBuffData()
 {
 	Locator::getD3D()->createConstantBuffer(&this->constBuff, sizeof(objectBuff));
+	int hej = 0; //https://github.com/feliciasp/LitetSpel_TA_GPR3.git
 }
