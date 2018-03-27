@@ -23,8 +23,9 @@ public:
 	ID3D11Buffer** GETvertexBuffer() {return &triVertBuff;};
 	RenderData GETRenderData() { return this->rndData; };
 private:
-	ID3D11Buffer* triVertBuff;
-	ID3D11InputLayout* vertLayout;
+	ID3D11Buffer * triVertBuff;
+	ID3D11Buffer * triIndiceBuff;
+	//ID3D11InputLayout* vertLayout;
 	size_t stride = 0;
 	size_t offset = 0;
 	size_t numIndices = 0;

@@ -34,7 +34,6 @@ private:
 	ID3D11Texture2D* gDSB = nullptr;
 	ID3D11SamplerState* gSampler = nullptr;
 	ID3D11Buffer* gQuadVertexBuffer = nullptr;
-	ID3D11Buffer* gTriVertexBuffer = nullptr;
 	D3D11_VIEWPORT viewport;
 
 	size_t vertBufferStride = 0;

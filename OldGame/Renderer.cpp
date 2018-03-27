@@ -229,9 +229,7 @@ void Renderer::render(std::vector<Object*> objects)
 		i->renderObj();
 	}
 
-
-	Locator::getD3D()->GETgDevCon()->Draw(3, 0);
-
+	Locator::getD3D()->GETgDevCon()->DrawIndexed(6, 0, 0);
 	Locator::getD3D()->GETswapChain()->Present(0, 0);
 
 }

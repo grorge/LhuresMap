@@ -38,7 +38,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	Locator::provide(d3d);
 	//Locator::provide(d2d);
 
-	Locator::getD3D()->initializeWindow(hInstance, true, 500, 400, true);
+	Locator::getD3D()->initializeWindow(hInstance, true, 800, 600, true);
 	Locator::getD3D()->createSwapChain();
 
 	//Locator::getD2D()->Initialize();

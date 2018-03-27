@@ -5,7 +5,7 @@ struct VS_IN {
 
 struct VS_OUT {
 	float4 pos_S	: SV_POSITION;
-	float4 color	: COLOR2;
+	float4 color	: TARGET0;
 };
 
 

@@ -8,7 +8,7 @@ using namespace DirectX;
 struct Vertex    //Overloaded Vertex Structure
 {
 	Vertex() {}
-	Vertex(float x, float y, float z,
+	Vertex(float x, float y, float z, 
 		XMFLOAT4 c)
 		: pos(x, y, z), color(c){}
 
