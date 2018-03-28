@@ -22,6 +22,7 @@ struct objectBuff
 	objectBuff(XMFLOAT4X4 wvp) : WVP(wvp) {};
 
 	XMFLOAT4X4 WVP;
+	XMFLOAT4X4 world;
 
 	//XMFLOAT4X4 cam;
 };
@@ -32,13 +33,14 @@ struct RenderData
 	ID3D11Buffer* vertBuffer;
 	size_t stride;
 	ID3D11Buffer* indexBuffer;
+	size_t numbIndices;
 	objectBuff objBuffData;
-	Vertex* vertexes;
+	//Vertex* vertexes;
 	//DirectX::XMFLOAT4 color;
 
 
 	RenderData() {}
-	RenderData(Vertex* v) : vertexes(v)  {}
+	//RenderData(Vertex* v) : vertexes(v)  {}
 	//RenderData(Vertex* v, DirectX::XMFLOAT4 c) : vertexes(v), color(c)  {}
 };
 

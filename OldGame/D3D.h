@@ -13,6 +13,8 @@ private:
 	HWND hwnd;
 	size_t wWidth = 0;
 	size_t wHeight = 0;
+
+	ID3D11RasterizerState* gRastState = nullptr;
 public:
 	virtual void initializeWindow(HINSTANCE hInstance, int ShowWnd, int width, int height, bool windowed);
 	virtual void createSwapChain();
@@ -23,6 +25,7 @@ public:
 	virtual void createConstantBuffer(ID3D11Buffer ** gBuffer, int bufferSize);
 	virtual void mapConstantBuffer(ID3D11Buffer** gBuffer, void* cbPtr, int structSize);
 	virtual void setConstantBuffer(ID3D11Buffer *& cBuffer, SHADER shader, size_t slot, size_t numBuffers);
+	virtual void setRasterizerDesc(D3D11_RASTERIZER_DESC restDesc);
 	virtual void cleanup();
 
 	virtual size_t& GETwWidth();

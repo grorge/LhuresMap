@@ -17,23 +17,30 @@ using namespace DirectX;
 class Object
 {
 public:
-	Object(Camera* cam);
+	Object(Camera* cam, XMFLOAT4 color);
 	~Object();
 
 	void renderObj();
 	void update();
 
 	RenderData* GETRenderData() { return this->rndData; };
-protected:
-	XMFLOAT3 pos;
-	float size;
-	XMFLOAT3 up;
-	XMFLOAT3 dir;
-	float rotation;
-private:
-	ID3D11Buffer * vertBuff;
-	ID3D11Buffer * indiceBuff;
 
+	void SETPosition(XMFLOAT3 input);
+	void SETUp(XMFLOAT3 input);
+	void SETDir(XMFLOAT3 input);
+	void addRotation(float rot);
+protected:
+	XMFLOAT3 pos = XMFLOAT3(0.000001f, 0.000001f, 0.000001f);
+	float size = 0.0f;
+	XMFLOAT3 up = XMFLOAT3(0.000001f, 0.000001f, 0.000001f);
+	XMFLOAT3 dir = XMFLOAT3(0.000001f, 0.000001f, 0.000001f);
+	XMFLOAT3 rotXYZ = XMFLOAT3(0.000001f, 0.000001f, 0.000001f);
+	float rotation = 0.0f;
+private:
+	ID3D11Buffer * vertBuff = nullptr;
+	ID3D11Buffer * indiceBuff = nullptr;
+
+	ID3D11ShaderResourceView* texture;
 	//objectBuff objBuffer;
 
 	size_t stride = 0;
@@ -42,8 +49,9 @@ private:
 
 	void createVertexData();
 	void createconstBuffData();
-	RenderData* rndData;
-	Camera* cam;
+	RenderData* rndData = nullptr;
+	Camera* cam = nullptr;
+	XMFLOAT4 color = XMFLOAT4();
 };
 
 

@@ -120,8 +120,9 @@ void Renderer::createQuad()
 	Locator::getD3D()->createVertexBuffer(&this->gQuadVertexBuffer, &v, this->vertBufferStride, this->vertBufferOffset, 4);
 }
 
-void Renderer::createViewport()
+void Renderer::createViewportAndRasterizer()
 {
+	// ViewPort
 	memset(&this->viewport, 0, sizeof(D3D11_VIEWPORT));
 
 	this->viewport.TopLeftX = 0;
@@ -130,6 +131,15 @@ void Renderer::createViewport()
 	this->viewport.Height = static_cast<FLOAT>(Locator::getD3D()->GETwHeight());
 	this->viewport.MinDepth = 0.0f;
 	this->viewport.MaxDepth = 1.0f;
+
+	// RasterizerState
+	D3D11_RASTERIZER_DESC rasterStateDesc;
+	memset(&rasterStateDesc, 0, sizeof(D3D11_RASTERIZER_DESC));
+	
+	rasterStateDesc.FillMode = D3D11_FILL_SOLID;
+	rasterStateDesc.CullMode = D3D11_CULL_NONE;
+
+	Locator::getD3D()->setRasterizerDesc(rasterStateDesc);
 }
 
 void Renderer::createBackBufferRTV()
@@ -217,7 +227,7 @@ void Renderer::init()
 	
 	Locator::getD3D()->createConstantBuffer(&this->constBuff, sizeof(objectBuff));
 
-	this->createViewport();
+	this->createViewportAndRasterizer();
 	Locator::getD3D()->GETgDevCon()->RSSetViewports(1, &this->viewport);
 
 	this->createDepthStencilView();
@@ -229,17 +239,17 @@ void Renderer::render(std::vector<Object*> objects)
 	Locator::getD3D()->GETgDevCon()->ClearDepthStencilView(this->gDSV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	size_t offset = 0;
-	for (auto &i : objects)
+	for (auto i : objects)
 	{
 		RenderData* rndData = i->GETRenderData();
-		//i->renderObj();
+
 		Locator::getD3D()->mapConstantBuffer(&this->constBuff, &rndData->objBuffData, sizeof(rndData->objBuffData));
 		Locator::getD3D()->setConstantBuffer(this->constBuff, SHADER::VERTEX, 0, 1);
 
 		Locator::getD3D()->setVertexBuffer(&rndData->vertBuffer, rndData->stride, offset);
 		Locator::getD3D()->setIndexBuffer(rndData->indexBuffer, 0);
 
-		Locator::getD3D()->GETgDevCon()->DrawIndexed(6, 0, 0);
+		Locator::getD3D()->GETgDevCon()->DrawIndexed(rndData->numbIndices, 0, 0);
 	}
 
 

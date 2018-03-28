@@ -13,7 +13,9 @@ void BasicRenderState::init()
 	this->renderer.init();
 
 	this->cam = new Camera();
-	this->object.push_back(new Object(this->cam));
+	this->cam->init();
+	this->object.push_back(new Object(this->cam, { 0.0f, 1.0f, 0.0f, 1.0f }));
+	this->object.push_back(new Object(this->cam, { 0.0f, 0.1f, 1.0f, 1.0f }));
 }
 
 void BasicRenderState::cleanUp()
@@ -48,6 +50,9 @@ void BasicRenderState::handleEvents(GameManager * gm)
 
 void BasicRenderState::update(GameManager * gm)
 {
+	this->object.at(0)->addRotation(0.001f);
+	this->object.at(1)->addRotation(-0.002f);
+
 	for (auto obj : this->object)
 	{
 		obj->update();

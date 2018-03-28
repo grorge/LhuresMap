@@ -190,6 +190,12 @@ void D3D::setConstantBuffer(ID3D11Buffer *& cBuffer, SHADER shader, size_t slot,
 	}
 }
 
+void D3D::setRasterizerDesc(D3D11_RASTERIZER_DESC restDesc)
+{
+	this->gDevice->CreateRasterizerState(&restDesc, &this->gRastState);
+	this->gDevCon->RSSetState(this->gRastState);
+}
+
 void D3D::cleanup()
 {
 	this->gSwapChain->Release();
