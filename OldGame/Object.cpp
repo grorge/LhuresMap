@@ -57,19 +57,30 @@ void Object::createVertexData()
 	//XMFLOAT4 color = {1.0f, 1.0f, 0.0f, 1.0f};
 
 	/*
-	1 - 2
-	|	|
+	  5 - 6
+	1 - 2 |
+	| 4	| 7
 	0 - 3
 	*/
 
-	v[0] = Vertex(-0.5f, -0.5f, 0.0f, this->color);
-	v[1] = Vertex(-0.5f, 0.5f, 0.0f, this->color);
-	v[2] = Vertex(0.5f, 0.5f, 0.0f, this->color);
-	v[3] = Vertex(0.5f, -0.5f, 0.0f, this->color);
-	v[4] = Vertex(-0.5f, -0.5f, 0.5f, this->color);
-	v[5] = Vertex(-0.5f, 0.5f, 0.5f, this->color);
-	v[6] = Vertex(0.5f, 0.5f, 0.5f, this->color);
-	v[7] = Vertex(0.5f, -0.5f, 0.5f, this->color);
+	//v[0] = Vertex(-0.5f, -0.5f, 0.0f, this->color);
+	//v[1] = Vertex(-0.5f, 0.5f, 0.0f, this->color);
+	//v[2] = Vertex(0.5f, 0.5f, 0.0f, this->color);
+	//v[3] = Vertex(0.5f, -0.5f, 0.0f, this->color);
+	//v[4] = Vertex(-0.5f, -0.5f, 0.5f, this->color);
+	//v[5] = Vertex(-0.5f, 0.5f, 0.5f, this->color);
+	//v[6] = Vertex(0.5f, 0.5f, 0.5f, this->color);
+	//v[7] = Vertex(0.5f, -0.5f, 0.5f, this->color);
+	
+	v[0] = Vertex(-0.5f, -0.5f, 0.0f,	0.0f, 1.0f);
+	v[1] = Vertex(-0.5f, 0.5f, 0.0f,	0.0f, 0.0f);
+	v[2] = Vertex(0.5f, 0.5f, 0.0f,		1.0f, 0.0f);
+	v[3] = Vertex(0.5f, -0.5f, 0.0f,	1.0f, 1.0f);
+
+	v[4] = Vertex(-0.5f, -0.5f, 0.5f,	1.0f, 1.0f);
+	v[5] = Vertex(-0.5f, 0.5f, 0.5f,	0.0f, 1.0f);
+	v[6] = Vertex(0.5f, 0.5f, 0.5f,		0.0f, 0.0f);
+	v[7] = Vertex(0.5f, -0.5f, 0.5f,	1.0f, 0.0f);
 
 	this->rndData = new RenderData();
 	this->offset = 0;
@@ -90,7 +101,7 @@ void Object::createVertexData()
 	this->rndData->indexBuffer = this->indiceBuff;
 }
 
-void Object::createconstBuffData()
+void Object::createTextureSRV()
 {
-	//Locator::getD3D()->createConstantBuffer(&this->constBuff, sizeof(objectBuff));
+	
 }

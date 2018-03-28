@@ -9,11 +9,11 @@ struct Vertex    //Overloaded Vertex Structure
 {
 	Vertex() {}
 	Vertex(float x, float y, float z, 
-		XMFLOAT4 c)
-		: pos(x, y, z), color(c){}
+		float u, float v)
+		: pos(x, y, z), texCoord(u, v){}
 
 	XMFLOAT3 pos;
-	XMFLOAT4 color;
+	XMFLOAT2 texCoord;
 };
 
 struct objectBuff

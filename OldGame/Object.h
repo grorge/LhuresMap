@@ -48,7 +48,7 @@ private:
 	size_t numIndices = 0;
 
 	void createVertexData();
-	void createconstBuffData();
+	void createTextureSRV();
 	RenderData* rndData = nullptr;
 	Camera* cam = nullptr;
 	XMFLOAT4 color = XMFLOAT4();

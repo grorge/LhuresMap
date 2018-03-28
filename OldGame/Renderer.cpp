@@ -11,7 +11,7 @@ void Renderer::initShaders()
 	D3D11_INPUT_ELEMENT_DESC shaderInputDesc[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXTURE", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT numElements = ARRAYSIZE(shaderInputDesc);
 	
@@ -209,6 +209,14 @@ void Renderer::createDepthStencilView(/*size_t width, size_t height, ID3D11Depth
 	}
 }
 
+void Renderer::createAllTextures()
+{
+	this->bindTextureToRTVAndSRV(&this->gTextures.front(), &this->gFinalRTV, &this->gSRVs.front(), 2.0f, 2.0f, DXGI_FORMAT_R32G32B32A32_FLOAT);
+
+	std::wstring filename(L"Resources\\Textures\\bricks.png");
+	CreateWICTextureFromFile(Locator::getD3D()->GETgDevice(), filename.c_str(), nullptr, &this->gSRVs.front());
+}
+
 void Renderer::init()
 {
 	// Set the clear color
@@ -218,25 +226,32 @@ void Renderer::init()
 	this->clearColor[3] = 255.0f;
 
 	this->createBackBufferRTV();
+	this->createDepthStencilView();
 
 	Locator::getD3D()->GETgDevCon()->OMSetRenderTargets(1, &this->gFinalRTV, this->gDSV);
-
+	
 	this->initShaders();
 	this->setShaderType(SHADERTYPE::COLOR);
 	this->geoColorShaders.SetShaders(Locator::getD3D()->GETgDevCon());
 	
 	Locator::getD3D()->createConstantBuffer(&this->constBuff, sizeof(objectBuff));
+	this->createAllTextures();
+
+	this->initSampler(&this->gSampler, D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_CLAMP, D3D11_TEXTURE_ADDRESS_CLAMP, D3D11_TEXTURE_ADDRESS_CLAMP, D3D11_COMPARISON_ALWAYS);
 
 	this->createViewportAndRasterizer();
 	Locator::getD3D()->GETgDevCon()->RSSetViewports(1, &this->viewport);
 
-	this->createDepthStencilView();
+
 }
 
 void Renderer::render(std::vector<Object*> objects)
 {
 	Locator::getD3D()->GETgDevCon()->ClearRenderTargetView(this->gFinalRTV, this->clearColor);
 	Locator::getD3D()->GETgDevCon()->ClearDepthStencilView(this->gDSV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
+	Locator::getD3D()->GETgDevCon()->PSSetShaderResources(0, 1, &this->gSRVs.front());
+	Locator::getD3D()->GETgDevCon()->PSSetSamplers(0, 1, &this->gSampler);
 
 	size_t offset = 0;
 	for (auto i : objects)
@@ -248,6 +263,8 @@ void Renderer::render(std::vector<Object*> objects)
 
 		Locator::getD3D()->setVertexBuffer(&rndData->vertBuffer, rndData->stride, offset);
 		Locator::getD3D()->setIndexBuffer(rndData->indexBuffer, 0);
+
+
 
 		Locator::getD3D()->GETgDevCon()->DrawIndexed(rndData->numbIndices, 0, 0);
 	}
@@ -275,7 +292,7 @@ void Renderer::cleanUp()
 	for (auto &i : this->gSRVs) {
 		i->Release();
 	}
-	for (auto &i : this->gDeferredTexs) {
+	for (auto &i : this->gTextures) {
 		i->Release();
 	}
 
