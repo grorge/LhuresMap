@@ -71,6 +71,4 @@ void BasicRenderState::update(GameManager * gm)
 void BasicRenderState::render(GameManager * gm)
 {
 	this->renderer.render(this->object);
-	//this->obj->renderObj();
-
 }
