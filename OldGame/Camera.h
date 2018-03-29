@@ -53,7 +53,6 @@ private:
 
 	bool updateRequired = false;
 
-	void moveCameraUp();
 	void moveCameraLeft();
 	void moveCameraRight();
 	void moveCameraForward();
@@ -76,6 +75,8 @@ public:
 	--- Should an update be required, then the constant buffers will be edited here.
 	*/
 	void updateCamera();
+	void moveCameraUp();
+	void moveCameraDown();
 
 	void resetCamera();
 

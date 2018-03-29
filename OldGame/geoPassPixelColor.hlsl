@@ -17,8 +17,8 @@ PS_OUT PS(PS_IN input)
 {
 	PS_OUT output;
 
-	//float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
-	output.diffuse = float4(1.0f, 1.0f, 1.0f, 1.0f);
+	output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
+	//output.diffuse = float4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	return output;
 }

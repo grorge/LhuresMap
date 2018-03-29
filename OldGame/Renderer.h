@@ -28,9 +28,9 @@ enum class SHADERTYPE { COLOR, TEXTURE };
 class Renderer
 {
 private:
-	std::array<ID3D11RenderTargetView*, NUM_DEFERRED_OUTPUTS> gRTVs;
-	std::array<ID3D11ShaderResourceView*, NUM_TEXTURES> gSRVs;
-	std::array<ID3D11Texture2D*, NUM_TEXTURES> gTextures;
+	//std::array<ID3D11RenderTargetView*, NUM_DEFERRED_OUTPUTS> gRTVs;
+	//std::array<ID3D11ShaderResourceView*, NUM_TEXTURES> gSRVs;
+	//std::array<ID3D11Texture2D*, NUM_TEXTURES> gTextures;
 	ID3D11RenderTargetView* gFinalRTV = nullptr;
 	ID3D11Texture2D* gDSB = nullptr;
 	ID3D11DepthStencilView* gDSV = nullptr;
@@ -57,9 +57,8 @@ private:
 	void createViewportAndRasterizer();
 	void createBackBufferRTV();
 	void createDepthStencilView(/*size_t width, size_t height, ID3D11DepthStencilView** gDSV, ID3D11Texture2D** gDSB*/);
-	void createAllTextures();
 public:
-	Renderer() : gRTVs(), gSRVs(), gTextures() {}
+	Renderer() /*: /*gRTVs(), gSRVs()/*, gTextures()*/ {}
 	/*- - - - - - - -<INFORMATION>- - - - - - - -
 	1. Intializes the clear color
 	2. Sets the current shadertype

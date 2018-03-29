@@ -37,6 +37,12 @@
     <ClCompile Include="Object.cpp">
       <Filter>GameCont</Filter>
     </ClCompile>
+    <ClCompile Include="StaticObject.cpp">
+      <Filter>GameCont</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxObject.cpp">
+      <Filter>GameCont</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -83,6 +89,12 @@
     </ClInclude>
     <ClInclude Include="RenderData.h">
       <Filter>BackendLoop\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticObject.h">
+      <Filter>GameCont</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxObject.h">
+      <Filter>GameCont</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -39,6 +39,30 @@ void Camera::moveCameraUp() {
 	DirectX::XMStoreFloat3(&this->cameraPos, cameraPos);
 }
 
+void Camera::moveCameraDown()
+{
+	DirectX::XMVECTOR upVecNormalized;
+	DirectX::XMVECTOR cameraPos;
+
+	upVecNormalized = DirectX::XMLoadFloat3(&this->cameraUpDir);
+	cameraPos = DirectX::XMLoadFloat3(&this->cameraPos);
+
+	// normalize 'UP-movement'
+	DirectX::XMVector3Normalize(upVecNormalized);
+
+	// Scale the vector based on the 'cameraMoveSpeed' variable
+	upVecNormalized = DirectX::XMVectorScale(
+		upVecNormalized,
+		this->cameraMoveSpeed * -1.0f
+	);
+
+	// MOVE!!
+	cameraPos = DirectX::XMVectorAdd(cameraPos, upVecNormalized);
+
+	// Storing the cameraPos
+	DirectX::XMStoreFloat3(&this->cameraPos, cameraPos);
+}
+
 void Camera::moveCameraLeft() {
 	DirectX::XMVECTOR moveVecNormalized;
 	DirectX::XMVECTOR cameraFacingDir;
@@ -350,7 +374,7 @@ void Camera::updateCamera() {
 	cameraFacingDir = DirectX::XMLoadFloat3(&this->cameraFacingDir);
 	cameraUpDir = DirectX::XMLoadFloat3(&this->cameraUpDir);
 
-	if (updateRequired) {
+	if (true) {
 		//Create new VIEW Matrix
 		view = DirectX::XMMatrixLookToLH(
 			cameraPos,

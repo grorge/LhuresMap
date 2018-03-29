@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BasicRenderState.h" />
+    <ClInclude Include="BoxObject.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="D2D.h" />
     <ClInclude Include="D3D.h" />
@@ -156,9 +157,11 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />
+    <ClInclude Include="StaticObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BasicRenderState.cpp" />
+    <ClCompile Include="BoxObject.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="D2D.cpp" />
     <ClCompile Include="D3D.cpp" />
@@ -170,6 +173,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="StaticObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
