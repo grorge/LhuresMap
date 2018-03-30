@@ -6,6 +6,28 @@
 
 BasicRenderState BasicRenderState::sBasicRenderState;
 
+void BasicRenderState::initScene()
+{
+	Object* newObject;
+
+	//Gound
+	newObject = new StaticObject(this->cam, L"dirt");
+	newObject->SETSizeFloat(3000.0f);
+	newObject->SETPositionY(-1.0f);
+	this->object.push_back(newObject);
+
+	//Boxes
+	newObject = new BoxObject(this->cam, L"planks");
+	newObject->SETSizeFloat(100.0f);
+	newObject->SETPosition(XMFLOAT3(100.0f, 0.0f, 300.0f));
+	this->object.push_back(newObject);
+
+	newObject = new BoxObject(this->cam, L"bricks");
+	newObject->SETSizeFloat3(XMFLOAT3(500.0f, 50.0f, 50.0f));
+	newObject->SETPosition(XMFLOAT3(-100.0f, 50.0f, 1000.0f));
+	this->object.push_back(newObject);
+}
+
 BasicRenderState* BasicRenderState::getInstance() {
 	return &sBasicRenderState;
 };
@@ -16,12 +38,9 @@ void BasicRenderState::init()
 
 	this->cam = new Camera();
 	this->cam->init();
-	this->object.push_back(new BoxObject(this->cam, L"planks"));
-	this->object.push_back(new BoxObject(this->cam, L"bricks"));
-	this->object.push_back(new StaticObject(this->cam, L"dirt"));
 
 
-	this->object.at(1)->SETPosition({ 0.001f,0.0001f, 2.0f });
+	this->initScene();
 }
 
 void BasicRenderState::cleanUp()

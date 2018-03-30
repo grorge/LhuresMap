@@ -5,7 +5,6 @@ StaticObject::StaticObject(Camera * cam, std::wstring texFile) : Object(cam, tex
 {
 	this->init();
 
-	this->size++;
 }
 
 StaticObject::~StaticObject()

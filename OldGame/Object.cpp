@@ -12,7 +12,6 @@ Object::Object(Camera* cam, std::wstring texFile)
 
 	this->up = {0.0f, 1.0f, 0.0f};
 
-	this->size = 1.0f;
 
 }
 
@@ -25,7 +24,7 @@ void Object::updateWorld()
 
 	XMMATRIX mPosition = XMMatrixTranslationFromVector(XMLoadFloat3(&this->pos));
 	XMMATRIX mRotation = XMMatrixRotationAxis(XMLoadFloat3(&this->up), this->rotation);
-	XMMATRIX mSclaing = XMMatrixScaling(this->size, this->size, this->size);
+	XMMATRIX mSclaing = XMMatrixScalingFromVector(XMLoadFloat3(&this->size));
 
 	XMMATRIX WVP = XMLoadFloat4x4(&cam->GETviewMatrix()) * XMLoadFloat4x4(&cam->GETprojMatrix());
 	WVP = XMMatrixTranspose(WVP);

@@ -13,9 +13,10 @@ private:
 	static BasicRenderState sBasicRenderState;
 	Renderer renderer;
 
-	Camera* cam;
+	Camera* cam = nullptr;
 	std::vector<Object*> object;
 	//Object* obj;
+	void initScene();
 public:
 	static BasicRenderState* getInstance();
 
