@@ -13,8 +13,8 @@ struct Vertex    //Overloaded Vertex Structure
 		: pos(x, y, z), texCoord(u, v){}
 
 	XMFLOAT3 pos;
-	//XMFLOAT3 normal;
 	XMFLOAT2 texCoord;
+	XMFLOAT3 normal;
 };
 
 struct objectBuff
@@ -33,6 +33,13 @@ struct lightBuff
 
 	XMFLOAT3 pos;
 	XMFLOAT4 color;
+};
+
+struct rndModeBuff
+{
+	rndModeBuff() {};
+
+	XMINT2 mode;
 };
 
 struct RenderData

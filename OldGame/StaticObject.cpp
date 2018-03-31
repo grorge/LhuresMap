@@ -29,10 +29,15 @@ void StaticObject::createVertexData()
 	int i = 0;
 
 	// Top Face
+	XMFLOAT3 normal = {0.0f, 1.0f, 0.0f};
 	v[0] = Vertex(-1.0f, 0.0f, -1.0f, 0.0f, 1.0f);
+	v[0].normal = normal;
 	v[1] = Vertex(-1.0f, 0.0f, 1.0f, 0.0f, 0.0f);
+	v[1].normal = normal;
 	v[2] = Vertex(1.0f, 0.0f, 1.0f, 1.0f, 0.0f);
+	v[2].normal = normal;
 	v[3] = Vertex(1.0f, 0.0f, -1.0f, 1.0f, 1.0f);
+	v[3].normal = normal;
 
 	this->rndData = new RenderData();
 	size_t offset = 0;

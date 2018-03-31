@@ -47,6 +47,7 @@ private:
 
 	//-----BUFFERS
 	ID3D11Buffer * constBuff = nullptr;
+	ID3D11Buffer * renderModeBuff = nullptr;
 
 	float clearColor[4];
 

@@ -7,11 +7,13 @@ cbuffer objectBuffer : register(b0)
 struct VS_IN {
 	float3 pos_M		: POSITION;
 	float2 texCoord		: TEXTURE;
+	float3 normal		: NORMAL;
 };
 
 struct VS_OUT {
 	float4 pos_S		: SV_POSITION;
 	float2 texCoord		: TARGET0;
+	float4 normal		: TARGET1;
 };
 
 
@@ -25,6 +27,8 @@ VS_OUT VS(VS_IN input)
 	output.pos_S = mul(inpoutPosFloat4, transfMatrix);
 	//output.pos_S = float4(input.pos_M, 1.0f);
 	output.texCoord = input.texCoord;
+
+	output.normal = float4(input.normal, 1.0f);
 
 	return output;
 }

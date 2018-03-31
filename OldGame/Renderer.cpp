@@ -11,6 +11,7 @@ void Renderer::initShaders()
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXTURE", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT numElements = ARRAYSIZE(shaderInputDesc);
 	
@@ -221,9 +222,10 @@ void Renderer::init()
 	Locator::getD3D()->GETgDevCon()->OMSetRenderTargets(1, &this->gFinalRTV, this->gDSV);
 		
 	this->initShaders();
-		this->geoColorShaders.SetShaders(Locator::getD3D()->GETgDevCon());
+	this->geoColorShaders.SetShaders(Locator::getD3D()->GETgDevCon());
 	
 	Locator::getD3D()->createConstantBuffer(&this->constBuff, sizeof(objectBuff));
+	//Locator::getD3D()->createConstantBuffer(&this->renderModeBuff, sizeof(rndModeBuff));
 
 	this->initSampler(&this->gSampler, D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_COMPARISON_NEVER);
 
