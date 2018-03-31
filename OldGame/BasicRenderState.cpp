@@ -26,6 +26,11 @@ void BasicRenderState::initScene()
 	newObject->SETSizeFloat3(XMFLOAT3(500.0f, 50.0f, 50.0f));
 	newObject->SETPosition(XMFLOAT3(-100.0f, 50.0f, 1000.0f));
 	this->object.push_back(newObject);
+
+	newObject = new BoxObject(this->cam, L"bricks");
+	newObject->SETSizeFloat3(XMFLOAT3(50.0f, 500.0f, 50.0f));
+	newObject->SETPosition(XMFLOAT3(-100.0f, 250.0f, 600.0f));
+	this->object.push_back(newObject);
 }
 
 BasicRenderState* BasicRenderState::getInstance() {
@@ -38,6 +43,7 @@ void BasicRenderState::init()
 
 	this->cam = new Camera();
 	this->cam->init();
+	this->controlCamera = new ControlCamera(this->cam);
 
 
 	this->initScene();
@@ -64,11 +70,12 @@ void BasicRenderState::handleEvents(GameManager * gm)
 		if (msg.message == WM_QUIT || msg.wParam == VK_ESCAPE) {
 			gm->quit();
 		}
-		else if ( msg.wParam == VK_UP) {
-			this->cam->moveCameraUp();
-		}
-		else if (msg.wParam == VK_DOWN) {
-			this->cam->moveCameraDown();
+		else if ( msg.message == WM_KEYDOWN) {
+			this->controlCamera->updateCamera(msg.wParam);
+			if (msg.wParam == 0x51)
+			{
+				this->object.at(2)->rotateZ(0.1f);
+			}
 		}
 
 		TranslateMessage(&msg);

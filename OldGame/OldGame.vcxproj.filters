@@ -43,6 +43,9 @@
     <ClCompile Include="BoxObject.cpp">
       <Filter>GameCont</Filter>
     </ClCompile>
+    <ClCompile Include="ControlCamera.cpp">
+      <Filter>BackendLoop\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -95,6 +98,9 @@
     </ClInclude>
     <ClInclude Include="BoxObject.h">
       <Filter>GameCont</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlCamera.h">
+      <Filter>BackendLoop\Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

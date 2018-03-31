@@ -144,6 +144,7 @@
     <ClInclude Include="BasicRenderState.h" />
     <ClInclude Include="BoxObject.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ControlCamera.h" />
     <ClInclude Include="D2D.h" />
     <ClInclude Include="D3D.h" />
     <ClInclude Include="ID2D.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="BasicRenderState.cpp" />
     <ClCompile Include="BoxObject.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ControlCamera.cpp" />
     <ClCompile Include="D2D.cpp" />
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="MouseInput.cpp" />

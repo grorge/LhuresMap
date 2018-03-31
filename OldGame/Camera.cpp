@@ -266,56 +266,6 @@ void Camera::init()
 	DirectX::XMStoreFloat4x4(&this->projection, proj);
 }
 
-void Camera::init(float arenaWidth, float arenaDepth)
-{
-	DirectX::XMVECTOR cameraStartPos;
-	DirectX::XMVECTOR cameraStartFacingDir;
-
-	//cameraStartPos = DirectX::XMVECTOR{ static_cast<float>(arenaWidth * 0.5f), static_cast<float>(sqrt((arenaWidth * arenaWidth + arenaDepth * arenaDepth) / 4)), static_cast<float>((arenaDepth * 0.5f) * 0.30f) };
-	//cameraStartPos = DirectX::XMVECTOR{ arenaWidth * 0.5f, 1000.0f, arenaDepth * 0.5f };
-	
-	cameraStartPos = DirectX::XMVECTOR{ arenaWidth * 0.5f, sqrt((arenaWidth * arenaWidth + arenaDepth * arenaDepth) * 0.30f), arenaDepth * 0.5f * 0.25f };
-	DirectX::XMVECTOR cameraLookAtPos = DirectX::XMVECTOR{ arenaWidth * 0.5f, 0.0f, (arenaDepth * 0.5f) * 0.75f };
-	cameraStartFacingDir = DirectX::XMVectorSubtract(cameraLookAtPos, cameraStartPos);
-	cameraStartFacingDir = DirectX::XMVector3Normalize(cameraStartFacingDir);
-	
-	//cameraStartFacingDir = DirectX::XMVECTOR{ arenaWidth * 0.5f, 0.0f, arenaDepth * 0.5f };
-	//cameraStartFacingDir = DirectX::XMVECTOR{ 0.0f, -1.0f, 0.0f };
-
-	this->updateRequired = false;
-
-	// Storing cameraPos
-	DirectX::XMStoreFloat3(&this->cameraPos, cameraStartPos);
-
-	// Storing cameraFacingDir
-	DirectX::XMStoreFloat3(&this->cameraFacingDir, cameraStartFacingDir);
-	//this->cameraUpDir = DirectX::XMVector3Cross(DirectX::XMVECTOR{ 1.0f, 0.0f, 0.0f }, cameraStartFacingDir);
-	DirectX::XMVECTOR cameraUpDir = DirectX::XMVector3Cross(cameraStartFacingDir, DirectX::XMVECTOR{ 1.0f, 0.0f, 0.0f });
-	cameraUpDir = DirectX::XMVector3Normalize(cameraUpDir);
-	DirectX::XMStoreFloat3(&this->cameraUpDir, cameraUpDir);
-
-	this->angle = 0.45f * DirectX::XM_PI;
-	this->nearPlane = 0.5;
-	this->farPlane = 10000.0; //200
-
-	DirectX::XMMATRIX view = DirectX::XMMatrixLookToLH(
-		cameraStartPos,
-		cameraStartFacingDir,
-		cameraUpDir
-	);
-
-	DirectX::XMStoreFloat4x4(&this->view, view);
-
-	// Initiate the projection matrix
-	DirectX::XMMATRIX proj = DirectX::XMMatrixPerspectiveFovLH(
-		(this->angle),
-		static_cast<float>(Locator::getD3D()->GETwWidth() / Locator::getD3D()->GETwHeight()),
-		this->nearPlane,
-		this->farPlane
-	);
-
-	DirectX::XMStoreFloat4x4(&this->projection, proj);
-}
 
 void Camera::updateCamera() {
 
@@ -392,6 +342,26 @@ void Camera::updateCamera() {
 	}
 
 	DirectX::XMStoreFloat4x4(&this->view, view);
+}
+
+void Camera::turnCameraLeft()
+{
+	XMVECTOR vFaceDir = XMLoadFloat3(&this->cameraFacingDir);
+	XMVECTOR vUp = XMLoadFloat3(&this->cameraUpDir);
+	
+	vFaceDir = XMVector3Rotate(vFaceDir, XMQuaternionRotationAxis(vUp, -this->cameraTurnSpeed));
+
+	XMStoreFloat3(&this->cameraFacingDir, vFaceDir);
+}
+
+void Camera::turnCameraRight()
+{
+	XMVECTOR vFaceDir = XMLoadFloat3(&this->cameraFacingDir);
+	XMVECTOR vUp = XMLoadFloat3(&this->cameraUpDir);
+	
+	vFaceDir = XMVector3Rotate(vFaceDir, XMQuaternionRotationAxis(vUp, this->cameraTurnSpeed));
+
+	XMStoreFloat3(&this->cameraFacingDir, vFaceDir);
 }
 
 void Camera::resetCamera() {

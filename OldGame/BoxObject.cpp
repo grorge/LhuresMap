@@ -5,7 +5,7 @@ BoxObject::BoxObject(Camera * cam, std::wstring texFile) : Object(cam, texFile)
 {
 	this->init();
 
-	this->pos.y += 2.0f;
+	//this->pos.y += 2.0f;
 
 }
 
@@ -15,7 +15,8 @@ BoxObject::~BoxObject()
 
 void BoxObject::update()
 {
-	this->addRotation(-0.002f);
+	this->rotateX(-0.002f);
+	this->rotateY(-0.001f);
 }
 
 void BoxObject::createVertexData()

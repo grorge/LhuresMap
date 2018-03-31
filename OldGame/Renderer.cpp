@@ -287,6 +287,7 @@ void Renderer::cleanUp()
 	this->gDSB->Release();
 	this->gSampler->Release();
 	this->gQuadVertexBuffer->Release();
-
 	this->geoColorShaders.Release();
+
+	this->constBuff->Release();
 }

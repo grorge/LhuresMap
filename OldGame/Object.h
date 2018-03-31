@@ -37,7 +37,9 @@ public:
 	//Rotatoion
 	void SETUp(XMFLOAT3 input) { this->up = input; };
 	void SETDir(XMFLOAT3 input) { this->dir = input; };
-	void addRotation(float rot);
+	void rotateX(float rot);
+	void rotateY(float rot);
+	void rotateZ(float rot);
 protected:
 	XMFLOAT3 pos = XMFLOAT3(0.000001f, 0.000001f, 0.000001f);
 	XMFLOAT3 size = XMFLOAT3(1.000001f, 1.000001f, 1.000001f);

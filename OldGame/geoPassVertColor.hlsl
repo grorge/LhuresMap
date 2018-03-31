@@ -21,7 +21,8 @@ VS_OUT VS(VS_IN input)
 
 	float4x4 transfMatrix = mul(world, WVP);
 	// Convert the vertices pos from Model space to World space
-	output.pos_S = mul(float4(input.pos_M, 1.0f), transfMatrix);
+	float4 inpoutPosFloat4 = float4(input.pos_M, 1.0f);
+	output.pos_S = mul(inpoutPosFloat4, transfMatrix);
 	//output.pos_S = float4(input.pos_M, 1.0f);
 	output.texCoord = input.texCoord;
 

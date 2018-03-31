@@ -7,6 +7,8 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 
+using namespace DirectX;
+
 /* _+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_
   |                                     |
   |               CAMERA                |
@@ -14,7 +16,8 @@
 
 class Camera {
 private:
-	float			cameraMoveSpeed = 2.0f;
+	float			cameraMoveSpeed = 20.0f;
+	float			cameraTurnSpeed = 0.1f;
 	float			cameraRotateSpeed = 0.02f;
 	float			angle = 0.0f;
 	float			nearPlane = 0.0f;
@@ -39,24 +42,17 @@ private:
 	DirectX::XMFLOAT3	rightAxis;
 	// _______________________________________________
 	// --------------- LOOK-AT MOVEMENT --------------
-	//float				rotationAngle;
-	//DirectX::XMFLOAT3	rotationQuaternion;
-	//bool				isMouseMovingUp;
-	//DirectX::XMFLOAT3	newRotation_Float3;
-	//DirectX::XMVECTOR	newRotation_Vector;
-	//DirectX::XMFLOAT3	oldRotation_Float3;
-	//DirectX::XMVECTOR	oldRotation_Vector;
-	//DirectX::XMFLOAT3	tempRotationDifference_Float3;
-	//DirectX::XMVECTOR	tempRotationDifference_Vector;
+	float				rotationAngle;
+	DirectX::XMFLOAT3	rotationQuaternion;
+	bool				isMouseMovingUp;
+	DirectX::XMFLOAT3	newRotation_Float3;
+	DirectX::XMFLOAT3	oldRotation_Float3;
+	DirectX::XMFLOAT3	tempRotationDifference_Float3;
 	// _______________________________________________
 	///_______________________________________________
 
 	bool updateRequired = false;
 
-	void moveCameraLeft();
-	void moveCameraRight();
-	void moveCameraForward();
-	void moveCameraBackward();
 	void updateRightDir();
 
 	//void rotateCameraVertically(POINT mouseMovement);
@@ -64,7 +60,6 @@ private:
 
 public:
 	void init();
-	void init(float arenaWidth, float arenaDepth);
 	/*- - - - - - - -<INFORMATION>- - - - - - - -
 	1. Receives a 'characterMessage' of type 'TCHAR', which can result in:
 	--- Camera Positional Movement: 'W', 'A', 'S', 'D', '32(SpaceBar)' = Up, 'R' = Reset Camera, 'H'.
@@ -75,8 +70,15 @@ public:
 	--- Should an update be required, then the constant buffers will be edited here.
 	*/
 	void updateCamera();
+
+	void turnCameraLeft();
+	void turnCameraRight();
 	void moveCameraUp();
 	void moveCameraDown();
+	void moveCameraLeft();
+	void moveCameraRight();
+	void moveCameraForward();
+	void moveCameraBackward();
 
 	void resetCamera();
 

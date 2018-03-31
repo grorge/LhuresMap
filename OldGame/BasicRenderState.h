@@ -5,6 +5,7 @@
 #include "State.h"
 #include "Object.h"
 #include "Camera.h"
+#include "ControlCamera.h"
 #include "Renderer.h"
 
 class BasicRenderState : public State
@@ -14,6 +15,7 @@ private:
 	Renderer renderer;
 
 	Camera* cam = nullptr;
+	ControlCamera* controlCamera = nullptr;
 	std::vector<Object*> object;
 	//Object* obj;
 	void initScene();
