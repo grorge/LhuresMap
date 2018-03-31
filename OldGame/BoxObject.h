@@ -10,8 +10,6 @@
 
 #include "Object.h"
 
-
-
 using namespace DirectX;
 
 class BoxObject : public Object

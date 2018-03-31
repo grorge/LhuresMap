@@ -29,10 +29,18 @@ void ControlCamera::updateCamera(WPARAM wParam)
 		this->pCam->moveCameraBackward();
 		break;
 
-	case 0x52: //R
+	case 0x41: //A
+		this->pCam->moveCameraLeft();
+		break;
+
+	case 0x44: //D
+		this->pCam->moveCameraRight();
+		break;
+
+	case 0x51: //Q
 		this->pCam->turnCameraLeft();
 		break;
-	case 0x54: //T
+	case 0x45: //E
 		this->pCam->turnCameraRight();
 		break;
 

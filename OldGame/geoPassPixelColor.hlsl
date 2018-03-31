@@ -19,10 +19,10 @@ PS_OUT PS(PS_IN input)
 	PS_OUT output;
 
 	// TEXTURE-MODE
-	//output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
+	output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
 
 	// NORMALS-MODE
-	output.diffuse = (input.normal+0.1f);
+	//output.diffuse = (input.normal+0.1f);
 
 	// RENDERWHITE-MODE
 	//output.diffuse = float4(1.0f, 1.0f, 1.0f, 1.0f);

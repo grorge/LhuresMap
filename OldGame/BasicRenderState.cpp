@@ -27,7 +27,7 @@ void BasicRenderState::initScene()
 	newObject->SETPosition(XMFLOAT3(-100.0f, 50.0f, 1000.0f));
 	this->object.push_back(newObject);
 
-	newObject = new BoxObject(this->cam, L"bricks");
+	newObject = new BoxObject(this->cam, L"gravel");
 	newObject->SETSizeFloat3(XMFLOAT3(50.0f, 500.0f, 50.0f));
 	newObject->SETPosition(XMFLOAT3(-100.0f, 250.0f, 600.0f));
 	this->object.push_back(newObject);
@@ -72,7 +72,7 @@ void BasicRenderState::handleEvents(GameManager * gm)
 		}
 		else if ( msg.message == WM_KEYDOWN) {
 			this->controlCamera->updateCamera(msg.wParam);
-			if (msg.wParam == 0x51)
+			if (msg.wParam == 0x52) // R
 			{
 				this->object.at(2)->rotateZ(0.1f);
 			}
