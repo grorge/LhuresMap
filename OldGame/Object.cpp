@@ -21,12 +21,9 @@ Object::~Object()
 
 void Object::updateWorld()
 {
-	XMFLOAT3 left(1.0f, 0.0f, 0.0f);
-	XMFLOAT3 forward(0.0f, 0.0f, 1.0f);
-	
-	XMMATRIX mRotationX = XMMatrixRotationAxis(XMLoadFloat3(&this->up), this->rotXYZ.x);
-	XMMATRIX mRotationY = XMMatrixRotationAxis(XMLoadFloat3(&left), this->rotXYZ.y);
-	XMMATRIX mRotationZ = XMMatrixRotationAxis(XMLoadFloat3(&forward), this->rotXYZ.z);
+	XMMATRIX mRotationX = XMMatrixRotationX(this->rotXYZ.x);
+	XMMATRIX mRotationY = XMMatrixRotationY(this->rotXYZ.y);
+	XMMATRIX mRotationZ = XMMatrixRotationZ(this->rotXYZ.z);
 	XMMATRIX mRotation = mRotationX * mRotationY * mRotationZ;
 
 	XMMATRIX mSclaing = XMMatrixScalingFromVector(XMLoadFloat3(&this->size));
