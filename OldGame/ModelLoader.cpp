@@ -1,7 +1,8 @@
 #include "ModelLoader.h"
 #include "WICTextureLoader.h"
 
-bool ModelLoader::loadObjModel(std::wstring filename, ID3D11Buffer ** vertBuff, ID3D11Buffer ** indexBuff, std::vector<int>& subsetIndexStart, std::vector<int>& subsetMaterialArray, std::vector<SurfaceMaterial>& material, int & subsetCount, bool isRHCoordSys, bool computeNormals)
+bool ModelLoader::loadObjModel(std::wstring filename, ID3D11Buffer ** vertBuff, ID3D11Buffer ** indexBuff, std::vector<int>& subsetIndexStart, std::vector<int>& subsetMaterialArray, 
+	std::vector<SurfaceMaterial>& material, int & subsetCount, bool isRHCoordSys, bool computeNormals)
 {
 		HRESULT hr = 0;
 

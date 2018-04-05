@@ -74,7 +74,7 @@ void BasicRenderState::handleEvents(GameManager * gm)
 			this->controlCamera->updateCamera(msg.wParam);
 			if (msg.wParam == 0x52) // R
 			{
-				this->object.at(2)->rotateZ(0.1f);
+				
 			}
 		}
 
