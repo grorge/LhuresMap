@@ -46,6 +46,9 @@
     <ClCompile Include="ControlCamera.cpp">
       <Filter>BackendLoop\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>Setup</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -101,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="ControlCamera.h">
       <Filter>BackendLoop\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>Setup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

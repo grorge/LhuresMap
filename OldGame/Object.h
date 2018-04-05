@@ -9,7 +9,7 @@
 #include "Camera.h"	
 
 #include "RenderData.h"
-
+#include "ModelLoader.h"
 
 
 using namespace DirectX;

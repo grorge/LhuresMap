@@ -149,6 +149,7 @@
     <ClInclude Include="D3D.h" />
     <ClInclude Include="ID2D.h" />
     <ClInclude Include="ID3D.h" />
+    <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="MouseInput.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="RenderData.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="ControlCamera.cpp" />
     <ClCompile Include="D2D.cpp" />
     <ClCompile Include="D3D.cpp" />
+    <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="MouseInput.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Renderer.cpp" />
