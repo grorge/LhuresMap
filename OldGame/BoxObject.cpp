@@ -6,6 +6,7 @@ BoxObject::BoxObject(Camera * cam, std::wstring texFile) : Object(cam, texFile)
 	this->init();
 
 	//this->pos.y += 2.0f;
+	this->modLod->loadObjModel(L"Resources\\LP_tree.obj", this->rndData, meshSubsetIndexStart, meshSubsetTexture, material, meshSubsets, true, false);
 
 }
 
@@ -98,7 +99,6 @@ void BoxObject::createVertexData()
 	v[23] = Vertex(1.0f, -1.0f, 1.0f, 1.0f, 1.0f);
 	v[23].normal = normal;
 
-	this->rndData = new RenderData();
 	size_t offset = 0;
 	this->rndData->stride = sizeof(Vertex);
 	Locator::getD3D()->createVertexBuffer(&this->rndData->vertBuffer, v.data(), this->rndData->stride, offset, v.size());

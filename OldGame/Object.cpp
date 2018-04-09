@@ -12,7 +12,7 @@ Object::Object(Camera* cam, std::wstring texFile)
 
 	this->up = {0.0f, 1.0f, 0.0f};
 
-
+	this->modLod = new ModelLoader();
 }
 
 Object::~Object()
@@ -57,6 +57,8 @@ void Object::rotateZ(float rot)
 
 void Object::init()
 {
+	this->rndData = new RenderData();
+
 	this->createVertexData();
 
 	this->createTextureSRV();

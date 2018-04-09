@@ -5,7 +5,7 @@ StaticObject::StaticObject(Camera * cam, std::wstring texFile) : Object(cam, tex
 {
 	this->init();
 
-	this->modLod->loadObjModel(L"Resources\\cube.obj", &meshVertBuff, &meshIndexBuff, meshSubsetIndexStart, meshSubsetTexture, material, meshSubsets, true, false);
+	//this->modLod->loadObjModel(L"Resources\\bottle.obj", this->rndData, meshSubsetIndexStart, meshSubsetTexture, material, meshSubsets, true, false);
 
 }
 
@@ -21,12 +21,12 @@ void StaticObject::createVertexData()
 {
 	std::array<Vertex, 4> v;
 
-	/*
-	5 - 6
-	1 - 2 |
-	| 4	| 7
-	0 - 3
-	*/
+	///*
+	//5 - 6
+	//1 - 2 |
+	//| 4	| 7
+	//0 - 3
+	//*/
 
 	int i = 0;
 
@@ -41,7 +41,6 @@ void StaticObject::createVertexData()
 	v[3] = Vertex(1.0f, 0.0f, -1.0f, 1.0f, 1.0f);
 	v[3].normal = normal;
 
-	this->rndData = new RenderData();
 	size_t offset = 0;
 	this->rndData->stride = sizeof(Vertex);
 	Locator::getD3D()->createVertexBuffer(&this->rndData->vertBuffer, v.data(), this->rndData->stride, offset, v.size());

@@ -14,6 +14,7 @@
 #include <dwrite.h>
 #include <dinput.h>
 #include <vector>
+#include <array>
 #include <fstream>
 #include <istream>
 
@@ -37,10 +38,11 @@ public:
 	ModelLoader();
 	~ModelLoader();
 
+
+
 	//Define LoadObjModel function after we create surfaceMaterial structure
 	bool loadObjModel(std::wstring filename,        //.obj filename
-		ID3D11Buffer** vertBuff,            //mesh vertex buffer
-		ID3D11Buffer** indexBuff,            //mesh index buffer
+		RenderData* rndData,            //mesh index buffer
 		std::vector<int>& subsetIndexStart,        //start index of each subset
 		std::vector<int>& subsetMaterialArray,        //index value of material for each subset
 		std::vector<SurfaceMaterial>& material,        //vector of material structures
@@ -58,6 +60,8 @@ private:
 	std::vector<ID3D11ShaderResourceView*> meshSRV;
 	std::vector<std::wstring> textureNameArray;
 
+
+	std::vector<Vertex> vertices;
 };
 
 

@@ -11,26 +11,26 @@ void BasicRenderState::initScene()
 	Object* newObject;
 
 	//Gound
-	newObject = new StaticObject(this->cam, L"dirt");
-	newObject->SETSizeFloat(3000.0f);
-	newObject->SETPositionY(-1.0f);
-	this->object.push_back(newObject);
+	//newObject = new StaticObject(this->cam, L"dirt");
+	//newObject->SETSizeFloat(3000.0f);
+	//newObject->SETPositionY(-100.0f);
+	//this->object.push_back(newObject);
 
 	//Boxes
 	newObject = new BoxObject(this->cam, L"planks");
-	newObject->SETSizeFloat(100.0f);
-	newObject->SETPosition(XMFLOAT3(100.0f, 0.0f, 300.0f));
+	newObject->SETSizeFloat(10.0f);
+	newObject->SETPosition(XMFLOAT3(100.0f, 0.0f, 1300.0f));
 	this->object.push_back(newObject);
 
-	newObject = new BoxObject(this->cam, L"bricks");
-	newObject->SETSizeFloat3(XMFLOAT3(500.0f, 50.0f, 50.0f));
-	newObject->SETPosition(XMFLOAT3(-100.0f, 50.0f, 1000.0f));
-	this->object.push_back(newObject);
+	//newObject = new BoxObject(this->cam, L"bricks");
+	//newObject->SETSizeFloat3(XMFLOAT3(500.0f, 50.0f, 50.0f));
+	//newObject->SETPosition(XMFLOAT3(-100.0f, 50.0f, 1000.0f));
+	//this->object.push_back(newObject);
 
-	newObject = new BoxObject(this->cam, L"gravel");
-	newObject->SETSizeFloat3(XMFLOAT3(50.0f, 500.0f, 50.0f));
-	newObject->SETPosition(XMFLOAT3(-100.0f, 250.0f, 600.0f));
-	this->object.push_back(newObject);
+	//newObject = new BoxObject(this->cam, L"gravel");
+	//newObject->SETSizeFloat3(XMFLOAT3(50.0f, 500.0f, 50.0f));
+	//newObject->SETPosition(XMFLOAT3(-100.0f, 250.0f, 600.0f));
+	//this->object.push_back(newObject);
 }
 
 BasicRenderState* BasicRenderState::getInstance() {

@@ -1,7 +1,15 @@
 #include "ModelLoader.h"
 #include "WICTextureLoader.h"
 
-bool ModelLoader::loadObjModel(std::wstring filename, ID3D11Buffer ** vertBuff, ID3D11Buffer ** indexBuff, std::vector<int>& subsetIndexStart, std::vector<int>& subsetMaterialArray, 
+ModelLoader::ModelLoader()
+{
+}
+
+ModelLoader::~ModelLoader()
+{
+}
+
+bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::vector<int>& subsetIndexStart, std::vector<int>& subsetMaterialArray,
 	std::vector<SurfaceMaterial>& material, int & subsetCount, bool isRHCoordSys, bool computeNormals)
 {
 		HRESULT hr = 0;
@@ -38,19 +46,33 @@ bool ModelLoader::loadObjModel(std::wstring filename, ID3D11Buffer ** vertBuff, 
 		int totalVerts = 0;
 		int meshTriangles = 0;
 
+		int itterations = 0;
+
 		//Check to see if the file was opened
 		if (fileIn)
 		{
 			while (fileIn)
 			{
+				itterations++;
+
+				if (itterations > 733)
+				{
+					int hej = 0;
+					hej++;
+				}
+
 				checkChar = fileIn.get();    //Get next char
 
 				switch (checkChar)
 				{
 				case '#':
 					checkChar = fileIn.get();
-					while (checkChar != '\n')
+					while (checkChar != '\n' && fileIn)
+					{
 						checkChar = fileIn.get();
+						if (checkChar == '~')
+							fileIn.close();
+					}
 					break;
 				case 'v':    //Get Vertex Descriptions
 					checkChar = fileIn.get();
@@ -250,6 +272,8 @@ bool ModelLoader::loadObjModel(std::wstring filename, ID3D11Buffer ** vertBuff, 
 
 							meshTriangles++;    //One triangle down
 
+
+
 												//If there are more than three vertices in the face definition, we need to make sure
 												//we convert the face to triangles. We created our first triangle above, now we will
 												//create a new triangle for every new vertex in the face, using the very first vertex
@@ -353,67 +377,67 @@ bool ModelLoader::loadObjModel(std::wstring filename, ID3D11Buffer ** vertBuff, 
 					}
 					break;
 
-				case 'm':    //mtllib - material library filename
-					checkChar = fileIn.get();
-					if (checkChar == 't')
-					{
-						checkChar = fileIn.get();
-						if (checkChar == 'l')
-						{
-							checkChar = fileIn.get();
-							if (checkChar == 'l')
-							{
-								checkChar = fileIn.get();
-								if (checkChar == 'i')
-								{
-									checkChar = fileIn.get();
-									if (checkChar == 'b')
-									{
-										checkChar = fileIn.get();
-										if (checkChar == ' ')
-										{
-											//Store the material libraries file name
-											fileIn >> meshMatLib;
-										}
-									}
-								}
-							}
-						}
-					}
+				//case 'm':    //mtllib - material library filename
+				//	checkChar = fileIn.get();
+				//	if (checkChar == 't')
+				//	{
+				//		checkChar = fileIn.get();
+				//		if (checkChar == 'l')
+				//		{
+				//			checkChar = fileIn.get();
+				//			if (checkChar == 'l')
+				//			{
+				//				checkChar = fileIn.get();
+				//				if (checkChar == 'i')
+				//				{
+				//					checkChar = fileIn.get();
+				//					if (checkChar == 'b')
+				//					{
+				//						checkChar = fileIn.get();
+				//						if (checkChar == ' ')
+				//						{
+				//							//Store the material libraries file name
+				//							fileIn >> meshMatLib;
+				//						}
+				//					}
+				//				}
+				//			}
+				//		}
+				//	}
 
-					break;
+				//	break;
 
-				case 'u':    //usemtl - which material to use
-					checkChar = fileIn.get();
-					if (checkChar == 's')
-					{
-						checkChar = fileIn.get();
-						if (checkChar == 'e')
-						{
-							checkChar = fileIn.get();
-							if (checkChar == 'm')
-							{
-								checkChar = fileIn.get();
-								if (checkChar == 't')
-								{
-									checkChar = fileIn.get();
-									if (checkChar == 'l')
-									{
-										checkChar = fileIn.get();
-										if (checkChar == ' ')
-										{
-											meshMaterialsTemp = L"";    //Make sure this is cleared
+				//case 'u':    //usemtl - which material to use
+				//	checkChar = fileIn.get();
+				//	if (checkChar == 's')
+				//	{
+				//		checkChar = fileIn.get();
+				//		if (checkChar == 'e')
+				//		{
+				//			checkChar = fileIn.get();
+				//			if (checkChar == 'm')
+				//			{
+				//				checkChar = fileIn.get();
+				//				if (checkChar == 't')
+				//				{
+				//					checkChar = fileIn.get();
+				//					if (checkChar == 'l')
+				//					{
+				//						checkChar = fileIn.get();
+				//						if (checkChar == ' ')
+				//						{
+				//							meshMaterialsTemp = L"";    //Make sure this is cleared
 
-											fileIn >> meshMaterialsTemp; //Get next type (string)
+				//							fileIn >> meshMaterialsTemp; //Get next type (string)
 
-											meshMaterials.push_back(meshMaterialsTemp);
-										}
-									}
-								}
-							}
-						}
-					}
-					break;
+				//							meshMaterials.push_back(meshMaterialsTemp);
+				//						}
+				//					}
+				//				}
+				//			}
+				//		}
+				//	}
+				//	break;
 
 				default:
 					break;
@@ -663,7 +687,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, ID3D11Buffer ** vertBuff, 
 				}
 			}
 		}
-		else
+		else // No material so this will allways fail
 		{
 			Locator::getD3D()->GETswapChain()->SetFullscreenState(false, NULL);    //Make sure we are out of fullscreen
 
@@ -673,25 +697,25 @@ bool ModelLoader::loadObjModel(std::wstring filename, ID3D11Buffer ** vertBuff, 
 			//MessageBox(0, message.c_str(),
 			//	L"Error", MB_OK);
 
-			return false;
+			//return false;
 		}
 
 		//Set the subsets material to the index value
 		//of the its material in our material array
-		for (int i = 0; i < meshSubsets; ++i)
-		{
-			bool hasMat = false;
-			for (int j = 0; j < material.size(); ++j)
-			{
-				if (meshMaterials[i] == material[j].matName)
-				{
-					subsetMaterialArray.push_back(j);
-					hasMat = true;
-				}
-			}
-			if (!hasMat)
-				subsetMaterialArray.push_back(0); //Use first material in array
-		}
+		//for (int i = 0; i < meshSubsets; ++i)
+		//{
+		//	bool hasMat = false;
+		//	for (int j = 0; j < material.size(); ++j)
+		//	{
+		//		if (meshMaterials[i] == material[j].matName)
+		//		{
+		//			subsetMaterialArray.push_back(j);
+		//			hasMat = true;
+		//		}
+		//	}
+		//	if (!hasMat)
+		//		subsetMaterialArray.push_back(0); //Use first material in array
+		//}
 
 		std::vector<Vertex> vertices;
 		Vertex tempVert;
@@ -789,6 +813,12 @@ bool ModelLoader::loadObjModel(std::wstring filename, ID3D11Buffer ** vertBuff, 
 		}
 
 		//Create index buffer
+
+		rndData->numbIndices = sizeof(indices) * meshTriangles * 3;
+		////this->rndData->numbIndices = this->numIndices;
+		//Locator::getD3D()->createIndexBuffer(&rndData->indexBuffer, indices.data(), rndData->numbIndices);
+
+
 		D3D11_BUFFER_DESC indexBufferDesc;
 		ZeroMemory(&indexBufferDesc, sizeof(indexBufferDesc));
 
@@ -801,23 +831,29 @@ bool ModelLoader::loadObjModel(std::wstring filename, ID3D11Buffer ** vertBuff, 
 		D3D11_SUBRESOURCE_DATA iinitData;
 
 		iinitData.pSysMem = &indices[0];
-		Locator::getD3D()->GETgDevice()->CreateBuffer(&indexBufferDesc, &iinitData, indexBuff);
+		Locator::getD3D()->GETgDevice()->CreateBuffer(&indexBufferDesc, &iinitData, &rndData->indexBuffer);
 
-		//Create Vertex Buffer
-		D3D11_BUFFER_DESC vertexBufferDesc;
-		ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
+		////Create Vertex Buffer
+		size_t offset = 0;
+		rndData->stride = sizeof(Vertex);
+		Locator::getD3D()->createVertexBuffer(&rndData->vertBuffer, vertices.data(), rndData->stride, offset, vertices.size());
 
-		vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-		vertexBufferDesc.ByteWidth = sizeof(Vertex) * totalVerts;
-		vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		vertexBufferDesc.CPUAccessFlags = 0;
-		vertexBufferDesc.MiscFlags = 0;
 
-		D3D11_SUBRESOURCE_DATA vertexBufferData;
 
-		ZeroMemory(&vertexBufferData, sizeof(vertexBufferData));
-		vertexBufferData.pSysMem = &vertices[0];
-		hr = Locator::getD3D()->GETgDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, vertBuff);
+		//D3D11_BUFFER_DESC vertexBufferDesc;
+		//ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
+
+		//vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+		//vertexBufferDesc.ByteWidth = sizeof(Vertex) * totalVerts;
+		//vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+		//vertexBufferDesc.CPUAccessFlags = 0;
+		//vertexBufferDesc.MiscFlags = 0;
+
+		//D3D11_SUBRESOURCE_DATA vertexBufferData;
+
+		//ZeroMemory(&vertexBufferData, sizeof(vertexBufferData));
+		//vertexBufferData.pSysMem = &vertices[0];
+		//hr = Locator::getD3D()->GETgDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, vertBuff);
 
 		return true;
 }
