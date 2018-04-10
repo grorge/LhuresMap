@@ -142,7 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BasicRenderState.h" />
-    <ClInclude Include="BoxObject.h" />
+    <ClInclude Include="DynObject.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ControlCamera.h" />
     <ClInclude Include="D2D.h" />
@@ -163,7 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BasicRenderState.cpp" />
-    <ClCompile Include="BoxObject.cpp" />
+    <ClCompile Include="DynObject.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ControlCamera.cpp" />
     <ClCompile Include="D2D.cpp" />

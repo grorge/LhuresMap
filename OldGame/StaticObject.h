@@ -23,8 +23,6 @@ public:
 	void update();
 
 private:
-	ID3D11BlendState * Transparency;
-
 	ID3D11Buffer* meshVertBuff;
 	ID3D11Buffer* meshIndexBuff;
 	XMMATRIX meshWorld;
@@ -34,8 +32,6 @@ private:
 
 	std::vector<ID3D11ShaderResourceView*> meshSRV;
 	std::vector<std::wstring> textureNameArray;
-
-	std::vector<SurfaceMaterial> material;
 
 	virtual void createVertexData();
 };

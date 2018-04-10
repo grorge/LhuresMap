@@ -39,7 +39,7 @@ struct rndModeBuff
 {
 	rndModeBuff() {};
 
-	XMINT2 mode;
+	int mode;
 };
 
 struct RenderData

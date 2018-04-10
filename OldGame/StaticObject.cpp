@@ -5,7 +5,6 @@ StaticObject::StaticObject(Camera * cam, std::wstring texFile) : Object(cam, tex
 {
 	this->init();
 
-	//this->modLod->loadObjModel(L"Resources\\bottle.obj", this->rndData, meshSubsetIndexStart, meshSubsetTexture, material, meshSubsets, true, false);
 
 }
 

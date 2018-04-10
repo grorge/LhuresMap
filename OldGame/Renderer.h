@@ -73,6 +73,7 @@ public:
 	void init();
 	
 	void render(std::vector<Object*> objects);
+	void switchRendermode();
 
 	void firstPass();
 	void setShaderType(SHADERTYPE type);

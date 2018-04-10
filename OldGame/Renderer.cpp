@@ -225,6 +225,7 @@ void Renderer::init()
 	this->geoColorShaders.SetShaders(Locator::getD3D()->GETgDevCon());
 	
 	Locator::getD3D()->createConstantBuffer(&this->constBuff, sizeof(objectBuff));
+
 	//Locator::getD3D()->createConstantBuffer(&this->renderModeBuff, sizeof(rndModeBuff));
 
 	this->initSampler(&this->gSampler, D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_COMPARISON_NEVER);
@@ -260,6 +261,10 @@ void Renderer::render(std::vector<Object*> objects)
 
 	Locator::getD3D()->GETswapChain()->Present(0, 0);
 
+}
+
+void Renderer::switchRendermode()
+{
 }
 
 void Renderer::firstPass()

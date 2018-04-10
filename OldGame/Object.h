@@ -52,7 +52,6 @@ protected:
 	RenderData* rndData = nullptr;
 	void createTextureSRV();
 	Camera* cam = nullptr;
-	ModelLoader* modLod = nullptr;
 private:
 	virtual void createVertexData() = 0;
 	std::wstring textureFilename;

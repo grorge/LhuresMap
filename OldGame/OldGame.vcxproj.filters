@@ -40,14 +40,14 @@
     <ClCompile Include="StaticObject.cpp">
       <Filter>GameCont</Filter>
     </ClCompile>
-    <ClCompile Include="BoxObject.cpp">
-      <Filter>GameCont</Filter>
-    </ClCompile>
     <ClCompile Include="ControlCamera.cpp">
       <Filter>BackendLoop\Logic</Filter>
     </ClCompile>
     <ClCompile Include="ModelLoader.cpp">
       <Filter>Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="DynObject.cpp">
+      <Filter>GameCont</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,14 +99,14 @@
     <ClInclude Include="StaticObject.h">
       <Filter>GameCont</Filter>
     </ClInclude>
-    <ClInclude Include="BoxObject.h">
-      <Filter>GameCont</Filter>
-    </ClInclude>
     <ClInclude Include="ControlCamera.h">
       <Filter>BackendLoop\Logic</Filter>
     </ClInclude>
     <ClInclude Include="ModelLoader.h">
       <Filter>Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="DynObject.h">
+      <Filter>GameCont</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
