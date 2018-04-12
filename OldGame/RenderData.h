@@ -33,6 +33,7 @@ struct lightBuff
 
 	XMFLOAT3 pos;
 	XMFLOAT4 color;
+	int fill0;
 };
 
 struct rndModeBuff

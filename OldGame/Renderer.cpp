@@ -20,6 +20,23 @@ void Renderer::initShaders()
 	Locator::getD3D()->GETgDevCon()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
+void Renderer::initBuffers()
+{
+	// Sends the world and WVP to VS
+	Locator::getD3D()->createConstantBuffer(&this->constBuff, sizeof(objectBuff));
+
+	// Sends the rndMode to the PS
+	Locator::getD3D()->createConstantBuffer(&this->renderModeBuff, sizeof(rndModeBuff));
+	this->switchRendermode(0);
+
+	// Sends lighting pos to PS
+	Locator::getD3D()->createConstantBuffer(&this->lightBuffer, sizeof(lightBuff));
+	this->lightData.pos = {100.0f, 300.0f, 500.0f};
+	this->lightData.color = { 1.0f, 1.0f, 1.0f, 1.0f};
+	Locator::getD3D()->mapConstantBuffer(&this->lightBuffer, &this->lightData, sizeof(this->lightData));
+	Locator::getD3D()->setConstantBuffer(this->lightBuffer, SHADER::PIXEL, 1, 1);
+}
+
 void Renderer::bindTextureToRTVAndSRV(ID3D11Texture2D** gTexure, ID3D11RenderTargetView** gRTV, ID3D11ShaderResourceView** gSRV, int width, int height, DXGI_FORMAT format)
 {
 	HRESULT hr;
@@ -224,10 +241,7 @@ void Renderer::init()
 	this->initShaders();
 	this->geoColorShaders.SetShaders(Locator::getD3D()->GETgDevCon());
 	
-	Locator::getD3D()->createConstantBuffer(&this->constBuff, sizeof(objectBuff));
-
-	Locator::getD3D()->createConstantBuffer(&this->renderModeBuff, sizeof(rndModeBuff));
-	this->switchRendermode(0);
+	this->initBuffers();
 
 	this->initSampler(&this->gSampler, D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_COMPARISON_NEVER);
 
