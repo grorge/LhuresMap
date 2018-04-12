@@ -44,6 +44,7 @@ private:
 	//-----BUFFERS
 	ID3D11Buffer * constBuff = nullptr;
 	ID3D11Buffer * renderModeBuff = nullptr;
+	rndModeBuff rndModeData;
 
 	float clearColor[4];
 
@@ -69,15 +70,12 @@ public:
 	void init();
 	
 	void render(std::vector<Object*> objects);
-	void switchRendermode();
+	void switchRendermode(int mode);
 
 	void firstPass();
 	void setShaderType(SHADERTYPE type);
 	void cleanUp();
 private:
-
-	
-
 	const wchar_t* fileNameGeoColorVertex = L"geoPassVertColor.hlsl";
 	const wchar_t* fileNameGeoColorPixel = L"geoPassPixelColor.hlsl";
 };

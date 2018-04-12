@@ -8,11 +8,17 @@
 #include "ControlCamera.h"
 #include "Renderer.h"
 
+enum  class RENDERMODE {
+	TEXTURE, NORMALS,
+	SIZE
+};
+
 class BasicRenderState : public State
 {
 private:
 	static BasicRenderState sBasicRenderState;
 	Renderer renderer;
+	int rndMode = 0;
 
 	Camera* cam = nullptr;
 	ControlCamera* controlCamera = nullptr;

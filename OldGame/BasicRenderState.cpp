@@ -41,10 +41,12 @@ BasicRenderState* BasicRenderState::getInstance() {
 void BasicRenderState::init()
 {
 	this->renderer.init();
+	this->rndMode = int(RENDERMODE::TEXTURE);
 
 	this->cam = new Camera();
 	this->cam->init();
 	this->controlCamera = new ControlCamera(this->cam);
+
 
 
 	this->initScene();
@@ -83,7 +85,9 @@ void BasicRenderState::handleEvents(GameManager * gm)
 			this->controlCamera->updateCamera(msg.wParam);
 			if (msg.wParam == 0x52) // R
 			{
-				
+				this->rndMode++;
+				this->rndMode %= int(RENDERMODE::SIZE);
+				this->renderer.switchRendermode(this->rndMode);
 			}
 		}
 

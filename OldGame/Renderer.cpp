@@ -226,7 +226,8 @@ void Renderer::init()
 	
 	Locator::getD3D()->createConstantBuffer(&this->constBuff, sizeof(objectBuff));
 
-	//Locator::getD3D()->createConstantBuffer(&this->renderModeBuff, sizeof(rndModeBuff));
+	Locator::getD3D()->createConstantBuffer(&this->renderModeBuff, sizeof(rndModeBuff));
+	this->switchRendermode(0);
 
 	this->initSampler(&this->gSampler, D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_COMPARISON_NEVER);
 
@@ -263,8 +264,11 @@ void Renderer::render(std::vector<Object*> objects)
 
 }
 
-void Renderer::switchRendermode()
+void Renderer::switchRendermode(int mode)
 {
+	this->rndModeData.mode = mode;
+	Locator::getD3D()->mapConstantBuffer(&this->renderModeBuff, &this->rndModeData, sizeof(this->rndModeData));
+	Locator::getD3D()->setConstantBuffer(this->renderModeBuff, SHADER::PIXEL, 0, 1);
 }
 
 void Renderer::firstPass()

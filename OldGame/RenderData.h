@@ -40,6 +40,9 @@ struct rndModeBuff
 	rndModeBuff() {};
 
 	int mode;
+	int fill0;
+	int fill1;
+	int fill2;
 };
 
 struct RenderData
