@@ -5,18 +5,7 @@
 #include "ID2D.h"
 
 #include "Locator.h"
-
-//SafeRealse function from the D2D tutorial that might be usefull in other parts of the program
-template<class Interface>
-inline void SafeRelease(Interface **ppInterfaceToRelease)
-{
-	if (*ppInterfaceToRelease != nullptr)
-	{
-		(*ppInterfaceToRelease)->Release();
-
-		(*ppInterfaceToRelease) = nullptr;
-	}
-}
+#include "CleanupTools.h"
 
 class D2D : public ID2D
 {

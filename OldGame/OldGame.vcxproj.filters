@@ -108,6 +108,9 @@
     <ClInclude Include="DynObject.h">
       <Filter>GameCont</Filter>
     </ClInclude>
+    <ClInclude Include="CleanupTools.h">
+      <Filter>Structure</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Setup">

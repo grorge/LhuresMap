@@ -278,23 +278,13 @@ void Renderer::setShaderType(SHADERTYPE type)
 }
 
 void Renderer::cleanUp()
-{
-	//for (auto &i : this->gRTVs) {
-	//	i->Release();
-	//}
-	//for (auto &i : this->gSRVs) {
-	//	i->Release();
-	//}
-	//for (auto &i : this->gTextures) {
-	//	i->Release();
-	//}
-
+{	
 	this->gFinalRTV->Release();
 	this->gDSV->Release();
 	this->gDSB->Release();
 	this->gSampler->Release();
-	this->gQuadVertexBuffer->Release();
 	this->geoColorShaders.Release();
 
 	this->constBuff->Release();
+	SafeRelease(&this->renderModeBuff);
 }

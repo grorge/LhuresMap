@@ -8,8 +8,7 @@
 #include "Shader.h"
 #include "RenderData.h"
 #include "Object.h"
-
-#include <DirectXMath.h>
+#include "CleanupTools.h"
 
 using namespace DirectX;
 
@@ -28,9 +27,6 @@ enum class SHADERTYPE { COLOR, TEXTURE };
 class Renderer
 {
 private:
-	//std::array<ID3D11RenderTargetView*, NUM_DEFERRED_OUTPUTS> gRTVs;
-	//std::array<ID3D11ShaderResourceView*, NUM_TEXTURES> gSRVs;
-	//std::array<ID3D11Texture2D*, NUM_TEXTURES> gTextures;
 	ID3D11RenderTargetView* gFinalRTV = nullptr;
 	ID3D11Texture2D* gDSB = nullptr;
 	ID3D11DepthStencilView* gDSV = nullptr;

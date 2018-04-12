@@ -1,5 +1,5 @@
 #include "D3D.h"
-
+#include "CleanupTools.h"
 
 
 LRESULT CALLBACK wndProc(HWND hwnd, size_t msg, WPARAM wParam, LPARAM lParam);
@@ -198,9 +198,9 @@ void D3D::setRasterizerDesc(D3D11_RASTERIZER_DESC restDesc)
 
 void D3D::cleanup()
 {
-	this->gSwapChain->Release();
-	this->gDevice->Release();
-	this->gDevCon->Release();
+	SafeRelease(&this->gSwapChain);
+	SafeRelease(&this->gDevCon);
+	SafeRelease(&this->gDevice);	
 }
 
 size_t & D3D::GETwWidth()

@@ -52,6 +52,14 @@ void BasicRenderState::init()
 
 void BasicRenderState::cleanUp()
 {
+	for (auto i : this->object)
+	{
+		delete i;
+	}
+
+	this->renderer.cleanUp();
+	delete this->cam;
+	delete this->controlCamera;
 }
 
 void BasicRenderState::pause()

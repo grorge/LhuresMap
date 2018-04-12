@@ -12,6 +12,7 @@ DynObject::DynObject(Camera * cam, std::wstring meshFile, std::wstring texFile) 
 
 DynObject::~DynObject()
 {
+	delete this->modLod;
 }
 
 void DynObject::update()

@@ -56,6 +56,12 @@ struct RenderData
 	RenderData() {}
 	//RenderData(Vertex* v) : vertexes(v)  {}
 	//RenderData(Vertex* v, DirectX::XMFLOAT4 c) : vertexes(v), color(c)  {}
+	~RenderData()
+	{
+		vertBuffer->Release();
+		indexBuffer->Release();
+		texSRV->Release();
+	}
 };
 
 #endif // !RENDERDATA_H

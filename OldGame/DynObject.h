@@ -7,6 +7,7 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 #include "Camera.h"	
+#include "CleanupTools.h"
 
 #include "Object.h"
 

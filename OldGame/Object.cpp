@@ -15,6 +15,7 @@ Object::Object(Camera* cam, std::wstring texFile)
 
 Object::~Object()
 {
+	this->rndData->~RenderData();
 }
 
 void Object::updateWorld()

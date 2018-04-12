@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BasicRenderState.h" />
+    <ClInclude Include="CleanupTools.h" />
     <ClInclude Include="DynObject.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ControlCamera.h" />
