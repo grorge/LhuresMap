@@ -3,6 +3,7 @@ struct PS_IN
 	float4 pos_S		: SV_POSITION;
 	float2 texCoord		: TARGET0;
 	float4 normal		: TARGET1;
+	float4 pos_W		: TARGET2;
 };
 
 struct PS_OUT
@@ -32,27 +33,41 @@ PS_OUT PS(PS_IN input)
 {
 	PS_OUT output;
 
-							// TEXTURE-MODE
-	if (mode == 0)
+							
+	if (mode == 0)			// TEXTURE-MODE
+	{
+		output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
+	}
+	else if (mode == 1)		// NORMALS-MODE
+	{
+		output.diffuse = (input.normal+0.0f);
+	}
+	else if (mode == 2)		// LIGHTDIST
+	{
+		output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
+
+
+		float dist = distance(float4(lightpos, 1.0f), input.pos_W);
+		dist /= 50;
+		output.diffuse *= (lightcolor * 1000.0f) / (pow(dist, 2));
+	}
+	else if (mode == 3)		// LIGHTNORMAL
 	{
 		output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
 
 		// WIP
-		output.diffuse += (lightcolor) * (input.normal/10.0f);
+		float dist = distance(float4(lightpos, 1.0f), input.pos_W);
+		dist /= 50;
+		output.diffuse *= (lightcolor * 1000.0f) / (pow(dist, 2));
 	}
-	else if (mode == 1)		// NORMALS-MODE
+	else					// Default TEXTURE
 	{
-		output.diffuse = (input.normal+0.1f);
-	}
-	else					// RENDERWHITE-MODE
-	{
-		output.diffuse = float4(lightpos.x * 0.3, 0.0f, 0.0f, 1.0f);
+		output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
 	}
 
 
 
-	// RENDERWHITE-MODE
-
+	saturate(output.diffuse);
 
 	return output;
 }

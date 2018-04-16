@@ -41,7 +41,8 @@ BasicRenderState* BasicRenderState::getInstance() {
 void BasicRenderState::init()
 {
 	this->renderer.init();
-	this->rndMode = int(RENDERMODE::TEXTURE);
+	this->rndMode = int(RENDERMODE::NORMALS);
+	this->renderer.switchRendermode(this->rndMode);
 
 	this->cam = new Camera();
 	this->cam->init();

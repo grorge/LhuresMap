@@ -9,7 +9,7 @@
 #include "Renderer.h"
 
 enum  class RENDERMODE {
-	TEXTURE, NORMALS, LIGHT,
+	TEXTURE, NORMALS, LIGHTDIST, LIGHTNORMAL,
 	SIZE
 };
 
