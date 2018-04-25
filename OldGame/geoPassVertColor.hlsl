@@ -32,7 +32,7 @@ VS_OUT VS(VS_IN input)
 	output.texCoord = input.texCoord;
 
 	//output.normal = float4(input.normal, 1.0f);
-	output.normal = normalize(mul(float4(input.normal, 1.0f), world));
+	output.normal = normalize(float4(mul(input.normal, (float3x3)world), 1.0f));
 
 	return output;
 }

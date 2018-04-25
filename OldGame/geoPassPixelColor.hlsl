@@ -40,7 +40,7 @@ PS_OUT PS(PS_IN input)
 	}
 	else if (mode == 1)		// NORMALS-MODE
 	{
-		output.diffuse = (input.normal+0.0f);
+		output.diffuse = (input.normal);
 	}
 	else if (mode == 2)		// LIGHTDIST
 	{
@@ -54,11 +54,18 @@ PS_OUT PS(PS_IN input)
 	else if (mode == 3)		// LIGHTNORMAL
 	{
 		output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
+		//output.diffuse = float4(1.0f, 1.0f, 1.0f, 1.0f);
 
-		// WIP
 		float dist = distance(float4(lightpos, 1.0f), input.pos_W);
-		dist /= 50;
+		dist /= 100;
 		output.diffuse *= (lightcolor * 1000.0f) / (pow(dist, 2));
+
+
+		float4 lightdir = normalize(input.pos_W - float4(lightpos, 1.0f));
+		//lightdir = !lightdir;
+		float lightstrength = saturate(dot(input.normal * -1, lightdir));
+		output.diffuse *= lightstrength;
+
 	}
 	else					// Default TEXTURE
 	{

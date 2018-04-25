@@ -31,7 +31,7 @@ void Renderer::initBuffers()
 
 	// Sends lighting pos to PS
 	Locator::getD3D()->createConstantBuffer(&this->lightBuffer, sizeof(lightBuff));
-	this->lightData.pos = {0.0f, 2000.0f, 0.0f};
+	this->lightData.pos = {2000.0f, 2000.0f, 0.0f};
 	this->lightData.color = { 1.0f, 1.0f, 1.0f, 1.0f};
 	Locator::getD3D()->mapConstantBuffer(&this->lightBuffer, &this->lightData, sizeof(this->lightData));
 	Locator::getD3D()->setConstantBuffer(this->lightBuffer, SHADER::PIXEL, 1, 1);
