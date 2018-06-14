@@ -6,6 +6,7 @@
 
 #include <DXGI.h>
 #include <D2D1.h>
+#include <sstream>
 #include <d2d1.h>
 #include <d2d1helper.h>
 #include <Dwrite.h>
@@ -39,7 +40,10 @@ public:
 
 	virtual ID2D1RenderTarget* GETRenderTarget() = 0;
 	virtual IDWriteTextFormat* GETTextFormat() = 0;
-	
+
+	// Draw content.
+	virtual HRESULT OnRender() = 0;
+
 	// Clears the screenshot
 	virtual void closeMenu() = 0;
 	// Cleans memory

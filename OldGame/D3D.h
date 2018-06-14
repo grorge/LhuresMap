@@ -51,6 +51,7 @@ public:
 
 	virtual IDXGISurface1*& GETsurface10();
 	virtual void prepD2D();
+	virtual void deprepD2D();
 };
 
 

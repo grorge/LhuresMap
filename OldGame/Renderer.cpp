@@ -299,6 +299,9 @@ void Renderer::render(std::vector<Object*> objects)
 	}
 
 	Locator::getD3D()->prepD2D();
+	Locator::getD2D()->OnRender();
+	Locator::getD3D()->deprepD2D();
+
 
 	Locator::getD3D()->GETswapChain()->Present(0, 0);
 

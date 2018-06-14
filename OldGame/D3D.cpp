@@ -378,6 +378,15 @@ void D3D::prepD2D()
 	this->keyedMutex10->AcquireSync(0, 5);
 }
 
+void D3D::deprepD2D()
+{
+	keyedMutex10->ReleaseSync(1);
+
+	keyedMutex11->AcquireSync(1, 5);
+
+
+}
+
 LRESULT CALLBACK wndProc(HWND hwnd, size_t msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)

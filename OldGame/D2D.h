@@ -51,6 +51,9 @@ private:
 	UINT destinationWidth;
 	UINT destinationHeight;
 	ID2D1Bitmap* pBitmap = nullptr;
+
+
+	std::wstring printText;
 };
 
 
