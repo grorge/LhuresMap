@@ -63,7 +63,8 @@ void D3D::createSwapChain()
 	memset(&swapChainDesc, 0, sizeof(DXGI_SWAP_CHAIN_DESC));
 
 	swapChainDesc.BufferCount = 1;                                  // one back buffer
-	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;   // use 32-bit color
+	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;   // use 32-bit color
+	//swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // use 32-bit color
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;    // how swap chain is to be used
 	swapChainDesc.OutputWindow = this->hwnd;						// the window to be used
 	swapChainDesc.SampleDesc.Count = 1;                             // how many multisamples
@@ -87,15 +88,68 @@ void D3D::createSwapChain()
 
 
 	// Create the SwapChain
-#ifdef _DEBUG
-	hr = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, D3D11_CREATE_DEVICE_DEBUG, nullptr, NULL, D3D11_SDK_VERSION, &swapChainDesc, &gSwapChain, &gDevice, nullptr, &gDevCon);
-#else
-	hr = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, D3D11_CREATE_DEVICE_SINGLETHREADED, nullptr, NULL, D3D11_SDK_VERSION, &swapChainDesc, &gSwapChain, &gDevice, nullptr, &gDevCon);
-#endif
+	hr = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT, 
+		nullptr, NULL, D3D11_SDK_VERSION, &swapChainDesc, &gSwapChain, &gDevice, nullptr, &gDevCon);
+
+	// Old without D2D integrated
+//#ifdef _DEBUG
+//	hr = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, D3D11_CREATE_DEVICE_DEBUG, nullptr, NULL, D3D11_SDK_VERSION, &swapChainDesc, &gSwapChain, &gDevice, nullptr, &gDevCon);
+//#else
+//	hr = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, D3D11_CREATE_DEVICE_SINGLETHREADED, nullptr, NULL, D3D11_SDK_VERSION, &swapChainDesc, &gSwapChain, &gDevice, nullptr, &gDevCon);
+//#endif
 	if (FAILED(hr)) {
 		MessageBox(0, "Create Swapchain - Failed", "Error", MB_OK);
 		_exit(0);
 	}
+
+	this->createD2Drendering(Adapter);
+
+	Adapter->Release();
+}
+
+void D3D::createD2Drendering(IDXGIAdapter1 * Adapter)
+{
+	//Create our Direc3D 10.1 Device///////////////////////////////////////////////////////////////////////////////////////
+	HRESULT hr = D3D10CreateDevice1(Adapter, D3D10_DRIVER_TYPE_HARDWARE, NULL, D3D10_CREATE_DEVICE_DEBUG | D3D10_CREATE_DEVICE_BGRA_SUPPORT,
+		D3D10_FEATURE_LEVEL_9_3, D3D10_1_SDK_VERSION, &d3d101Device);
+
+	//Create Shared Texture that Direct3D 10.1 will render on//////////////////////////////////////////////////////////////
+	D3D11_TEXTURE2D_DESC sharedTexDesc;
+
+	ZeroMemory(&sharedTexDesc, sizeof(sharedTexDesc));
+
+	sharedTexDesc.Width = this->wWidth;
+	sharedTexDesc.Height = this->wHeight;
+	sharedTexDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+	sharedTexDesc.MipLevels = 1;
+	sharedTexDesc.ArraySize = 1;
+	sharedTexDesc.SampleDesc.Count = 1;
+	sharedTexDesc.Usage = D3D11_USAGE_DEFAULT;
+	sharedTexDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
+	sharedTexDesc.MiscFlags = D3D11_RESOURCE_MISC_SHARED_KEYEDMUTEX;
+
+	hr = gDevice->CreateTexture2D(&sharedTexDesc, NULL, &sharedTex11);
+
+	// Get the keyed mutex for the shared texture (for D3D11)///////////////////////////////////////////////////////////////
+	hr = sharedTex11->QueryInterface(__uuidof(IDXGIKeyedMutex), (void**)&keyedMutex11);
+
+	// The D3D11 texture?
+	IDXGIResource *sharedResource10;
+	HANDLE sharedHandle10;
+
+	hr = sharedTex11->QueryInterface(__uuidof(IDXGIResource), (void**)&sharedResource10);
+
+	hr = sharedResource10->GetSharedHandle(&sharedHandle10);
+
+	sharedResource10->Release();
+
+	// The keyed mutex is used for interpeting the D3D11 texture so D3D10.1 can read it
+	IDXGISurface1 *sharedSurface10;
+
+	hr = this->d3d101Device->OpenSharedResource(sharedHandle10, __uuidof(IDXGISurface1), (void**)(&sharedSurface10));
+
+	hr = sharedSurface10->QueryInterface(__uuidof(IDXGIKeyedMutex), (void**)&keyedMutex10);
+
 }
 
 void D3D::createVertexBuffer(ID3D11Buffer ** gVertexBuffer, void* v, size_t& stride, size_t& offset, size_t numVertices)

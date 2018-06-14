@@ -17,6 +17,7 @@ private:
 	ID3D11RasterizerState* gRastState = nullptr;
 
 	// For D2D rendering
+	void createD2Drendering(IDXGIAdapter1 *Adapter);
 	ID3D10Device1 *d3d101Device;
 	IDXGIKeyedMutex *keyedMutex11;
 	IDXGIKeyedMutex *keyedMutex10;

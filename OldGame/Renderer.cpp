@@ -154,7 +154,7 @@ void Renderer::createViewportAndRasterizer()
 	memset(&rasterStateDesc, 0, sizeof(D3D11_RASTERIZER_DESC));
 	
 	rasterStateDesc.FillMode = D3D11_FILL_SOLID;
-	rasterStateDesc.CullMode = D3D11_CULL_BACK;
+	rasterStateDesc.CullMode = D3D11_CULL_NONE;
 
 	Locator::getD3D()->setRasterizerDesc(rasterStateDesc);
 }
@@ -171,7 +171,8 @@ void Renderer::createBackBufferRTV()
 	bufferDesc.Height = Locator::getD3D()->GETwHeight();
 	bufferDesc.RefreshRate.Numerator = 60;
 	bufferDesc.RefreshRate.Denominator = 1;
-	bufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	bufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+	//bufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	bufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	bufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
