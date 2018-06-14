@@ -154,7 +154,7 @@ void Renderer::createViewportAndRasterizer()
 	memset(&rasterStateDesc, 0, sizeof(D3D11_RASTERIZER_DESC));
 	
 	rasterStateDesc.FillMode = D3D11_FILL_SOLID;
-	rasterStateDesc.CullMode = D3D11_CULL_NONE;
+	rasterStateDesc.CullMode = D3D11_CULL_BACK;
 
 	Locator::getD3D()->setRasterizerDesc(rasterStateDesc);
 }
@@ -189,7 +189,7 @@ void Renderer::createBackBufferRTV()
 		MessageBox(0, "Create Render Target View - Failed", "Error", MB_OK);
 		_exit(0);
 	}
-	BackBuffer->Release();
+	//BackBuffer->Release();
 }
 
 void Renderer::createDepthStencilView(/*size_t width, size_t height, ID3D11DepthStencilView ** gDSV, ID3D11Texture2D ** gDSB*/)

@@ -385,3 +385,8 @@ void D2D::cleanUp()
 	// Background-screenshot
 	this->closeMenu();
 }
+
+void D2D::setBackbuffer(ID3D11Texture2D * pBB)
+{
+	this->r_pBackBuffer = pBB;
+}

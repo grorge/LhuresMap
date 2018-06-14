@@ -21,7 +21,11 @@ public:
 	virtual void saveScreen() { this->saveScreenshot(); this->loadBitmap(); };
 	virtual void closeMenu();
 	virtual void cleanUp();
+	virtual void setBackbuffer(ID3D11Texture2D* pBB);
 private:
+	// D3D backbuffer
+	ID3D11Texture2D * r_pBackBuffer;
+
 	// D2D device
 	ID2D1Factory* m_pDirect2dFactory = nullptr;
 	// Render target, dose all calls to render

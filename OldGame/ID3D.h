@@ -3,7 +3,11 @@
 #define ID3D_H
 
 #include <d3d11.h>
+#include <D3D10_1.h>
 #include <DirectXMath.h>
+#include <DXGI.h>
+#pragma comment (lib, "DXGI.lib")
+#pragma comment (lib, "D3D10_1.lib")
 
 enum class SHADER { VERTEX, PIXEL };
 

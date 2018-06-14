@@ -15,6 +15,13 @@ private:
 	size_t wHeight = 0;
 
 	ID3D11RasterizerState* gRastState = nullptr;
+
+	// For D2D rendering
+	ID3D10Device1 *d3d101Device;
+	IDXGIKeyedMutex *keyedMutex11;
+	IDXGIKeyedMutex *keyedMutex10;
+	ID3D11Texture2D *BackBuffer11;
+	ID3D11Texture2D *sharedTex11;
 public:
 	virtual void initializeWindow(HINSTANCE hInstance, int ShowWnd, int width, int height, bool windowed);
 	virtual void createSwapChain();

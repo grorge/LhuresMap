@@ -3,10 +3,14 @@
 #define ID2D_H
 
 #include <vector>
+
+#include <DXGI.h>
+#include <D2D1.h>
 #include <d2d1.h>
 #include <d2d1helper.h>
 #include <Dwrite.h>
 #include <wincodec.h>
+#pragma comment (lib, "DXGI.lib")
 #pragma comment(lib, "d2d1")
 #pragma comment(lib, "Dwrite")
 #pragma comment(lib, "Windowscodecs")
@@ -42,6 +46,8 @@ public:
 	virtual void closeMenu() = 0;
 	// Cleans memory
 	virtual void cleanUp() = 0;
+	// Gives the backbuffer from the renderer
+	//virtual void setBackbuffer(ID3D11Texture2D* pBB) = 0;
 };
 
 

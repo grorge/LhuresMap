@@ -71,6 +71,21 @@ void D3D::createSwapChain()
 	swapChainDesc.Windowed = TRUE;
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
+	// Create DXGI factory to enumerate adapters///////////////////////////////////////////////////////////////////////////
+	IDXGIFactory1 *DXGIFactory;
+
+	hr = CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)&DXGIFactory);
+
+	// Use the first adapter	
+	IDXGIAdapter1 *Adapter;
+
+	hr = DXGIFactory->EnumAdapters1(0, &Adapter);
+
+	DXGIFactory->Release();
+
+	///////////////////////////////////////////////////////////
+
+
 	// Create the SwapChain
 #ifdef _DEBUG
 	hr = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, D3D11_CREATE_DEVICE_DEBUG, nullptr, NULL, D3D11_SDK_VERSION, &swapChainDesc, &gSwapChain, &gDevice, nullptr, &gDevCon);
