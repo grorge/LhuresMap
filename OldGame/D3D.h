@@ -23,6 +23,10 @@ private:
 	IDXGIKeyedMutex *keyedMutex10;
 	ID3D11Texture2D *BackBuffer11;
 	ID3D11Texture2D *sharedTex11;
+	// Makes the square that will have D2D rendered to it
+	ID3D11Buffer *d2dVertBuffer;
+	ID3D11Buffer *d2dIndexBuffer;
+	ID3D11ShaderResourceView *d2dTexture;
 
 	IDXGISurface1 *sharedSurface;
 public:
@@ -46,6 +50,7 @@ public:
 	virtual IDXGISwapChain*& GETswapChain();
 
 	virtual IDXGISurface1*& GETsurface10();
+	virtual void prepD2D();
 };
 
 

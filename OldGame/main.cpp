@@ -22,11 +22,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);
 	_CrtMemState s1;
 	_CrtMemCheckpoint(&s1);
-	// 7295 addComponent (AIComponent)
-	// 258, 365, 380, 381 something in audiomanager
-	// 1936 something with the quadtree initialization
-	// 6054 something with KeyboardInput
-	// 6063, 6074 something in KeyboardInput or InputComponent
 	//	_CrtSetBreakAlloc(6114);
 #endif
 

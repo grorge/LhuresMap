@@ -150,7 +150,70 @@ void D3D::createD2Drendering(IDXGIAdapter1 * Adapter)
 
 	hr = sharedSurface10->QueryInterface(__uuidof(IDXGIKeyedMutex), (void**)&keyedMutex10);
 
+	this->sharedSurface = sharedSurface10;
+	
+	d3d101Device->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_POINTLIST);
+
+
+	////////////////////////////////////
+
+	struct Vertex
+	{
+		float x, y, z, w;
+	};
+
+	//Create the vertex buffer
+	Vertex v[] =
+	{
+		// Front Face
+		-1.0f, -1.0f, -1.0f, 1.0f, 
+		-1.0f,  1.0f, -1.0f, 1.0f,
+		1.0f,  1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, -1.0f, 1.0f
+	};
+
+	DWORD indices[] = {
+		// Front Face
+		0,  1,  2,
+		0,  2,  3,
+	};
+
+	D3D11_BUFFER_DESC indexBufferDesc;
+	ZeroMemory(&indexBufferDesc, sizeof(indexBufferDesc));
+
+	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	indexBufferDesc.ByteWidth = sizeof(DWORD) * 2 * 3;
+	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	indexBufferDesc.CPUAccessFlags = 0;
+	indexBufferDesc.MiscFlags = 0;
+
+	D3D11_SUBRESOURCE_DATA iinitData;
+
+	iinitData.pSysMem = indices;
+	this->gDevice->CreateBuffer(&indexBufferDesc, &iinitData, &d2dIndexBuffer);
+
+
+	D3D11_BUFFER_DESC vertexBufferDesc;
+	ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
+
+	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	vertexBufferDesc.ByteWidth = sizeof(Vertex) * 4;
+	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBufferDesc.CPUAccessFlags = 0;
+	vertexBufferDesc.MiscFlags = 0;
+
+	D3D11_SUBRESOURCE_DATA vertexBufferData;
+
+	ZeroMemory(&vertexBufferData, sizeof(vertexBufferData));
+	vertexBufferData.pSysMem = v;
+	hr = this->gDevice->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &d2dVertBuffer);
+
+	//Create A shader resource view from the texture D2D will render to,
+	//So we can use it to texture a square which overlays our scene
+	this->gDevice->CreateShaderResourceView(sharedTex11, NULL, &this->d2dTexture);
 }
+
+
 
 void D3D::createVertexBuffer(ID3D11Buffer ** gVertexBuffer, void* v, size_t& stride, size_t& offset, size_t numVertices)
 {	
@@ -305,6 +368,14 @@ IDXGISwapChain *& D3D::GETswapChain()
 IDXGISurface1 *& D3D::GETsurface10()
 {
 	return this->sharedSurface;
+}
+
+void D3D::prepD2D()
+{
+	// The zero is to sync over diffrent threads
+	this->keyedMutex11->ReleaseSync(0);
+
+	this->keyedMutex10->AcquireSync(0, 5);
 }
 
 LRESULT CALLBACK wndProc(HWND hwnd, size_t msg, WPARAM wParam, LPARAM lParam)

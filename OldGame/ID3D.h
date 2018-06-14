@@ -34,6 +34,7 @@ public:
 	virtual IDXGISwapChain*& GETswapChain() = 0;
 
 	virtual IDXGISurface1*& GETsurface10() = 0;
+	virtual void prepD2D() = 0;
 };
 
 

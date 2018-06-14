@@ -16,9 +16,8 @@ public:
 	// Draw content.
 	virtual HRESULT OnRender();
 
-	virtual ID2D1HwndRenderTarget* GETRenderTarget() { return this->m_pRenderTarget; }
+	virtual ID2D1RenderTarget* GETRenderTarget() { return this->m_pRenderTarget; }
 	virtual IDWriteTextFormat* GETTextFormat() { return this->m_pTextFormat; }
-	virtual void saveScreen() { this->saveScreenshot(); this->loadBitmap(); };
 	virtual void closeMenu();
 	virtual void cleanUp();
 	virtual void setBackbuffer(ID3D11Texture2D* pBB);
@@ -29,7 +28,7 @@ private:
 	// D2D device
 	ID2D1Factory* m_pDirect2dFactory = nullptr;
 	// Render target, dose all calls to render
-	ID2D1HwndRenderTarget* m_pRenderTarget = nullptr;
+	ID2D1RenderTarget* m_pRenderTarget = nullptr;
 	// D2D device for text
 	IDWriteFactory* m_pDirectWriteFactory = nullptr;
 	// Holds formating for text, ea Font
@@ -39,14 +38,8 @@ private:
 	HRESULT CreateDeviceIndependentResources();
 
 	// Initialize device-dependent resources.
-	HRESULT CreateDeviceResources();
-
-	//Take a screenshot of the window and saves it to a .bmp
-	void saveScreenshot();
-
-	//Loads the pBitmap with the screenshot
-	void loadBitmap();
-
+	HRESULT CreateDeviceResources(IDXGISurface1 *sSurface10);
+	
 	// Release device-dependent resource.
 	void DiscardDeviceResources();
 

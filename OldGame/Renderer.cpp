@@ -97,6 +97,26 @@ void Renderer::initSampler(ID3D11SamplerState** gSampler, D3D11_FILTER filter, D
 {
 	HRESULT hr;
 
+	//D3D11_BLEND_DESC blendDesc;
+	//ZeroMemory(&blendDesc, sizeof(blendDesc));
+
+	//D3D11_RENDER_TARGET_BLEND_DESC rtbd;
+	//ZeroMemory(&rtbd, sizeof(rtbd));
+
+	//rtbd.BlendEnable = true;
+	//rtbd.SrcBlend = D3D11_BLEND_SRC_COLOR;
+	/////////////////**************new**************////////////////////
+	//rtbd.DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	/////////////////**************new**************////////////////////
+	//rtbd.BlendOp = D3D11_BLEND_OP_ADD;
+	//rtbd.SrcBlendAlpha = D3D11_BLEND_ONE;
+	//rtbd.DestBlendAlpha = D3D11_BLEND_ZERO;
+	//rtbd.BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	//rtbd.RenderTargetWriteMask = D3D10_COLOR_WRITE_ENABLE_ALL;
+
+	//blendDesc.AlphaToCoverageEnable = false;
+	//blendDesc.RenderTarget[0] = rtbd;
+
 	D3D11_SAMPLER_DESC sampDesc;
 	memset(&sampDesc, 0, sizeof(D3D11_SAMPLER_DESC));
 	sampDesc.Filter = filter;
@@ -112,6 +132,10 @@ void Renderer::initSampler(ID3D11SamplerState** gSampler, D3D11_FILTER filter, D
 		MessageBox(0, "Create Samplerstate - Failed", "Error", MB_OK);
 		_exit(0);
 	}
+
+
+	//hr = Locator::getD3D()->GETgDevice()->CreateBlendState(&blendDesc, &Transparency);
+
 }
 
 void Renderer::createQuad()
@@ -274,6 +298,7 @@ void Renderer::render(std::vector<Object*> objects)
 		Locator::getD3D()->GETgDevCon()->DrawIndexed(rndData->numbIndices, 0, 0);
 	}
 
+	Locator::getD3D()->prepD2D();
 
 	Locator::getD3D()->GETswapChain()->Present(0, 0);
 
