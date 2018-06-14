@@ -32,7 +32,13 @@ public:
 	virtual ID3D11Device*& GETgDevice() = 0;
 	virtual ID3D11DeviceContext*& GETgDevCon() = 0;
 	virtual IDXGISwapChain*& GETswapChain() = 0;
+	virtual ID3D11BlendState*& GETTransp() = 0;
 
+	//Blending
+	virtual void blendedDraw(size_t numbInd) = 0;
+
+
+	// D2D interactions
 	virtual IDXGISurface1*& GETsurface10() = 0;
 	virtual void prepD2D() = 0;
 	virtual void deprepD2D() = 0;

@@ -97,26 +97,6 @@ void Renderer::initSampler(ID3D11SamplerState** gSampler, D3D11_FILTER filter, D
 {
 	HRESULT hr;
 
-	//D3D11_BLEND_DESC blendDesc;
-	//ZeroMemory(&blendDesc, sizeof(blendDesc));
-
-	//D3D11_RENDER_TARGET_BLEND_DESC rtbd;
-	//ZeroMemory(&rtbd, sizeof(rtbd));
-
-	//rtbd.BlendEnable = true;
-	//rtbd.SrcBlend = D3D11_BLEND_SRC_COLOR;
-	/////////////////**************new**************////////////////////
-	//rtbd.DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-	/////////////////**************new**************////////////////////
-	//rtbd.BlendOp = D3D11_BLEND_OP_ADD;
-	//rtbd.SrcBlendAlpha = D3D11_BLEND_ONE;
-	//rtbd.DestBlendAlpha = D3D11_BLEND_ZERO;
-	//rtbd.BlendOpAlpha = D3D11_BLEND_OP_ADD;
-	//rtbd.RenderTargetWriteMask = D3D10_COLOR_WRITE_ENABLE_ALL;
-
-	//blendDesc.AlphaToCoverageEnable = false;
-	//blendDesc.RenderTarget[0] = rtbd;
-
 	D3D11_SAMPLER_DESC sampDesc;
 	memset(&sampDesc, 0, sizeof(D3D11_SAMPLER_DESC));
 	sampDesc.Filter = filter;
@@ -134,8 +114,38 @@ void Renderer::initSampler(ID3D11SamplerState** gSampler, D3D11_FILTER filter, D
 	}
 
 
-	//hr = Locator::getD3D()->GETgDevice()->CreateBlendState(&blendDesc, &Transparency);
+}
 
+void Renderer::initBlend()
+{
+	HRESULT hr;
+
+	float tempBlendFactor[4] = { 0.75f, 0.75f, 0.75f, 1.0f };
+
+	this->blendFactor[0] = tempBlendFactor[0];
+	this->blendFactor[1] = tempBlendFactor[1];
+	this->blendFactor[2] = tempBlendFactor[2];
+	this->blendFactor[3] = tempBlendFactor[3];
+
+	D3D11_BLEND_DESC blendDesc;
+	ZeroMemory(&blendDesc, sizeof(blendDesc));
+
+	D3D11_RENDER_TARGET_BLEND_DESC rtbd;
+	ZeroMemory(&rtbd, sizeof(rtbd));
+
+	rtbd.BlendEnable = true;
+	rtbd.SrcBlend = D3D11_BLEND_SRC_COLOR;
+	rtbd.DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	rtbd.BlendOp = D3D11_BLEND_OP_ADD;
+	rtbd.SrcBlendAlpha = D3D11_BLEND_ONE;
+	rtbd.DestBlendAlpha = D3D11_BLEND_ZERO;
+	rtbd.BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	rtbd.RenderTargetWriteMask = D3D10_COLOR_WRITE_ENABLE_ALL;
+
+	blendDesc.AlphaToCoverageEnable = false;
+	blendDesc.RenderTarget[0] = rtbd;
+
+	hr = Locator::getD3D()->GETgDevice()->CreateBlendState(&blendDesc, &Locator::getD3D()->GETTransp());
 }
 
 void Renderer::createQuad()
@@ -270,6 +280,8 @@ void Renderer::init()
 
 	this->initSampler(&this->gSampler, D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_COMPARISON_NEVER);
 
+	this->initBlend();
+
 	this->createViewportAndRasterizer();
 
 	Locator::getD3D()->GETgDevCon()->RSSetViewports(1, &this->viewport);
@@ -279,11 +291,20 @@ void Renderer::render(std::vector<Object*> objects)
 {
 	Locator::getD3D()->GETgDevCon()->ClearRenderTargetView(this->gFinalRTV, this->clearColor);
 	Locator::getD3D()->GETgDevCon()->ClearDepthStencilView(this->gDSV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	
+	//Set the default blend state (no blending) for opaque objects
+	Locator::getD3D()->GETgDevCon()->OMSetBlendState(0, 0, 0xffffffff);
 
 
 	size_t offset = 0;
+	int test = 0;
 	for (auto i : objects)
 	{
+		if (test == 2)
+		{
+			//Set the blend state for transparent objects
+			Locator::getD3D()->GETgDevCon()->OMSetBlendState(Locator::getD3D()->GETTransp(), blendFactor, 0xffffffff);
+		}
 		RenderData* rndData = i->GETRenderData();
 
 		Locator::getD3D()->mapConstantBuffer(&this->constBuff, &rndData->objBuffData, sizeof(rndData->objBuffData));
@@ -295,8 +316,10 @@ void Renderer::render(std::vector<Object*> objects)
 		Locator::getD3D()->GETgDevCon()->PSSetShaderResources(0, 1, &rndData->texSRV);
 		Locator::getD3D()->GETgDevCon()->PSSetSamplers(0, 1, &this->gSampler);
 
-		Locator::getD3D()->GETgDevCon()->DrawIndexed(rndData->numbIndices, 0, 0);
+		Locator::getD3D()->blendedDraw(rndData->numbIndices);
+		test++;
 	}
+
 
 	Locator::getD3D()->prepD2D();
 	Locator::getD2D()->OnRender();

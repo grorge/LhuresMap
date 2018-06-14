@@ -324,15 +324,26 @@ void D3D::setConstantBuffer(ID3D11Buffer *& cBuffer, SHADER shader, size_t slot,
 
 void D3D::setRasterizerDesc(D3D11_RASTERIZER_DESC restDesc)
 {
+	// REMOVE THiS WHEN CCW AND CW IS IMPLEMENTED
 	this->gDevice->CreateRasterizerState(&restDesc, &this->gRastState);
 	this->gDevCon->RSSetState(this->gRastState);
+
+	restDesc.FrontCounterClockwise = true;
+	this->gDevice->CreateRasterizerState(&restDesc, &this->CCWcullMode);
+	restDesc.FrontCounterClockwise = false;
+	this->gDevice->CreateRasterizerState(&restDesc, &this->CWcullMode);
+
+
 }
 
 void D3D::cleanup()
 {
 	SafeRelease(&this->gSwapChain);
 	SafeRelease(&this->gDevCon);
-	SafeRelease(&this->gDevice);	
+	SafeRelease(&this->gDevice);
+	SafeRelease(&this->Transparency);
+	SafeRelease(&this->CCWcullMode);
+	SafeRelease(&this->CWcullMode);
 }
 
 size_t & D3D::GETwWidth()
@@ -363,6 +374,20 @@ ID3D11DeviceContext *& D3D::GETgDevCon()
 IDXGISwapChain *& D3D::GETswapChain()
 {
 	return this->gSwapChain;
+}
+
+ID3D11BlendState *& D3D::GETTransp()
+{
+	return this->Transparency;
+}
+
+void D3D::blendedDraw(size_t numbInd)
+{
+	this->gDevCon->RSSetState(this->CCWcullMode);
+	this->gDevCon->DrawIndexed(numbInd, 0, 0);
+
+	this->gDevCon->RSSetState(this->CWcullMode);
+	this->gDevCon->DrawIndexed(numbInd, 0, 0);
 }
 
 IDXGISurface1 *& D3D::GETsurface10()

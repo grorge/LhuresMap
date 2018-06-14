@@ -16,6 +16,11 @@ private:
 
 	ID3D11RasterizerState* gRastState = nullptr;
 
+	//Blending
+	ID3D11BlendState* Transparency;
+	ID3D11RasterizerState* CCWcullMode;
+	ID3D11RasterizerState* CWcullMode;
+
 	// For D2D rendering
 	void createD2Drendering(IDXGIAdapter1 *Adapter);
 	ID3D10Device1 *d3d101Device;
@@ -28,6 +33,7 @@ private:
 	ID3D11Buffer *d2dIndexBuffer;
 	ID3D11ShaderResourceView *d2dTexture;
 
+	// -to be sent to D2D
 	IDXGISurface1 *sharedSurface;
 public:
 	virtual void initializeWindow(HINSTANCE hInstance, int ShowWnd, int width, int height, bool windowed);
@@ -48,6 +54,9 @@ public:
 	virtual ID3D11Device*& GETgDevice();
 	virtual ID3D11DeviceContext*& GETgDevCon();
 	virtual IDXGISwapChain*& GETswapChain();
+	virtual ID3D11BlendState*& GETTransp();
+
+	virtual void blendedDraw(size_t numbInd);
 
 	virtual IDXGISurface1*& GETsurface10();
 	virtual void prepD2D();
