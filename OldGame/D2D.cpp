@@ -1,6 +1,6 @@
 #include "D2D.h"
 
-HRESULT D2D::Initialize()
+HRESULT D2D::Initialize(IDXGISurface1 *sSurface10)
 {
 	HRESULT hr;
 

@@ -11,7 +11,7 @@ class D2D : public ID2D
 {
 public:
 	// Register the window class and call methods for instantiating drawing resources
-	virtual HRESULT Initialize();
+	virtual HRESULT Initialize(IDXGISurface1 *sSurface10);
 
 	// Draw content.
 	virtual HRESULT OnRender();

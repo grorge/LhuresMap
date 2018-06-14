@@ -32,7 +32,7 @@ class ID2D
 {
 public:
 	// Register the window class and call methods for instantiating drawing resources
-	virtual HRESULT Initialize() = 0;
+	virtual HRESULT Initialize(IDXGISurface1 *sSurface10) = 0;
 
 	// Draw content.
 	//virtual HRESULT OnRender(std::vector<MenuObject*> objects) = 0;

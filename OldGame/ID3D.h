@@ -32,6 +32,8 @@ public:
 	virtual ID3D11Device*& GETgDevice() = 0;
 	virtual ID3D11DeviceContext*& GETgDevCon() = 0;
 	virtual IDXGISwapChain*& GETswapChain() = 0;
+
+	virtual IDXGISurface1*& GETsurface10() = 0;
 };
 
 

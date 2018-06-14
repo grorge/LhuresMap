@@ -23,6 +23,8 @@ private:
 	IDXGIKeyedMutex *keyedMutex10;
 	ID3D11Texture2D *BackBuffer11;
 	ID3D11Texture2D *sharedTex11;
+
+	IDXGISurface1 *sharedSurface;
 public:
 	virtual void initializeWindow(HINSTANCE hInstance, int ShowWnd, int width, int height, bool windowed);
 	virtual void createSwapChain();
@@ -42,6 +44,8 @@ public:
 	virtual ID3D11Device*& GETgDevice();
 	virtual ID3D11DeviceContext*& GETgDevCon();
 	virtual IDXGISwapChain*& GETswapChain();
+
+	virtual IDXGISurface1*& GETsurface10();
 };
 
 

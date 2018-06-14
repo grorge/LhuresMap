@@ -302,6 +302,11 @@ IDXGISwapChain *& D3D::GETswapChain()
 	return this->gSwapChain;
 }
 
+IDXGISurface1 *& D3D::GETsurface10()
+{
+	return this->sharedSurface;
+}
+
 LRESULT CALLBACK wndProc(HWND hwnd, size_t msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)

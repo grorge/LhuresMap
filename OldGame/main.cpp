@@ -3,8 +3,6 @@
 #include <Windows.h>
 #include "GameManager.h"
 #include "Locator.h"
-#include "ID3D.h"
-#include "ID2D.h"
 #include "D3D.h"
 #include "D2D.h"
 #include <DirectXMath.h>
@@ -41,7 +39,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	Locator::getD3D()->initializeWindow(hInstance, true, 1200, 800, true);
 	Locator::getD3D()->createSwapChain();
 
-	//Locator::getD2D()->Initialize();
+	Locator::getD2D()->Initialize(Locator::getD3D()->GETsurface10());
 	
 	GameManager gm;
 	// Initialize the game
