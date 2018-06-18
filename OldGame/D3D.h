@@ -4,10 +4,6 @@
 
 #include "ID3D.h"
 
-struct Vertex2
-{
-	float x, y, z, w;
-};
 
 class D3D : public ID3D
 {

@@ -155,34 +155,16 @@ void Renderer::createQuad()
 {
 	HRESULT hr;
 
-	struct Vertex2
-	{
-		float x, y, z, w;
-	};
-
-	//// Vertices
-	//Vertex v[] =
-	//{
-	//	-1.0f, 1.0f, 0.0f, 1.0f,
-	//	1.0f, 1.0f, 0.0f, 1.0f,
-	//	-1.0f, -1.0f, 0.0f, 1.0f,
-	//	1.0f, -1.0f, 0.0f, 1.0f,
-	//};
-	//// Stride and offset
-	//this->vertBufferStride = sizeof(Vertex);
-	//this->vertBufferOffset = 0;
-
-	//// Create the vertex buffer
-	//Locator::getD3D()->createVertexBuffer(&this->gQuadVertexBuffer, &v, this->vertBufferStride, this->vertBufferOffset, 4);
+	this->guiRndData = new RenderData();
 
 	//Create the vertex buffer
 	Vertex2 v[] =
 	{
 		// Front Face
-		-1.0f, -1.0f, -1.0f, 1.0f,
-		-1.0f,  1.0f, -1.0f, 1.0f,
-		1.0f,  1.0f, -1.0f, 1.0f,
-		1.0f, -1.0f, -1.0f, 1.0f
+		Vertex2(-1.0f, -1.0f, -1.0f, 0.0f, 1.0f),
+		Vertex2(-1.0f,  1.0f, -1.0f, 0.0f, 0.0f),
+		Vertex2(1.0f,  1.0f, -1.0f, 1.0f, 0.0f),
+		Vertex2(1.0f, -1.0f, -1.0f, 1.0f, 1.0f),
 	};
 
 	DWORD indices[] = {
@@ -203,7 +185,7 @@ void Renderer::createQuad()
 	D3D11_SUBRESOURCE_DATA iinitData;
 
 	iinitData.pSysMem = indices;
-	Locator::getD3D()->GETgDevice()->CreateBuffer(&indexBufferDesc, &iinitData, &d2dIndexBuffer);
+	Locator::getD3D()->GETgDevice()->CreateBuffer(&indexBufferDesc, &iinitData, &this->guiRndData->indexBuffer);
 
 
 	D3D11_BUFFER_DESC vertexBufferDesc;
@@ -219,11 +201,11 @@ void Renderer::createQuad()
 
 	ZeroMemory(&vertexBufferData, sizeof(vertexBufferData));
 	vertexBufferData.pSysMem = v;
-	hr = Locator::getD3D()->GETgDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &d2dVertBuffer);
+	hr = Locator::getD3D()->GETgDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &this->guiRndData->vertBuffer);
 
 	//Create A shader resource view from the texture D2D will render to,
 	//So we can use it to texture a square which overlays our scene
-	Locator::getD3D()->GETgDevice()->CreateShaderResourceView(Locator::getD3D()->GETTexture11(), NULL, &this->d2dTexture);
+	Locator::getD3D()->GETgDevice()->CreateShaderResourceView(Locator::getD3D()->GETTexture11(), NULL, &this->guiRndData->texSRV);
 
 }
 
@@ -342,8 +324,7 @@ void Renderer::init()
 
 	Locator::getD3D()->GETgDevCon()->RSSetViewports(1, &this->viewport);
 
-	// This might be used to render the D2D-quad
-	//this->createQuad();
+	this->createQuad();
 }
 
 void Renderer::render(std::vector<Object*> objects)
@@ -398,21 +379,28 @@ void Renderer::drawD2D()
 	Locator::getD2D()->OnRender();
 	Locator::getD3D()->deprepD2D();
 
-	//Set the d2d Index buffer
-	Locator::getD3D()->GETgDevCon()->IASetIndexBuffer(d2dIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-	//Set the d2d vertex buffer
-	UINT stride = sizeof(Vertex2);
-	UINT offset = 0;
-	Locator::getD3D()->GETgDevCon()->IASetVertexBuffers(0, 1, &d2dVertBuffer, &stride, &offset);
+	Locator::getD3D()->mapConstantBuffer(&this->constBuff, &this->guiRndData->objBuffData, sizeof(this->guiRndData->objBuffData));
+	Locator::getD3D()->setConstantBuffer(this->constBuff, SHADER::VERTEX, 0, 1);
 
-	objectBuff tempObjConstBuff;
+	this->guiRndData->stride = sizeof(Vertex2);
+	UINT offset = 0;
+
+	Locator::getD3D()->setIndexBuffer(this->guiRndData->indexBuffer, 0);
+	Locator::getD3D()->setVertexBuffer(&this->guiRndData->vertBuffer, this->guiRndData->stride, offset);
+
+	////Set the d2d Index buffer
+	//Locator::getD3D()->GETgDevCon()->IASetIndexBuffer(this->guiRndData->indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	////Set the d2d vertex buffer
+	//Locator::getD3D()->GETgDevCon()->IASetVertexBuffers(0, 1, &this->guiRndData->vertBuffer, &stride, &offset);
+
 	XMMATRIX WVP = XMMatrixIdentity();
-	WVP = XMMatrixTranspose(WVP);
-	XMStoreFloat4x4(&tempObjConstBuff.WVP, WVP);
-	Locator::getD3D()->GETgDevCon()->UpdateSubresource(this->constBuff, 0, NULL, &tempObjConstBuff, 0, 0);
+	//WVP = XMMatrixTranspose(WVP);
+	XMStoreFloat4x4(&this->guiRndData->objBuffData.WVP, WVP);
+	XMStoreFloat4x4(&this->guiRndData->objBuffData.world, WVP);
+	Locator::getD3D()->GETgDevCon()->UpdateSubresource(this->constBuff, 0, NULL, &this->guiRndData->objBuffData, 0, 0);
 	Locator::getD3D()->GETgDevCon()->VSSetConstantBuffers(0, 1, &this->constBuff);
 
-	Locator::getD3D()->GETgDevCon()->PSSetShaderResources(0, 1, &d2dTexture);
+	Locator::getD3D()->GETgDevCon()->PSSetShaderResources(0, 1, &this->guiRndData->texSRV);
 	Locator::getD3D()->GETgDevCon()->PSSetSamplers(0, 1, &this->gSampler);
 	Locator::getD3D()->clockDraw(6);
 }

@@ -53,7 +53,7 @@ HRESULT D2D::CreateDeviceIndependentResources()
 		hr = this->m_pDirectWriteFactory->CreateTextFormat(
 			L"Script", //msc_fontName,
 			NULL,
-			DWRITE_FONT_WEIGHT_NORMAL,
+			DWRITE_FONT_WEIGHT_REGULAR,
 			DWRITE_FONT_STYLE_NORMAL,
 			DWRITE_FONT_STRETCH_NORMAL,
 			msc_fontSize,
@@ -143,8 +143,14 @@ HRESULT D2D::OnRender()
 
 		//this->m_pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 
-		this->m_pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::DarkRed));
+		this->m_pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
 
+		std::wstring text = L"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
+
+		//Create our string
+		std::wostringstream printString;
+		printString << text;
+		printText = printString.str();
 		
 		D2D1_SIZE_F rtSize = m_pRenderTarget->GetSize();
 
@@ -152,47 +158,7 @@ HRESULT D2D::OnRender()
 		FLOAT height = static_cast<FLOAT>(rtSize.height);
 
 		D2D1_RECT_F targetSq = D2D1::RectF(0, 0, width, height);
-		////Background picture
-		//if (this->pBitmap)
-		//{
-		//	this->m_pRenderTarget->DrawBitmap(this->pBitmap,
-		//		D2D1::RectF(
-		//			0,
-		//			0,
-		//			width,
-		//			height
-		//		)
-		//	);
-		//}
 
-		// Draw a grid background.
-
-		//for (int x = 0; x < width; x += 5)
-		//{
-		//	m_pRenderTarget->DrawLine(
-		//		D2D1::Point2F(static_cast<FLOAT>(x), 0.0f),
-		//		D2D1::Point2F(static_cast<FLOAT>(x), rtSize.height),
-		//		this->pGridColor,
-		//		2.5f
-		//	);
-		//}
-
-		//for (int y = 0; y < height; y += 5)
-		//{
-		//	m_pRenderTarget->DrawLine(
-		//		D2D1::Point2F(0.0f, static_cast<FLOAT>(y)),
-		//		D2D1::Point2F(rtSize.width, static_cast<FLOAT>(y)),
-		//		this->pGridColor,
-		//		2.5f
-		//	);
-		//}
-
-		std::wstring text = L"hej";
-
-		//Create our string
-		std::wostringstream printString;
-		printString << text;
-		printText = printString.str();
 
 		//Draw the Text
 		this->m_pRenderTarget->DrawText(
@@ -202,11 +168,6 @@ HRESULT D2D::OnRender()
 			targetSq,
 			this->pGridColor
 		);
-
-
-
-
-
 
 
 		hr = m_pRenderTarget->EndDraw();

@@ -48,9 +48,10 @@ private:
 	ID3D11Buffer * lightBuffer = nullptr;
 	lightBuff lightData;
 	// Makes the square that will have D2D rendered to it
-	ID3D11Buffer *d2dVertBuffer;
-	ID3D11Buffer *d2dIndexBuffer;
-	ID3D11ShaderResourceView *d2dTexture;
+	RenderData* guiRndData;
+	//ID3D11Buffer *d2dVertBuffer;
+	//ID3D11Buffer *d2dIndexBuffer;
+	//ID3D11ShaderResourceView *d2dTexture;
 
 	void drawD2D();
 

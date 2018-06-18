@@ -11,6 +11,17 @@
 
 enum class SHADER { VERTEX, PIXEL };
 
+struct Vertex2	//Overloaded Vertex Structure
+{
+	Vertex2() {}
+	Vertex2(float x, float y, float z,
+		float u, float v)
+		: pos(x, y, z), texCoord(u, v) {}
+
+	DirectX::XMFLOAT3 pos;
+	DirectX::XMFLOAT2 texCoord;
+};
+
 class ID3D
 {
 public:
