@@ -207,6 +207,7 @@ void Renderer::createQuad()
 	//So we can use it to texture a square which overlays our scene
 	Locator::getD3D()->GETgDevice()->CreateShaderResourceView(Locator::getD3D()->GETTexture11(), NULL, &this->guiRndData->texSRV);
 
+	this->guiRndData->stride = sizeof(Vertex2);
 }
 
 void Renderer::createViewportAndRasterizer()
@@ -379,22 +380,19 @@ void Renderer::drawD2D()
 	Locator::getD2D()->OnRender();
 	Locator::getD3D()->deprepD2D();
 
+	int savedMode = this->rndModeData.mode;
+	this->switchRendermode(-1);
+
 	Locator::getD3D()->mapConstantBuffer(&this->constBuff, &this->guiRndData->objBuffData, sizeof(this->guiRndData->objBuffData));
 	Locator::getD3D()->setConstantBuffer(this->constBuff, SHADER::VERTEX, 0, 1);
 
-	this->guiRndData->stride = sizeof(Vertex2);
 	UINT offset = 0;
 
 	Locator::getD3D()->setIndexBuffer(this->guiRndData->indexBuffer, 0);
 	Locator::getD3D()->setVertexBuffer(&this->guiRndData->vertBuffer, this->guiRndData->stride, offset);
-
-	////Set the d2d Index buffer
-	//Locator::getD3D()->GETgDevCon()->IASetIndexBuffer(this->guiRndData->indexBuffer, DXGI_FORMAT_R32_UINT, 0);
-	////Set the d2d vertex buffer
-	//Locator::getD3D()->GETgDevCon()->IASetVertexBuffers(0, 1, &this->guiRndData->vertBuffer, &stride, &offset);
-
+	
 	XMMATRIX WVP = XMMatrixIdentity();
-	//WVP = XMMatrixTranspose(WVP);
+	WVP = XMMatrixTranspose(WVP);
 	XMStoreFloat4x4(&this->guiRndData->objBuffData.WVP, WVP);
 	XMStoreFloat4x4(&this->guiRndData->objBuffData.world, WVP);
 	Locator::getD3D()->GETgDevCon()->UpdateSubresource(this->constBuff, 0, NULL, &this->guiRndData->objBuffData, 0, 0);
@@ -403,6 +401,9 @@ void Renderer::drawD2D()
 	Locator::getD3D()->GETgDevCon()->PSSetShaderResources(0, 1, &this->guiRndData->texSRV);
 	Locator::getD3D()->GETgDevCon()->PSSetSamplers(0, 1, &this->gSampler);
 	Locator::getD3D()->clockDraw(6);
+
+	this->switchRendermode(savedMode);
+
 }
 
 void Renderer::firstPass()

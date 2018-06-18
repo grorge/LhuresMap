@@ -21,6 +21,10 @@ const int LIGHT_INPUT_DESC_SIZE = 1;
 const int NUM_TEXTURES = 1;
 
 
+enum  class RENDERMODE {
+	TEXTURE, NORMALS, LIGHTDIST, LIGHTNORMAL, // -1 = GUI - used for exceptiongs
+	SIZE
+};
 
 enum class SHADERTYPE { COLOR, TEXTURE };
 

@@ -8,10 +8,6 @@
 #include "ControlCamera.h"
 #include "Renderer.h"
 
-enum  class RENDERMODE {
-	TEXTURE, NORMALS, LIGHTDIST, LIGHTNORMAL,
-	SIZE
-};
 
 class BasicRenderState : public State
 {

@@ -118,7 +118,7 @@ HRESULT D2D::CreateDeviceResources(IDXGISurface1 *sSurface10)
 		//);
 
 		//Create the colorBrush for the grid in the background
-		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &this->pGridColor);
+		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &this->pGridColor);
 	}
 
 	return hr;
@@ -143,7 +143,8 @@ HRESULT D2D::OnRender()
 
 		//this->m_pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 
-		this->m_pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
+		this->m_pRenderTarget->Clear(D2D1::ColorF(0.0f, 0.0f, 0.0f, 0.0f));
+		//this->m_pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
 
 		std::wstring text = L"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
 

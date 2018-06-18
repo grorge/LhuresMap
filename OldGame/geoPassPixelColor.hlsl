@@ -67,6 +67,13 @@ PS_OUT PS(PS_IN input)
 		output.diffuse *= lightstrength;
 
 	}
+	else if (mode == -1)		// GUI
+	{
+		//output.diffuse = float4(1.0f, 1.0f, 1.0f, 1.0f);
+		output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 0.0f);
+
+
+	}
 	else					// Default TEXTURE
 	{
 		output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
