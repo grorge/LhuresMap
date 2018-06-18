@@ -380,6 +380,7 @@ void Renderer::drawD2D()
 	Locator::getD2D()->OnRender();
 	Locator::getD3D()->deprepD2D();
 
+	//Draw the quad over the screen
 	int savedMode = this->rndModeData.mode;
 	this->switchRendermode(-1);
 

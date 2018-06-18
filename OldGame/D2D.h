@@ -3,6 +3,7 @@
 #define D2D_H
 
 #include "ID2D.h"
+#include <time.h>
 
 #include "Locator.h"
 #include "CleanupTools.h"
@@ -54,6 +55,16 @@ private:
 
 
 	std::wstring printText;
+
+
+	// FPS counter
+	void checkFPS();
+	int frames = 0;
+	float fps = 0;
+	clock_t lastFrame = 0.0f;
+	clock_t newFrame = 0.0f;
+	float frametime = 0.0f;
+	clock_t lastDisplay;
 };
 
 

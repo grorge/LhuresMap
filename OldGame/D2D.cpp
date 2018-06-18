@@ -106,17 +106,7 @@ HRESULT D2D::CreateDeviceResources(IDXGISurface1 *sSurface10)
 				D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED)),
 			&this->m_pRenderTarget
 		);
-
-
-		// Old
-		//hr = this->m_pDirect2dFactory->CreateHwndRenderTarget(
-		//	D2D1::RenderTargetProperties(
-		//		D2D1_RENDER_TARGET_TYPE_DEFAULT,
-		//		D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_IGNORE)),
-		//	D2D1::HwndRenderTargetProperties(Locator::getD3D()->GEThwnd(), size),
-		//	&this->m_pRenderTarget
-		//);
-
+		
 		//Create the colorBrush for the grid in the background
 		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &this->pGridColor);
 	}
@@ -129,6 +119,24 @@ void D2D::DiscardDeviceResources()
 	SafeRelease(&this->m_pRenderTarget);;
 	SafeRelease(&this->m_pTextFormat);
 	SafeRelease(&this->pGridColor);
+}
+
+void D2D::checkFPS()
+{
+	this->frames++;
+
+	this->newFrame = clock();
+
+	this->frametime = this->newFrame - this->lastFrame;
+
+	if ((this->newFrame - this->lastDisplay) > 1000)
+	{
+		this->fps = this->frames;
+		this->frames = 0;
+		this->lastDisplay = this->newFrame;
+	}
+
+	this->lastFrame = this->newFrame;
 }
 
 HRESULT D2D::OnRender()
@@ -146,11 +154,13 @@ HRESULT D2D::OnRender()
 		this->m_pRenderTarget->Clear(D2D1::ColorF(0.0f, 0.0f, 0.0f, 0.0f));
 		//this->m_pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
 
-		std::wstring text = L"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
+		this->checkFPS();
+
+		std::wstring text = L"FPS: ";
 
 		//Create our string
 		std::wostringstream printString;
-		printString << text;
+		printString << text << this->fps << L"\nFrametime: " << this->frametime;
 		printText = printString.str();
 		
 		D2D1_SIZE_F rtSize = m_pRenderTarget->GetSize();
