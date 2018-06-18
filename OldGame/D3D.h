@@ -4,6 +4,11 @@
 
 #include "ID3D.h"
 
+struct Vertex2
+{
+	float x, y, z, w;
+};
+
 class D3D : public ID3D
 {
 private:
@@ -28,10 +33,6 @@ private:
 	IDXGIKeyedMutex *keyedMutex10;
 	ID3D11Texture2D *BackBuffer11;
 	ID3D11Texture2D *sharedTex11;
-	// Makes the square that will have D2D rendered to it
-	ID3D11Buffer *d2dVertBuffer;
-	ID3D11Buffer *d2dIndexBuffer;
-	ID3D11ShaderResourceView *d2dTexture;
 
 	// -to be sent to D2D
 	IDXGISurface1 *sharedSurface;
@@ -57,8 +58,10 @@ public:
 	virtual ID3D11BlendState*& GETTransp();
 
 	virtual void blendedDraw(size_t numbInd);
+	virtual void clockDraw(size_t numbInd);
 
 	virtual IDXGISurface1*& GETsurface10();
+	virtual ID3D11Texture2D*& GETTexture11();
 	virtual void prepD2D();
 	virtual void deprepD2D();
 };

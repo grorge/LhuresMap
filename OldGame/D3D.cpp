@@ -151,66 +151,10 @@ void D3D::createD2Drendering(IDXGIAdapter1 * Adapter)
 	hr = sharedSurface10->QueryInterface(__uuidof(IDXGIKeyedMutex), (void**)&keyedMutex10);
 
 	this->sharedSurface = sharedSurface10;
-	
+
 	d3d101Device->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_POINTLIST);
 
 
-	////////////////////////////////////
-
-	struct Vertex
-	{
-		float x, y, z, w;
-	};
-
-	//Create the vertex buffer
-	Vertex v[] =
-	{
-		// Front Face
-		-1.0f, -1.0f, -1.0f, 1.0f, 
-		-1.0f,  1.0f, -1.0f, 1.0f,
-		1.0f,  1.0f, -1.0f, 1.0f,
-		1.0f, -1.0f, -1.0f, 1.0f
-	};
-
-	DWORD indices[] = {
-		// Front Face
-		0,  1,  2,
-		0,  2,  3,
-	};
-
-	D3D11_BUFFER_DESC indexBufferDesc;
-	ZeroMemory(&indexBufferDesc, sizeof(indexBufferDesc));
-
-	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	indexBufferDesc.ByteWidth = sizeof(DWORD) * 2 * 3;
-	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	indexBufferDesc.CPUAccessFlags = 0;
-	indexBufferDesc.MiscFlags = 0;
-
-	D3D11_SUBRESOURCE_DATA iinitData;
-
-	iinitData.pSysMem = indices;
-	this->gDevice->CreateBuffer(&indexBufferDesc, &iinitData, &d2dIndexBuffer);
-
-
-	D3D11_BUFFER_DESC vertexBufferDesc;
-	ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
-
-	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(Vertex) * 4;
-	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexBufferDesc.CPUAccessFlags = 0;
-	vertexBufferDesc.MiscFlags = 0;
-
-	D3D11_SUBRESOURCE_DATA vertexBufferData;
-
-	ZeroMemory(&vertexBufferData, sizeof(vertexBufferData));
-	vertexBufferData.pSysMem = v;
-	hr = this->gDevice->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &d2dVertBuffer);
-
-	//Create A shader resource view from the texture D2D will render to,
-	//So we can use it to texture a square which overlays our scene
-	this->gDevice->CreateShaderResourceView(sharedTex11, NULL, &this->d2dTexture);
 }
 
 
@@ -324,7 +268,7 @@ void D3D::setConstantBuffer(ID3D11Buffer *& cBuffer, SHADER shader, size_t slot,
 
 void D3D::setRasterizerDesc(D3D11_RASTERIZER_DESC restDesc)
 {
-	// REMOVE THiS WHEN CCW AND CW IS IMPLEMENTED
+	// MOVE THiS WHEN CCW AND CW IS IMPLEMENTED
 	this->gDevice->CreateRasterizerState(&restDesc, &this->gRastState);
 	this->gDevCon->RSSetState(this->gRastState);
 
@@ -390,9 +334,20 @@ void D3D::blendedDraw(size_t numbInd)
 	this->gDevCon->DrawIndexed(numbInd, 0, 0);
 }
 
+void D3D::clockDraw(size_t numbInd)
+{
+	this->gDevCon->RSSetState(this->CWcullMode);
+	this->gDevCon->DrawIndexed(numbInd, 0, 0);
+}
+
 IDXGISurface1 *& D3D::GETsurface10()
 {
 	return this->sharedSurface;
+}
+
+ID3D11Texture2D *& D3D::GETTexture11()
+{
+	return this->sharedTex11;
 }
 
 void D3D::prepD2D()
@@ -409,7 +364,8 @@ void D3D::deprepD2D()
 
 	keyedMutex11->AcquireSync(1, 5);
 
-
+	this->gDevCon->OMSetBlendState(this->Transparency, NULL, 0xffffffff);
+	
 }
 
 LRESULT CALLBACK wndProc(HWND hwnd, size_t msg, WPARAM wParam, LPARAM lParam)

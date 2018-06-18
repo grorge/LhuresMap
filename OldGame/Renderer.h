@@ -47,10 +47,17 @@ private:
 	rndModeBuff rndModeData;
 	ID3D11Buffer * lightBuffer = nullptr;
 	lightBuff lightData;
+	// Makes the square that will have D2D rendered to it
+	ID3D11Buffer *d2dVertBuffer;
+	ID3D11Buffer *d2dIndexBuffer;
+	ID3D11ShaderResourceView *d2dTexture;
+
+	void drawD2D();
 
 	float clearColor[4];
 	//"fine-tune" the blending equation
 	float blendFactor[4];
+
 
 	void initShaders();
 	void initBuffers();

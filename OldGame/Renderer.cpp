@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include "Locator.h"
 
+
 void Renderer::initShaders()
 {
 	D3D11_INPUT_ELEMENT_DESC shaderInputDesc[] =
@@ -146,29 +147,84 @@ void Renderer::initBlend()
 	blendDesc.RenderTarget[0] = rtbd;
 
 	hr = Locator::getD3D()->GETgDevice()->CreateBlendState(&blendDesc, &Locator::getD3D()->GETTransp());
+
+
 }
 
 void Renderer::createQuad()
 {
-	struct Vertex
+	HRESULT hr;
+
+	struct Vertex2
 	{
 		float x, y, z, w;
 	};
 
-	// Vertices
-	Vertex v[] =
-	{
-		-1.0f, 1.0f, 0.0f, 1.0f,
-		1.0f, 1.0f, 0.0f, 1.0f,
-		-1.0f, -1.0f, 0.0f, 1.0f,
-		1.0f, -1.0f, 0.0f, 1.0f,
-	};
-	// Stride and offset
-	this->vertBufferStride = sizeof(Vertex);
-	this->vertBufferOffset = 0;
+	//// Vertices
+	//Vertex v[] =
+	//{
+	//	-1.0f, 1.0f, 0.0f, 1.0f,
+	//	1.0f, 1.0f, 0.0f, 1.0f,
+	//	-1.0f, -1.0f, 0.0f, 1.0f,
+	//	1.0f, -1.0f, 0.0f, 1.0f,
+	//};
+	//// Stride and offset
+	//this->vertBufferStride = sizeof(Vertex);
+	//this->vertBufferOffset = 0;
 
-	// Create the vertex buffer
-	Locator::getD3D()->createVertexBuffer(&this->gQuadVertexBuffer, &v, this->vertBufferStride, this->vertBufferOffset, 4);
+	//// Create the vertex buffer
+	//Locator::getD3D()->createVertexBuffer(&this->gQuadVertexBuffer, &v, this->vertBufferStride, this->vertBufferOffset, 4);
+
+	//Create the vertex buffer
+	Vertex2 v[] =
+	{
+		// Front Face
+		-1.0f, -1.0f, -1.0f, 1.0f,
+		-1.0f,  1.0f, -1.0f, 1.0f,
+		1.0f,  1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, -1.0f, 1.0f
+	};
+
+	DWORD indices[] = {
+		// Front Face
+		0,  1,  2,
+		0,  2,  3,
+	};
+
+	D3D11_BUFFER_DESC indexBufferDesc;
+	ZeroMemory(&indexBufferDesc, sizeof(indexBufferDesc));
+
+	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	indexBufferDesc.ByteWidth = sizeof(DWORD) * 2 * 3;
+	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	indexBufferDesc.CPUAccessFlags = 0;
+	indexBufferDesc.MiscFlags = 0;
+
+	D3D11_SUBRESOURCE_DATA iinitData;
+
+	iinitData.pSysMem = indices;
+	Locator::getD3D()->GETgDevice()->CreateBuffer(&indexBufferDesc, &iinitData, &d2dIndexBuffer);
+
+
+	D3D11_BUFFER_DESC vertexBufferDesc;
+	ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
+
+	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	vertexBufferDesc.ByteWidth = sizeof(Vertex2) * 4;
+	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBufferDesc.CPUAccessFlags = 0;
+	vertexBufferDesc.MiscFlags = 0;
+
+	D3D11_SUBRESOURCE_DATA vertexBufferData;
+
+	ZeroMemory(&vertexBufferData, sizeof(vertexBufferData));
+	vertexBufferData.pSysMem = v;
+	hr = Locator::getD3D()->GETgDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &d2dVertBuffer);
+
+	//Create A shader resource view from the texture D2D will render to,
+	//So we can use it to texture a square which overlays our scene
+	Locator::getD3D()->GETgDevice()->CreateShaderResourceView(Locator::getD3D()->GETTexture11(), NULL, &this->d2dTexture);
+
 }
 
 void Renderer::createViewportAndRasterizer()
@@ -285,6 +341,9 @@ void Renderer::init()
 	this->createViewportAndRasterizer();
 
 	Locator::getD3D()->GETgDevCon()->RSSetViewports(1, &this->viewport);
+
+	// This might be used to render the D2D-quad
+	//this->createQuad();
 }
 
 void Renderer::render(std::vector<Object*> objects)
@@ -294,7 +353,7 @@ void Renderer::render(std::vector<Object*> objects)
 	
 	//Set the default blend state (no blending) for opaque objects
 	Locator::getD3D()->GETgDevCon()->OMSetBlendState(0, 0, 0xffffffff);
-
+	
 
 	size_t offset = 0;
 	int test = 0;
@@ -310,8 +369,8 @@ void Renderer::render(std::vector<Object*> objects)
 		Locator::getD3D()->mapConstantBuffer(&this->constBuff, &rndData->objBuffData, sizeof(rndData->objBuffData));
 		Locator::getD3D()->setConstantBuffer(this->constBuff, SHADER::VERTEX, 0, 1);
 
-		Locator::getD3D()->setVertexBuffer(&rndData->vertBuffer, rndData->stride, offset);
 		Locator::getD3D()->setIndexBuffer(rndData->indexBuffer, 0);
+		Locator::getD3D()->setVertexBuffer(&rndData->vertBuffer, rndData->stride, offset);
 		
 		Locator::getD3D()->GETgDevCon()->PSSetShaderResources(0, 1, &rndData->texSRV);
 		Locator::getD3D()->GETgDevCon()->PSSetSamplers(0, 1, &this->gSampler);
@@ -320,11 +379,7 @@ void Renderer::render(std::vector<Object*> objects)
 		test++;
 	}
 
-
-	Locator::getD3D()->prepD2D();
-	Locator::getD2D()->OnRender();
-	Locator::getD3D()->deprepD2D();
-
+	this->drawD2D();
 
 	Locator::getD3D()->GETswapChain()->Present(0, 0);
 
@@ -335,6 +390,31 @@ void Renderer::switchRendermode(int mode)
 	this->rndModeData.mode = mode;
 	Locator::getD3D()->mapConstantBuffer(&this->renderModeBuff, &this->rndModeData, sizeof(this->rndModeData));
 	Locator::getD3D()->setConstantBuffer(this->renderModeBuff, SHADER::PIXEL, 0, 1);
+}
+
+void Renderer::drawD2D()
+{
+	Locator::getD3D()->prepD2D();
+	Locator::getD2D()->OnRender();
+	Locator::getD3D()->deprepD2D();
+
+	//Set the d2d Index buffer
+	Locator::getD3D()->GETgDevCon()->IASetIndexBuffer(d2dIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	//Set the d2d vertex buffer
+	UINT stride = sizeof(Vertex2);
+	UINT offset = 0;
+	Locator::getD3D()->GETgDevCon()->IASetVertexBuffers(0, 1, &d2dVertBuffer, &stride, &offset);
+
+	objectBuff tempObjConstBuff;
+	XMMATRIX WVP = XMMatrixIdentity();
+	WVP = XMMatrixTranspose(WVP);
+	XMStoreFloat4x4(&tempObjConstBuff.WVP, WVP);
+	Locator::getD3D()->GETgDevCon()->UpdateSubresource(this->constBuff, 0, NULL, &tempObjConstBuff, 0, 0);
+	Locator::getD3D()->GETgDevCon()->VSSetConstantBuffers(0, 1, &this->constBuff);
+
+	Locator::getD3D()->GETgDevCon()->PSSetShaderResources(0, 1, &d2dTexture);
+	Locator::getD3D()->GETgDevCon()->PSSetSamplers(0, 1, &this->gSampler);
+	Locator::getD3D()->clockDraw(6);
 }
 
 void Renderer::firstPass()

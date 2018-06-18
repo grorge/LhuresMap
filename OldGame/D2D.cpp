@@ -28,16 +28,22 @@ HRESULT D2D::CreateDeviceIndependentResources()
 	HRESULT hr = S_OK;
 
 	// Create a Direct2D factory.
-	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &this->m_pDirect2dFactory);
+	//hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &this->m_pDirect2dFactory);
+	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, __uuidof(ID2D1Factory), (void**)&this->m_pDirect2dFactory);
 
 	//Setup text
 	if (SUCCEEDED(hr))
 	{
 
 		// Create a DirectWrite factory.
+		//hr = DWriteCreateFactory(
+		//	DWRITE_FACTORY_TYPE_SHARED,
+		//	__uuidof(this->m_pDirectWriteFactory),
+		//	reinterpret_cast<IUnknown **>(&this->m_pDirectWriteFactory)
+		//);
 		hr = DWriteCreateFactory(
 			DWRITE_FACTORY_TYPE_SHARED,
-			__uuidof(this->m_pDirectWriteFactory),
+			__uuidof(IDWriteFactory),
 			reinterpret_cast<IUnknown **>(&this->m_pDirectWriteFactory)
 		);
 	}
@@ -45,13 +51,13 @@ HRESULT D2D::CreateDeviceIndependentResources()
 	{
 		// Create a DirectWrite text format object.
 		hr = this->m_pDirectWriteFactory->CreateTextFormat(
-			msc_fontName,
+			L"Script", //msc_fontName,
 			NULL,
 			DWRITE_FONT_WEIGHT_NORMAL,
 			DWRITE_FONT_STYLE_NORMAL,
 			DWRITE_FONT_STRETCH_NORMAL,
 			msc_fontSize,
-			L"", //locale
+			L"en-us", //L"", //locale
 			&this->m_pTextFormat
 		);
 
@@ -59,7 +65,7 @@ HRESULT D2D::CreateDeviceIndependentResources()
 	if (SUCCEEDED(hr))
 	{
 		// Center the text horizontally and vertically.
-		this->m_pTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+		this->m_pTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
 
 		this->m_pTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 	}

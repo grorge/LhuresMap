@@ -36,10 +36,12 @@ public:
 
 	//Blending
 	virtual void blendedDraw(size_t numbInd) = 0;
+	virtual void clockDraw(size_t numbInd) = 0;
 
 
 	// D2D interactions
 	virtual IDXGISurface1*& GETsurface10() = 0;
+	virtual ID3D11Texture2D*& GETTexture11() = 0;
 	virtual void prepD2D() = 0;
 	virtual void deprepD2D() = 0;
 };
