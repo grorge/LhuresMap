@@ -2,7 +2,7 @@
 #include "CleanupTools.h"
 
 
-LRESULT CALLBACK wndProc(HWND hwnd, size_t msg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 void D3D::initializeWindow(HINSTANCE hInstance, int ShowWnd, int width, int height, bool windowed)
 {
@@ -10,6 +10,7 @@ void D3D::initializeWindow(HINSTANCE hInstance, int ShowWnd, int width, int heig
 	this->wHeight = height;
 
 	WNDCLASSEX wc;
+
 
 	wc.cbSize = sizeof(WNDCLASSEX);					// Size of the windows class
 	wc.style = CS_HREDRAW | CS_VREDRAW;				// Class styles
@@ -209,12 +210,15 @@ void D3D::createIndexBuffer(ID3D11Buffer ** gIndexBuffer, DWORD* data, size_t& n
 
 void D3D::setVertexBuffer(ID3D11Buffer ** gVertexBuffer, size_t& stride, size_t& offset)
 {
-	this->gDevCon->IASetVertexBuffers(0, 1, gVertexBuffer, &stride, &offset);
+	const UINT tempUINTstr = stride;
+	const UINT tempUINToff = offset;
+
+	this->gDevCon->IASetVertexBuffers(0, 1, gVertexBuffer, &tempUINTstr, &tempUINToff);
 }
 
 void D3D::setIndexBuffer(ID3D11Buffer * gIndexBuffer, size_t offset)
 {
-	this->gDevCon->IASetIndexBuffer(gIndexBuffer, DXGI_FORMAT_R32_UINT, offset);
+	this->gDevCon->IASetIndexBuffer(gIndexBuffer, DXGI_FORMAT_R32_UINT, (UINT)offset);
 }
 
 void D3D::createConstantBuffer(ID3D11Buffer ** gBuffer, int bufferSize)
@@ -368,7 +372,7 @@ void D3D::deprepD2D()
 	
 }
 
-LRESULT CALLBACK wndProc(HWND hwnd, size_t msg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{

@@ -341,23 +341,28 @@ void Renderer::render(std::vector<Object*> objects)
 	int test = 0;
 	for (auto i : objects)
 	{
+		// Convert with a 
 		if (test == 2)
 		{
 			//Set the blend state for transparent objects
 			Locator::getD3D()->GETgDevCon()->OMSetBlendState(Locator::getD3D()->GETTransp(), blendFactor, 0xffffffff);
 		}
-		RenderData* rndData = i->GETRenderData();
 
-		Locator::getD3D()->mapConstantBuffer(&this->constBuff, &rndData->objBuffData, sizeof(rndData->objBuffData));
-		Locator::getD3D()->setConstantBuffer(this->constBuff, SHADER::VERTEX, 0, 1);
+		if (i->okToRender)
+		{
+			RenderData* rndData = i->GETRenderData();
 
-		Locator::getD3D()->setIndexBuffer(rndData->indexBuffer, 0);
-		Locator::getD3D()->setVertexBuffer(&rndData->vertBuffer, rndData->stride, offset);
+			Locator::getD3D()->mapConstantBuffer(&this->constBuff, &rndData->objBuffData, sizeof(rndData->objBuffData));
+			Locator::getD3D()->setConstantBuffer(this->constBuff, SHADER::VERTEX, 0, 1);
+
+			Locator::getD3D()->setIndexBuffer(rndData->indexBuffer, 0);
+			Locator::getD3D()->setVertexBuffer(&rndData->vertBuffer, rndData->stride, offset);
 		
-		Locator::getD3D()->GETgDevCon()->PSSetShaderResources(0, 1, &rndData->texSRV);
-		Locator::getD3D()->GETgDevCon()->PSSetSamplers(0, 1, &this->gSampler);
+			Locator::getD3D()->GETgDevCon()->PSSetShaderResources(0, 1, &rndData->texSRV);
+			Locator::getD3D()->GETgDevCon()->PSSetSamplers(0, 1, &this->gSampler);
 
-		Locator::getD3D()->blendedDraw(rndData->numbIndices);
+			Locator::getD3D()->blendedDraw(rndData->numbIndices); 
+		}
 		test++;
 	}
 
@@ -387,7 +392,7 @@ void Renderer::drawD2D()
 	Locator::getD3D()->mapConstantBuffer(&this->constBuff, &this->guiRndData->objBuffData, sizeof(this->guiRndData->objBuffData));
 	Locator::getD3D()->setConstantBuffer(this->constBuff, SHADER::VERTEX, 0, 1);
 
-	UINT offset = 0;
+	size_t offset = 0;
 
 	Locator::getD3D()->setIndexBuffer(this->guiRndData->indexBuffer, 0);
 	Locator::getD3D()->setVertexBuffer(&this->guiRndData->vertBuffer, this->guiRndData->stride, offset);

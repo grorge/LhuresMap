@@ -15,7 +15,10 @@ Object::Object(Camera* cam, std::wstring texFile)
 
 Object::~Object()
 {
-	this->rndData->~RenderData();
+	if (this->okToRender)
+	{
+		this->rndData->~RenderData();
+	}
 }
 
 void Object::updateWorld()
@@ -56,6 +59,8 @@ void Object::rotateZ(float rot)
 
 void Object::init()
 {
+	this->okToRender = true;
+
 	this->rndData = new RenderData();
 
 	this->createVertexData();

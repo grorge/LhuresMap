@@ -452,6 +452,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 			std::wstring message = L"Could not open: ";
 			message += filename;
 
+			MessageBoxW(0, message.c_str(), L"Error", MB_OK);
 			//MessageBox(0, message.c_str(),    //display message
 			//	L"Error", MB_OK);
 

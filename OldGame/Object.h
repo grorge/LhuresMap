@@ -23,6 +23,7 @@ public:
 	//void renderObj();
 	virtual void update() = 0;
 	void updateWorld();
+	bool okToRender = 0;
 
 	virtual RenderData* GETRenderData() { return this->rndData; };
 
