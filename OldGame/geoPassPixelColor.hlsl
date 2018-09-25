@@ -20,8 +20,8 @@ cbuffer rndModeBuffer : register(b0)
 };
 cbuffer lightBuffer : register(b1)
 {
-	float3 lightpos;
-	float4 lightcolor;
+	float3 lightpos; // Holds the postion of the light
+	float4 lightcolor; // The color also holds the intensity
 };
 
 
@@ -42,25 +42,27 @@ PS_OUT PS(PS_IN input)
 	{
 		output.diffuse = (input.normal);
 	}
-	else if (mode == 2)		// LIGHTDIST
+	else if (mode == 2)		// LIGHTDIST - Renders depending on the distance to the light
 	{
+		// Get color
 		output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
 
-
+		//------- Light calculations
 		float dist = distance(float4(lightpos, 1.0f), input.pos_W);
 		dist /= 50;
 		output.diffuse *= (lightcolor * 1000.0f) / (pow(dist, 2));
 	}
 	else if (mode == 3)		// LIGHTNORMAL
 	{
+		// Get color
 		output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 1.0f);
-		//output.diffuse = float4(1.0f, 1.0f, 1.0f, 1.0f);
 
+		//------- Light calculations
 		float dist = distance(float4(lightpos, 1.0f), input.pos_W);
 		dist /= 100;
 		output.diffuse *= (lightcolor * 1000.0f) / (pow(dist, 2));
 
-
+		//------- Normals calculations 
 		float4 lightdir = normalize(input.pos_W - float4(lightpos, 1.0f));
 		//lightdir = !lightdir;
 		float lightstrength = saturate(dot(input.normal * -1, lightdir));
@@ -69,10 +71,8 @@ PS_OUT PS(PS_IN input)
 	}
 	else if (mode == -1)		// GUI
 	{
-		//output.diffuse = float4(1.0f, 1.0f, 1.0f, 1.0f);
 		output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 0.0f);
-
-
+		
 	}
 	else					// Default TEXTURE
 	{
