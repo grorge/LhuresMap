@@ -127,10 +127,15 @@ void D2D::checkFPS()
 
 	this->newFrame = clock();
 	
+	// If the time is more than 1000ms
 	if ((this->newFrame - this->lastDisplay) > 1000)
 	{
+		//Sets the amount of ms between frames
 		this->frametime = this->newFrame - this->lastFrame;
+		//Sets thet displayed FPS
 		this->fps = this->frames;
+
+		//Reset for next second
 		this->frames = 0;
 		this->lastDisplay = this->newFrame;
 	}
