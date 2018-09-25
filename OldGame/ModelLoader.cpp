@@ -17,7 +17,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 		std::wifstream fileIn(filename.c_str());    //Open file
 		std::wstring meshMatLib;                    //String to hold our obj material library filename
 
-													//Arrays to store our model's information
+		//Arrays to store our model's information
 		std::vector<DWORD> indices;
 		std::vector<XMFLOAT3> vertPos;
 		std::vector<XMFLOAT3> vertNorm;
@@ -46,25 +46,19 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 		int totalVerts = 0;
 		int meshTriangles = 0;
 
-		int itterations = 0;
 
 		//Check to see if the file was opened
 		if (fileIn)
 		{
 			while (fileIn)
 			{
-				itterations++;
-
-				if (itterations > 733)
-				{
-					int hej = 0;
-					hej++;
-				}
-
+				//Get the next char on new line
 				checkChar = fileIn.get();    //Get next char
 
+				//Jump to different function depending on the new character
 				switch (checkChar)
 				{
+				//Comment
 				case '#':
 					checkChar = fileIn.get();
 					while (checkChar != '\n' && fileIn)
@@ -74,9 +68,11 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 							fileIn.close();
 					}
 					break;
+					//Vertex
 				case 'v':    //Get Vertex Descriptions
 					checkChar = fileIn.get();
-					if (checkChar == ' ')    //v - vert position
+					//v - vert position
+					if (checkChar == ' ')    
 					{
 						float vz, vy, vx;
 						fileIn >> vx >> vy >> vz;    //Store the next three types
@@ -86,7 +82,8 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 						else
 							vertPos.push_back(XMFLOAT3(vx, vy, vz));
 					}
-					if (checkChar == 't')    //vt - vert tex coords
+					//vt - vert tex coords
+					if (checkChar == 't')    
 					{
 						float vtcu, vtcv;
 						fileIn >> vtcu >> vtcv;        //Store next two types
@@ -98,9 +95,9 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 
 						hasTexCoord = true;    //We know the model uses texture coords
 					}
-					//Since we compute the normals later, we don't need to check for normals
-					//In the file, but i'll do it here anyway
-					if (checkChar == 'n')    //vn - vert normal
+
+					//vn - vert normal
+					if (checkChar == 'n')    
 					{
 						float vnx, vny, vnz;
 						fileIn >> vnx >> vny >> vnz;    //Store next three types
@@ -377,6 +374,8 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 					}
 					break;
 
+					//THE TUTORIAL HAD A MATERIAL AND BLEND READER WHICH I DIDNT IMPLEMENT
+
 				//case 'm':    //mtllib - material library filename
 				//	checkChar = fileIn.get();
 				//	if (checkChar == 't')
@@ -452,7 +451,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 			std::wstring message = L"Could not open: ";
 			message += filename;
 
-			MessageBoxW(0, message.c_str(), L"Error", MB_OK);
+			MessageBoxW(0, message.c_str(), L"Mesh Error", MB_OK);
 			//MessageBox(0, message.c_str(),    //display message
 			//	L"Error", MB_OK);
 
@@ -478,7 +477,9 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 
 		//Close the obj file, and open the mtl file
 		fileIn.close();
-		fileIn.open(meshMatLib.c_str());
+
+		//NOT IMPLEMENTED
+		//fileIn.open(meshMatLib.c_str());
 
 		std::wstring lastStringRead;
 		
@@ -604,7 +605,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 		Locator::getD3D()->createVertexBuffer(&rndData->vertBuffer, vertices.data(), rndData->stride, offset, vertices.size());
 
 
-
+		//OLD VERTEX BUFFER, I USE MY OWN
 		//D3D11_BUFFER_DESC vertexBufferDesc;
 		//ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
 
