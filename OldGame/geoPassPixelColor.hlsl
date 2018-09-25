@@ -71,6 +71,7 @@ PS_OUT PS(PS_IN input)
 	}
 	else if (mode == -1)		// GUI
 	{
+		//The GUI only wants to send on the diffuse color
 		output.diffuse = float4(diffuseMap.Sample(gSampler, input.texCoord).rgb, 0.0f);
 		
 	}

@@ -56,6 +56,7 @@ struct RenderData
 	//Vertex* vertexes;
 	//DirectX::XMFLOAT4 color;
 	ID3D11ShaderResourceView* texSRV;
+	bool transparent;
 
 	RenderData() {}
 	//RenderData(Vertex* v) : vertexes(v)  {}

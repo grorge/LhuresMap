@@ -48,7 +48,7 @@ private:
 	// Makes the square that will have D2D rendered to it
 	RenderData* guiRndData;
 
-
+	// Preps and draws D2D
 	void drawD2D();
 
 	float clearColor[4];

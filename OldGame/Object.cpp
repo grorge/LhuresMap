@@ -63,6 +63,8 @@ void Object::init()
 
 	this->rndData = new RenderData();
 
+	//this->rndData->transparent = false;
+
 	this->createVertexData();
 
 	this->createTextureSRV();

@@ -53,8 +53,6 @@ void BasicRenderState::init()
 	this->cam->init();
 	this->controlCamera = new ControlCamera(this->cam);
 
-
-
 	this->initScene();
 }
 

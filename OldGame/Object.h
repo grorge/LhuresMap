@@ -20,11 +20,11 @@ public:
 	Object(Camera* cam, std::wstring texFile);
 	~Object();
 
-	//void renderObj();
 	virtual void update() = 0;
 	void updateWorld();
 	bool okToRender = 0;
 
+	//Change render data
 	virtual RenderData* GETRenderData() { return this->rndData; };
 
 	//Morph

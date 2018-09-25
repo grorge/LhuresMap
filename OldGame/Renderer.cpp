@@ -122,12 +122,12 @@ void Renderer::initBlend()
 {
 	HRESULT hr;
 
-	float tempBlendFactor[4] = { 0.75f, 0.75f, 0.75f, 1.0f };
+	float initialBlendFactor[4] = { 0.75f, 0.75f, 0.75f, 1.0f };
 
-	this->blendFactor[0] = tempBlendFactor[0];
-	this->blendFactor[1] = tempBlendFactor[1];
-	this->blendFactor[2] = tempBlendFactor[2];
-	this->blendFactor[3] = tempBlendFactor[3];
+	this->blendFactor[0] = initialBlendFactor[0];
+	this->blendFactor[1] = initialBlendFactor[1];
+	this->blendFactor[2] = initialBlendFactor[2];
+	this->blendFactor[3] = initialBlendFactor[3];
 
 	D3D11_BLEND_DESC blendDesc;
 	ZeroMemory(&blendDesc, sizeof(blendDesc));
@@ -331,24 +331,20 @@ void Renderer::init()
 
 void Renderer::render(std::vector<Object*> objects)
 {
+	// Clear everything and will be the background that everything will be renderd on
 	Locator::getD3D()->GETgDevCon()->ClearRenderTargetView(this->gFinalRTV, this->clearColor);
 	Locator::getD3D()->GETgDevCon()->ClearDepthStencilView(this->gDSV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	
 	//Set the default blend state (no blending) for opaque objects
 	Locator::getD3D()->GETgDevCon()->OMSetBlendState(0, 0, 0xffffffff);
-	
+
+	//Sets all nextcomming objects for a transparent
+	//Locator::getD3D()->GETgDevCon()->OMSetBlendState(Locator::getD3D()->GETTransp(), blendFactor, 0xffffffff);
 
 	size_t offset = 0;
-	int test = 0;
 	for (auto i : objects)
-	{
-		// Convert with a 
-		if (test == 2)
-		{
-			//Set the blend state for transparent objects
-			Locator::getD3D()->GETgDevCon()->OMSetBlendState(Locator::getD3D()->GETTransp(), blendFactor, 0xffffffff);
-		}
-
+	{		
+		// Checks if the object will be rendered then it renders.
 		if (i->okToRender)
 		{
 			RenderData* rndData = i->GETRenderData();
@@ -364,13 +360,11 @@ void Renderer::render(std::vector<Object*> objects)
 
 			Locator::getD3D()->blendedDraw(rndData->numbIndices); 
 		}
-		test++;
 	}
 
 	this->drawD2D();
 
 	Locator::getD3D()->GETswapChain()->Present(0, 0);
-
 }
 
 void Renderer::switchRendermode(int mode)
@@ -382,14 +376,17 @@ void Renderer::switchRendermode(int mode)
 
 void Renderer::drawD2D()
 {
+	// Sets up for D2D rendering
 	Locator::getD3D()->prepD2D();
+	// All the rendering in D2D
 	Locator::getD2D()->OnRender();
 	Locator::getD3D()->deprepD2D();
 
-	//Draw the quad over the screen
+	// Sets the rendermode so it will not change the color
 	int savedMode = this->rndModeData.mode;
 	this->switchRendermode(-1);
 
+	//Draw the quad over the screen with the D2D as a texture
 	Locator::getD3D()->mapConstantBuffer(&this->constBuff, &this->guiRndData->objBuffData, sizeof(this->guiRndData->objBuffData));
 	Locator::getD3D()->setConstantBuffer(this->constBuff, SHADER::VERTEX, 0, 1);
 
