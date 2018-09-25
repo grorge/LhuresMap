@@ -12,14 +12,6 @@
 
 using namespace DirectX;
 
-const int NUM_BACKGROUND_IMAGES = 39;
-const int NUM_DEFERRED_OUTPUTS = 3;
-const int GEOCOLOR_INPUT_DESC_SIZE = 3;
-const int GEOTEX_INPUT_DESC_SIZE = 3;
-const int LIGHT_INPUT_DESC_SIZE = 1;
-
-const int NUM_TEXTURES = 1;
-
 
 enum  class RENDERMODE {
 	TEXTURE, NORMALS, LIGHTDIST, LIGHTNORMAL, // -1 = GUI - used for exceptiongs
@@ -49,13 +41,13 @@ private:
 	ID3D11Buffer * constBuff = nullptr;
 	ID3D11Buffer * renderModeBuff = nullptr;
 	rndModeBuff rndModeData;
+	// Buffer to hold light-data
 	ID3D11Buffer * lightBuffer = nullptr;
+	// Struct of light-data
 	lightBuff lightData;
 	// Makes the square that will have D2D rendered to it
 	RenderData* guiRndData;
-	//ID3D11Buffer *d2dVertBuffer;
-	//ID3D11Buffer *d2dIndexBuffer;
-	//ID3D11ShaderResourceView *d2dTexture;
+
 
 	void drawD2D();
 
