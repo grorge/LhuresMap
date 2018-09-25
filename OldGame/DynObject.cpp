@@ -5,7 +5,16 @@ DynObject::DynObject(Camera * cam, std::wstring meshFile, std::wstring texFile) 
 {
 	this->meshFile = meshFile;
 	this->modLod = new ModelLoader();
+	this->calcNorm = false;
 
+	this->init();
+}
+
+DynObject::DynObject(Camera * cam, std::wstring meshFile, std::wstring texFile, bool calcNorm) : Object(cam, texFile)
+{
+	this->meshFile = meshFile;
+	this->modLod = new ModelLoader();
+	this->calcNorm = calcNorm;
 
 	this->init();
 }
@@ -23,7 +32,7 @@ void DynObject::update()
 
 void DynObject::createVertexData()
 {
-	if (!this->modLod->loadObjModel(L"Resources\\Meshes\\" + this->meshFile + L".obj", this->rndData, meshSubsetIndexStart, meshSubsetTexture, meshSubsets, true, false))
+	if (!this->modLod->loadObjModel(L"Resources\\Meshes\\" + this->meshFile + L".obj", this->rndData, meshSubsetIndexStart, meshSubsetTexture, meshSubsets, true, this->calcNorm))
 	{
 		std::string errorMsg;
 		this->okToRender = false;

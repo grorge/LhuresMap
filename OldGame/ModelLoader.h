@@ -31,15 +31,13 @@ struct SurfaceMaterial
 	bool transparent;
 };
 
-
+//Handles loading of meshes, call .loadObjModel()
 class ModelLoader
 {
 public:
 	ModelLoader();
 	~ModelLoader();
-
-
-
+	   
 	//Define LoadObjModel function after we create surfaceMaterial structure
 	bool loadObjModel(std::wstring filename,        //.obj filename
 		RenderData* rndData,            //mesh index buffer
@@ -55,8 +53,7 @@ private:
 
 	std::vector<ID3D11ShaderResourceView*> meshSRV;
 	std::vector<std::wstring> textureNameArray;
-
-
+	
 	std::vector<Vertex> vertices;
 };
 

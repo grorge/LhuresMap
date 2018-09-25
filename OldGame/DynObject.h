@@ -17,6 +17,7 @@ class DynObject : public Object
 {
 public:
 	DynObject(Camera* cam, std::wstring meshFile, std::wstring texFile);
+	DynObject(Camera* cam, std::wstring meshFile, std::wstring texFile, bool calcNorm);
 	~DynObject();
 
 	void update();
@@ -24,6 +25,7 @@ public:
 private:
 	std::wstring meshFile = std::wstring();
 	ModelLoader* modLod = nullptr;
+	bool calcNorm;
 
 	int meshSubsets = 0;
 	std::vector<int> meshSubsetIndexStart;
