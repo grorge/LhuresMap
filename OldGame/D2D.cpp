@@ -126,11 +126,10 @@ void D2D::checkFPS()
 	this->frames++;
 
 	this->newFrame = clock();
-
-	this->frametime = this->newFrame - this->lastFrame;
-
+	
 	if ((this->newFrame - this->lastDisplay) > 1000)
 	{
+		this->frametime = this->newFrame - this->lastFrame;
 		this->fps = this->frames;
 		this->frames = 0;
 		this->lastDisplay = this->newFrame;
@@ -160,7 +159,7 @@ HRESULT D2D::OnRender()
 
 		//Create our string
 		std::wostringstream printString;
-		printString << text << this->fps << L"\nFrametime: " << this->frametime;
+		printString << text << this->fps << L"\nFrametime: " << this->frametime << L"\n" << this->msgText;
 		printText = printString.str();
 		
 		D2D1_SIZE_F rtSize = m_pRenderTarget->GetSize();

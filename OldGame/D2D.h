@@ -56,6 +56,8 @@ private:
 
 	std::wstring printText;
 
+	// Mesage to be changed during runtime
+	std::wstring msgText = L"temp";
 
 	// FPS counter
 	void checkFPS();
@@ -65,6 +67,7 @@ private:
 	clock_t newFrame = 0.0f;
 	float frametime = 0.0f;
 	clock_t lastDisplay;
+
 };
 
 
