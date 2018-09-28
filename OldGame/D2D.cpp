@@ -152,11 +152,9 @@ HRESULT D2D::OnRender()
 	if (SUCCEEDED(hr))
 	{
 		this->m_pRenderTarget->BeginDraw();
-
-		//this->m_pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
-
+		
+		// Background, will be a overlay of the screen if not alpha = 0.0f
 		this->m_pRenderTarget->Clear(D2D1::ColorF(0.0f, 0.0f, 0.0f, 0.0f));
-		//this->m_pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
 
 		this->checkFPS();
 

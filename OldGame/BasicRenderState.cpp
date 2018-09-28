@@ -18,7 +18,7 @@ void BasicRenderState::initScene()
 
 	//Boxes
 	newObject = new DynObject(this->cam, L"LP_tree", L"planks");
-	newObject->rotateX(3.14/2);
+	newObject->rotateX(3.14f/2.0f);
 	newObject->SETSizeFloat(10.0f);
 	newObject->SETPosition(XMFLOAT3(700.0f, -100.0f, 1300.0f));
 	this->object.push_back(newObject);

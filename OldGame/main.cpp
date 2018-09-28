@@ -42,7 +42,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	double deltaTime = 0.0;
 	double timeLastFrame = 0.0;
 	int frames = 0;
-	char msgbuf[20];
+	//char msgbuf[20];
 	
 	// Game loop
 	while (gm.getIsRunning()) {

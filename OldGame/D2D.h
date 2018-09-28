@@ -19,6 +19,7 @@ public:
 
 	virtual ID2D1RenderTarget* GETRenderTarget() { return this->m_pRenderTarget; }
 	virtual IDWriteTextFormat* GETTextFormat() { return this->m_pTextFormat; }
+	virtual void SETTextFormat(std::wstring input) { this->msgText = input; }
 	virtual void closeMenu();
 	virtual void cleanUp();
 	virtual void setBackbuffer(ID3D11Texture2D* pBB);
@@ -53,20 +54,20 @@ private:
 	UINT destinationHeight;
 	ID2D1Bitmap* pBitmap = nullptr;
 
-
+	// Holds the text that will be printed on the screen
 	std::wstring printText;
 
 	// Mesage to be changed during runtime
-	std::wstring msgText = L"temp";
+	std::wstring msgText = L"NaN";
 
 	// FPS counter
 	void checkFPS();
 	int frames = 0;
-	float fps = 0;
-	clock_t lastFrame = 0.0f;
-	clock_t newFrame = 0.0f;
-	float frametime = 0.0f;
-	clock_t lastDisplay;
+	int fps = 0;
+	clock_t lastFrame = clock_t();
+	clock_t newFrame = clock_t();
+	clock_t frametime = clock_t();
+	clock_t lastDisplay = clock_t();
 
 };
 

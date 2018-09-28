@@ -34,22 +34,19 @@ class ID2D
 public:
 	// Register the window class and call methods for instantiating drawing resources
 	virtual HRESULT Initialize(IDXGISurface1 *sSurface10) = 0;
-
-	// Draw content.
-	//virtual HRESULT OnRender(std::vector<MenuObject*> objects) = 0;
-
+	
 	virtual ID2D1RenderTarget* GETRenderTarget() = 0;
 	virtual IDWriteTextFormat* GETTextFormat() = 0;
 
 	// Draw content.
 	virtual HRESULT OnRender() = 0;
+	// Sends a wstring to be written to the screen
+	virtual void SETTextFormat(std::wstring input) = 0;
 
 	// Clears the screenshot
 	virtual void closeMenu() = 0;
 	// Cleans memory
 	virtual void cleanUp() = 0;
-	// Gives the backbuffer from the renderer
-	//virtual void setBackbuffer(ID3D11Texture2D* pBB) = 0;
 };
 
 

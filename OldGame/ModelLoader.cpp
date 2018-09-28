@@ -159,7 +159,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 								int whichPart = 0;        //(vPos, vTexCoord, or vNorm)
 
 														  //Parse this string
-								for (int j = 0; j < VertDef.length(); ++j)
+								for (size_t j = 0; j < VertDef.length(); ++j)
 								{
 									if (VertDef[j] != '/')    //If there is no divider "/", add a char to our vertPart
 										vertPart += VertDef[j];
@@ -292,7 +292,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 								int whichPart = 0;
 
 								//Parse this string (same as above)
-								for (int j = 0; j < VertDef.length(); ++j)
+								for (size_t j = 0; j < VertDef.length(); ++j)
 								{
 									if (VertDef[j] != '/')
 										vertPart += VertDef[j];
@@ -536,7 +536,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 
 			//Compute vertex normals (normal Averaging)
 			XMVECTOR normalSum = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
-			int facesUsing = 0;
+			float facesUsing = 0.0f;
 			float tX;
 			float tY;
 			float tZ;
