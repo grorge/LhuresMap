@@ -17,7 +17,7 @@
       <Filter>BackendLoop\Render</Filter>
     </ClCompile>
     <ClCompile Include="Locator.cpp">
-      <Filter>Structure\Locator</Filter>
+      <Filter>Setup\Locator</Filter>
     </ClCompile>
     <ClCompile Include="StateManager.cpp">
       <Filter>Structure\States</Filter>
@@ -64,13 +64,13 @@
       <Filter>BackendLoop\Render</Filter>
     </ClInclude>
     <ClInclude Include="ID2D.h">
-      <Filter>Structure\Locator</Filter>
+      <Filter>Setup\Locator</Filter>
     </ClInclude>
     <ClInclude Include="ID3D.h">
-      <Filter>Structure\Locator</Filter>
+      <Filter>Setup\Locator</Filter>
     </ClInclude>
     <ClInclude Include="Locator.h">
-      <Filter>Structure\Locator</Filter>
+      <Filter>Setup\Locator</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Structure\States</Filter>
@@ -111,6 +111,12 @@
     <ClInclude Include="CleanupTools.h">
       <Filter>Structure</Filter>
     </ClInclude>
+    <ClInclude Include="ITime.h">
+      <Filter>Setup\Locator</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Setup</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Setup">
@@ -128,9 +134,6 @@
     <Filter Include="BackendLoop\Render">
       <UniqueIdentifier>{b92ac5e3-26a3-4005-8281-0abadef344f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Structure\Locator">
-      <UniqueIdentifier>{1c31a6e2-4c8b-4e5e-8355-a4b7a55a77b1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Structure\States">
       <UniqueIdentifier>{afbc6c5e-9973-418c-939c-ad1a13a04e4d}</UniqueIdentifier>
     </Filter>
@@ -139,6 +142,9 @@
     </Filter>
     <Filter Include="BackendLoop\Logic">
       <UniqueIdentifier>{6120d205-8791-484c-8129-1d060af3688e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Setup\Locator">
+      <UniqueIdentifier>{1c31a6e2-4c8b-4e5e-8355-a4b7a55a77b1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

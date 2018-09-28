@@ -150,6 +150,7 @@
     <ClInclude Include="D3D.h" />
     <ClInclude Include="ID2D.h" />
     <ClInclude Include="ID3D.h" />
+    <ClInclude Include="ITime.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="MouseInput.h" />
     <ClInclude Include="Object.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="StaticObject.h" />
+    <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BasicRenderState.cpp" />
