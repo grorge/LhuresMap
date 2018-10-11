@@ -22,7 +22,7 @@ void D3D::initializeWindow(HINSTANCE hInstance, int ShowWnd, int width, int heig
 	wc.hCursor = LoadCursor(nullptr, nullptr);	// Default mouse icon
 	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 4);	// Window background color
 	wc.lpszMenuName = nullptr;						// Name of the menu attached to the window if we had one
-	wc.lpszClassName = LPCTSTR("Project");			// Name of the windows class
+	wc.lpszClassName = LPCTSTR("App Base");			// Name of the windows class
 	wc.hIconSm = LoadIcon(nullptr, IDI_WINLOGO);	// Taskbar icon
 													// Error checking
 	if (!RegisterClassEx(&wc)) {
@@ -33,7 +33,7 @@ void D3D::initializeWindow(HINSTANCE hInstance, int ShowWnd, int width, int heig
 	this->hwnd = CreateWindowEx(
 		NULL,							// Extended style
 		wc.lpszClassName,					// Name of windows class
-		"Technique Project",				// Titlebar text
+		"App base",				// Titlebar text
 		WS_OVERLAPPEDWINDOW,			// Window style
 		CW_USEDEFAULT, CW_USEDEFAULT,	// Starting positions of window
 		width,							// Window width

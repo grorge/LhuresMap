@@ -43,6 +43,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// Initialize the game
 	gm.init(hInstance, nCmdShow);
 		
+	// Sets screen to fullscreen, Also lowers FPS by 60%
+	//Locator::getD3D()->GETswapChain()->SetFullscreenState(true, nullptr);
+
 	// Game loop
 	while (gm.getIsRunning()) {
 
