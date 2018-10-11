@@ -156,13 +156,13 @@ HRESULT D2D::OnRender()
 		// Background, will be a overlay of the screen if not alpha = 0.0f
 		this->m_pRenderTarget->Clear(D2D1::ColorF(0.0f, 0.0f, 0.0f, 0.0f));
 
-		this->checkFPS();
+		//this->checkFPS();
 
-		std::wstring text = L"FPS: ";
+		std::wstring text = L"Filip: ";
 
 		//Create our string
 		std::wostringstream printString;
-		printString << text << this->fps << L"\nFrametime: " << this->frametime << L"\n" << this->msgText;
+		printString << text << Locator::getTime()->GETfps() << L"\nFrametime: " << Locator::getTime()->GETFrameTime() << L"\n" << this->msgText;
 		printText = printString.str();
 		
 		D2D1_SIZE_F rtSize = m_pRenderTarget->GetSize();

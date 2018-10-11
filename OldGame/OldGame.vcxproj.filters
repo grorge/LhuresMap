@@ -49,6 +49,9 @@
     <ClCompile Include="DynObject.cpp">
       <Filter>GameCont</Filter>
     </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Setup</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">

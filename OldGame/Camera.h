@@ -16,8 +16,8 @@ using namespace DirectX;
 
 class Camera {
 private:
-	float			cameraMoveSpeed = 20.0f;
-	float			cameraTurnSpeed = 0.1f;
+	float			cameraMoveSpeed = 2000.0f;
+	float			cameraTurnSpeed = 10.0f;
 	float			cameraRotateSpeed = 0.02f;
 	float			angle = 0.0f;
 	float			nearPlane = 0.0f;

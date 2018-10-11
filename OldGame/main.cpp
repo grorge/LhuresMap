@@ -5,6 +5,7 @@
 #include "Locator.h"
 #include "D3D.h"
 #include "D2D.h"
+#include "Time.h"
 #include <DirectXMath.h>
 
 using namespace DirectX;
@@ -27,9 +28,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	ID3D* d3d = new D3D();
 	ID2D* d2d = new D2D();
+	ITime* time = new Time();
 
 	Locator::provide(d3d);
 	Locator::provide(d2d);
+	Locator::provide(time);
 
 	Locator::getD3D()->initializeWindow(hInstance, true, 1200, 800, true);
 	Locator::getD3D()->createSwapChain();
@@ -39,30 +42,26 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	GameManager gm;
 	// Initialize the game
 	gm.init(hInstance, nCmdShow);
-	double deltaTime = 0.0;
-	double timeLastFrame = 0.0;
-	int frames = 0;
-	//char msgbuf[20];
-	
+		
 	// Game loop
 	while (gm.getIsRunning()) {
+
+		// Update the timer
+		Locator::getTime()->cycle();
+
 		// Handle events & update & render
 		gm.handleEvents();
 		gm.update();
 		gm.render();
-
-		//if (timeLastFrame > 1000.0) {
-		//	sprintf_s(msgbuf, "FPS: %d\n", frames);
-		//	
-		//	OutputDebugStringA(msgbuf);
-		//}
-
 	}
 
 	//d2d->cleanUp();
 	gm.cleanUp();
 	d3d->cleanup();
+	d2d->cleanUp();
 	delete d3d;
+	delete d2d;
+	delete time;
 
 #ifdef _DEBUG
 	//_CrtDumpMemoryLeaks();

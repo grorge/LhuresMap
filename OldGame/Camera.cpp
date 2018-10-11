@@ -29,7 +29,7 @@ void Camera::moveCameraUp() {
 	// Scale the vector based on the 'cameraMoveSpeed' variable
 	upVecNormalized = DirectX::XMVectorScale(
 		upVecNormalized,
-		this->cameraMoveSpeed
+		this->cameraMoveSpeed * Locator::getTime()->GETCoeff()
 	);
 
 	// MOVE!!
@@ -53,7 +53,7 @@ void Camera::moveCameraDown()
 	// Scale the vector based on the 'cameraMoveSpeed' variable
 	upVecNormalized = DirectX::XMVectorScale(
 		upVecNormalized,
-		this->cameraMoveSpeed * -1.0f
+		this->cameraMoveSpeed * -1.0f * Locator::getTime()->GETCoeff()
 	);
 
 	// MOVE!!
@@ -85,7 +85,7 @@ void Camera::moveCameraLeft() {
 	// Scale the vector based on the 'cameraMoveSpeed' variable
 	moveVecNormalized = DirectX::XMVectorScale(
 		moveVecNormalized,
-		this->cameraMoveSpeed
+		this->cameraMoveSpeed  * Locator::getTime()->GETCoeff()
 	);
 
 	// MOVE!!
@@ -117,7 +117,7 @@ void Camera::moveCameraRight() {
 	// Scale the vector based on the 'cameraMoveSpeed' variable
 	moveVecNormalized = DirectX::XMVectorScale(
 		moveVecNormalized,
-		cameraMoveSpeed
+		this->cameraMoveSpeed  * Locator::getTime()->GETCoeff()
 	);
 
 	// MOVE!!
@@ -144,7 +144,7 @@ void Camera::moveCameraForward() {
 	// Scale the vector based on the 'cameraMoveSpeed' variable
 	moveVecNormalized = DirectX::XMVectorScale(
 		moveVecNormalized,
-		this->cameraMoveSpeed
+		this->cameraMoveSpeed * Locator::getTime()->GETCoeff()
 	);
 
 	// MOVE!!
@@ -172,7 +172,7 @@ void Camera::moveCameraBackward() {
 	// NOTE: We're scaling with NEGATIVE 'cameraMoveSpeed' to go backwards!!
 	moveVecNormalized = DirectX::XMVectorScale(
 		moveVecNormalized,
-		(this->cameraMoveSpeed * -1)
+		(this->cameraMoveSpeed * -1 * Locator::getTime()->GETCoeff())
 	);
 
 	// MOVE!!
@@ -268,6 +268,9 @@ void Camera::init()
 
 
 void Camera::updateCamera() {
+	
+	// makes the movespeed depend on coefficient
+	//this->cameraMoveSpeed = * Locator::getTime()->GETCoeff();
 
 	/*
 	// POSITIONAL MOVEMENT
@@ -349,7 +352,7 @@ void Camera::turnCameraLeft()
 	XMVECTOR vFaceDir = XMLoadFloat3(&this->cameraFacingDir);
 	XMVECTOR vUp = XMLoadFloat3(&this->cameraUpDir);
 	
-	vFaceDir = XMVector3Rotate(vFaceDir, XMQuaternionRotationAxis(vUp, -this->cameraTurnSpeed));
+	vFaceDir = XMVector3Rotate(vFaceDir, XMQuaternionRotationAxis(vUp, -this->cameraTurnSpeed * Locator::getTime()->GETCoeff()));
 
 	XMStoreFloat3(&this->cameraFacingDir, vFaceDir);
 }
@@ -359,7 +362,7 @@ void Camera::turnCameraRight()
 	XMVECTOR vFaceDir = XMLoadFloat3(&this->cameraFacingDir);
 	XMVECTOR vUp = XMLoadFloat3(&this->cameraUpDir);
 	
-	vFaceDir = XMVector3Rotate(vFaceDir, XMQuaternionRotationAxis(vUp, this->cameraTurnSpeed));
+	vFaceDir = XMVector3Rotate(vFaceDir, XMQuaternionRotationAxis(vUp, this->cameraTurnSpeed * Locator::getTime()->GETCoeff()));
 
 	XMStoreFloat3(&this->cameraFacingDir, vFaceDir);
 }

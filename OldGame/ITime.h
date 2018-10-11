@@ -14,8 +14,9 @@ public:
 	virtual clock_t GETTime() = 0;
 
 	virtual float GETCoeff() = 0;
-	virtual void SETMulti() = 0;
-
+	virtual float GETFrameTime() = 0;
+	virtual void SETMulti(float factor) = 0;
+	virtual int GETfps() = 0;
 
 };
 

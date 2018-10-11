@@ -102,6 +102,8 @@ void BasicRenderState::handleEvents(GameManager * gm)
 
 void BasicRenderState::update(GameManager * gm)
 {
+	Locator::getD2D()->SETTextFormat(std::to_wstring(Locator::getTime()->GETCoeff()));
+
 	this->cam->updateCamera();
 
 	for (auto obj : this->object)
