@@ -24,7 +24,6 @@ public:
 
 private:
 	std::wstring meshFile = std::wstring();
-	ModelLoader* modLod = nullptr;
 	bool calcNorm;
 
 	int meshSubsets = 0;

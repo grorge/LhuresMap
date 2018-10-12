@@ -4,7 +4,7 @@
 DynObject::DynObject(Camera * cam, std::wstring meshFile, std::wstring texFile) : Object(cam, texFile)
 {
 	this->meshFile = meshFile;
-	this->modLod = new ModelLoader();
+	//this->modLod = new ModelLoader();
 	this->calcNorm = false;
 
 	this->init();
@@ -13,7 +13,7 @@ DynObject::DynObject(Camera * cam, std::wstring meshFile, std::wstring texFile) 
 DynObject::DynObject(Camera * cam, std::wstring meshFile, std::wstring texFile, bool calcNorm) : Object(cam, texFile)
 {
 	this->meshFile = meshFile;
-	this->modLod = new ModelLoader();
+	//this->modLod = new ModelLoader();
 	this->calcNorm = calcNorm;
 
 	this->init();
@@ -21,7 +21,7 @@ DynObject::DynObject(Camera * cam, std::wstring meshFile, std::wstring texFile, 
 
 DynObject::~DynObject()
 {
-	delete this->modLod;
+	//delete this->modLod;
 }
 
 void DynObject::update()
@@ -32,7 +32,7 @@ void DynObject::update()
 
 void DynObject::createVertexData()
 {
-	if (!this->modLod->loadObjModel(L"Resources\\Meshes\\" + this->meshFile + L".obj", this->rndData, meshSubsetIndexStart, meshSubsetTexture, meshSubsets, true, this->calcNorm))
+	if (!modLocator->loadObjModel(L"Resources\\Meshes\\" + this->meshFile + L".obj", this->rndData, meshSubsetIndexStart, meshSubsetTexture, meshSubsets, true, this->calcNorm))
 	{
 		std::string errorMsg;
 		this->okToRender = false;

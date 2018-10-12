@@ -37,6 +37,8 @@ class ModelLoader
 public:
 	ModelLoader();
 	~ModelLoader();
+
+
 	   
 	//Define LoadObjModel function after we create surfaceMaterial structure
 	bool loadObjModel(std::wstring filename,        //.obj filename
@@ -50,12 +52,16 @@ public:
 private:
 	int meshSubsets = 0;
 	std::vector<int> meshSubsetTexture;
+	std::vector<std::string> meshList;
 
 	std::vector<ID3D11ShaderResourceView*> meshSRV;
 	std::vector<std::wstring> textureNameArray;
 	
 	std::vector<Vertex> vertices;
 };
+
+
+static ModelLoader* modLocator;
 
 
 #endif // !MODELLOADER_H
