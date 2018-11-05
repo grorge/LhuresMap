@@ -50,9 +50,10 @@ public:
 		bool computeNormals);                //true to compute the normals, false to use the files normals
 
 private:
-	int meshSubsets = 0;
+	//int meshSubsets = 0;
 	std::vector<int> meshSubsetTexture;
 	std::vector<std::string> meshList;
+	std::vector<int> meshSubsetList;
 
 	std::vector<ID3D11ShaderResourceView*> meshSRV;
 	std::vector<std::wstring> textureNameArray;
@@ -62,7 +63,6 @@ private:
 
 
 static ModelLoader* modLocator;
-
 
 #endif // !MODELLOADER_H
 

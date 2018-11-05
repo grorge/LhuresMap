@@ -466,7 +466,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 		if (subsetIndexStart[1] == 0)
 		{
 			subsetIndexStart.erase(subsetIndexStart.begin() + 1);
-			meshSubsets--;
+			//this->meshSubsetList[0]--;
 		}
 
 		//Make sure we have a default for the tex coord and normal
