@@ -8,6 +8,7 @@ BasicRenderState BasicRenderState::sBasicRenderState;
 
 void BasicRenderState::initScene()
 {
+
 	Object* newObject;
 
 	//Gound
@@ -27,6 +28,15 @@ void BasicRenderState::initScene()
 	newObject->SETSizeFloat(50.0f);
 	newObject->SETPosition(XMFLOAT3(-100.0f, -100.0f, 1000.0f));
 	this->object.push_back(newObject);
+
+	//Test for preststandard
+	//for (int i = 0; i < 200; i++)
+	//{
+	//	newObject = new DynObject(this->cam, L"LP_male", L"bricks");
+	//	newObject->SETSizeFloat(50.0f);
+	//	newObject->SETPosition(XMFLOAT3(3.0f * (rand() % 300), -100.0f, 1000.0f));
+	//	this->object.push_back(newObject);
+	//}
 
 	newObject = new DynObject(this->cam, L"bottle", L"gravel");
 	newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));

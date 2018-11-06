@@ -150,6 +150,7 @@
     <ClInclude Include="D3D.h" />
     <ClInclude Include="ID2D.h" />
     <ClInclude Include="ID3D.h" />
+    <ClInclude Include="IModelLoader.h" />
     <ClInclude Include="ITime.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="MouseInput.h" />

@@ -6,6 +6,7 @@
 #include "D3D.h"
 #include "D2D.h"
 #include "Time.h"
+#include "ModelLoader.h"
 #include <DirectXMath.h>
 
 using namespace DirectX;
@@ -29,10 +30,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	ID3D* d3d = new D3D();
 	ID2D* d2d = new D2D();
 	ITime* time = new Time();
+	IModelLoader* mod = new ModelLoader();
 
 	Locator::provide(d3d);
 	Locator::provide(d2d);
 	Locator::provide(time);
+	Locator::provide(mod);
 
 	Locator::getD3D()->initializeWindow(hInstance, true, 1200, 800, true);
 	Locator::getD3D()->createSwapChain();

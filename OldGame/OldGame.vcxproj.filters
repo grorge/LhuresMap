@@ -120,6 +120,9 @@
     <ClInclude Include="Time.h">
       <Filter>Setup</Filter>
     </ClInclude>
+    <ClInclude Include="IModelLoader.h">
+      <Filter>Setup\Locator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Setup">

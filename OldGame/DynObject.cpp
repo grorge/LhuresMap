@@ -32,7 +32,8 @@ void DynObject::update()
 
 void DynObject::createVertexData()
 {
-	if (!modLocator->loadObjModel(L"Resources\\Meshes\\" + this->meshFile + L".obj", this->rndData, meshSubsetIndexStart, meshSubsetTexture, meshSubsets, true, this->calcNorm))
+	
+	if (!Locator::getModLoad()->loadObjModel(L"Resources\\Meshes\\" + this->meshFile + L".obj", this->rndData, meshSubsetIndexStart, meshSubsetTexture, meshSubsets, true, this->calcNorm))
 	{
 		std::string errorMsg;
 		this->okToRender = false;

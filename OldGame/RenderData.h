@@ -53,12 +53,20 @@ struct RenderData
 	ID3D11Buffer* indexBuffer;
 	size_t numbIndices;
 	objectBuff objBuffData;
-	//Vertex* vertexes;
-	//DirectX::XMFLOAT4 color;
 	ID3D11ShaderResourceView* texSRV;
 	bool transparent;
 
 	RenderData() {}
+	RenderData(RenderData* rnd) 
+	{
+		this->indexBuffer = rnd->indexBuffer;
+		this->vertBuffer = rnd->vertBuffer;
+		this->objBuffData = rnd->objBuffData;
+		this->texSRV = rnd->texSRV;
+		this->transparent = rnd->transparent;
+		this->stride = rnd->stride;
+		this->numbIndices = rnd->numbIndices;
+	}
 	//RenderData(Vertex* v) : vertexes(v)  {}
 	//RenderData(Vertex* v, DirectX::XMFLOAT4 c) : vertexes(v), color(c)  {}
 	~RenderData()

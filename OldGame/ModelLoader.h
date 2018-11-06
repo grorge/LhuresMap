@@ -2,24 +2,25 @@
 #ifndef MODELLOADER_H
 #define MODELLOADER_H
 
-#pragma comment(lib, "d3d11.lib")
+#include "IModelLoader.h"
 
-#include <d3d11.h>
-#include <DirectXMath.h>
+struct savedMeshData
+{
+	std::wstring meshName;
+	D3D11_BUFFER_DESC indexBufferDesc;
+	std::vector<DWORD> indices;
+	std::vector<Vertex> vertices;
+	size_t stride;
 
-#include "Locator.h"
-#include "RenderData.h"
+	savedMeshData() :
+		meshName(std::wstring())
+	{};
 
-#include <sstream>
-#include <dwrite.h>
-#include <dinput.h>
-#include <vector>
-#include <array>
-#include <fstream>
-#include <istream>
-
-
-using namespace DirectX;
+	savedMeshData(
+		std::wstring filename, 
+		RenderData* rndData) :
+			meshName(filename) {};
+};
 
 
 struct SurfaceMaterial
@@ -32,16 +33,14 @@ struct SurfaceMaterial
 };
 
 //Handles loading of meshes, call .loadObjModel()
-class ModelLoader
+class ModelLoader : public IModelLoader
 {
 public:
 	ModelLoader();
 	~ModelLoader();
-
-
 	   
 	//Define LoadObjModel function after we create surfaceMaterial structure
-	bool loadObjModel(std::wstring filename,        //.obj filename
+	virtual bool loadObjModel(std::wstring filename,        //.obj filename
 		RenderData* rndData,            //mesh index buffer
 		std::vector<int>& subsetIndexStart,        //start index of each subset
 		std::vector<int>& subsetMaterialArray,        //index value of material for each subset
@@ -52,8 +51,10 @@ public:
 private:
 	//int meshSubsets = 0;
 	std::vector<int> meshSubsetTexture;
-	std::vector<std::string> meshList;
-	std::vector<int> meshSubsetList;
+
+
+	//save the Mesh
+	std::vector<savedMeshData *> savedData;
 
 	std::vector<ID3D11ShaderResourceView*> meshSRV;
 	std::vector<std::wstring> textureNameArray;
@@ -61,8 +62,6 @@ private:
 	std::vector<Vertex> vertices;
 };
 
-
-static ModelLoader* modLocator;
 
 #endif // !MODELLOADER_H
 
