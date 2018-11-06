@@ -24,6 +24,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 			{
 				inList = true;
 
+				// Create new buffers for the RenderData
 
 				D3D11_SUBRESOURCE_DATA iinitData;
 				iinitData.pSysMem = &this->savedData.at(i)->indices[0];
@@ -31,17 +32,13 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 				Locator::getD3D()->GETgDevice()->CreateBuffer(&this->savedData.at(i)->indexBufferDesc, &iinitData, &rndData->indexBuffer);
 
 				size_t offset = 0;
-				Locator::getD3D()->createVertexBuffer(&rndData->vertBuffer, this->savedData.at(i)->vertices.data(), this->savedData.at(i)->stride, offset, this->savedData.at(i)->vertices.size());
+				size_t stride = sizeof(Vertex);
+				Locator::getD3D()->createVertexBuffer(&rndData->vertBuffer, this->savedData.at(i)->vertices.data(), stride, offset, this->savedData.at(i)->vertices.size());
 
-
-				rndData->stride = this->savedData.at(i)->stride;
+				rndData->stride = stride;
 				rndData->numbIndices = this->savedData.at(i)->indices.size();
-
-
 			}
 		}
-
-		
 
 		if (!inList)
 		{
@@ -74,17 +71,13 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 			int totalVerts = 0;
 			int meshTriangles = 0;
 
+			// Saves info for moltiple models
 			savedMeshData *newSave = new savedMeshData;
-			
 			newSave->meshName = filename;
-			//newSave->rndData = rndData;
 
 			std::wifstream fileIn(filename.c_str());    //Open file
 
 			std::wstring meshMatLib;                    //String to hold our obj material library filename
-
-			
-
 
 			//Check to see if the file was opened
 			if (fileIn)
@@ -645,13 +638,12 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 			rndData->stride = sizeof(Vertex);
 			Locator::getD3D()->createVertexBuffer(&rndData->vertBuffer, vertices.data(), rndData->stride, offset, vertices.size());
 
+			// Save the data for future models.
 			newSave->indices = indices;
 			newSave->indexBufferDesc = indexBufferDesc;
 			newSave->vertices = vertices;
-			newSave->stride = rndData->stride;
 
 			this->savedData.push_back(newSave);
-
 		}
 
 		return true;

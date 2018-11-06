@@ -10,7 +10,6 @@ struct savedMeshData
 	D3D11_BUFFER_DESC indexBufferDesc;
 	std::vector<DWORD> indices;
 	std::vector<Vertex> vertices;
-	size_t stride;
 
 	savedMeshData() :
 		meshName(std::wstring())
@@ -52,8 +51,7 @@ private:
 	//int meshSubsets = 0;
 	std::vector<int> meshSubsetTexture;
 
-
-	//save the Mesh
+	// Saves meshes s oit can be used again faster
 	std::vector<savedMeshData *> savedData;
 
 	std::vector<ID3D11ShaderResourceView*> meshSRV;

@@ -27,6 +27,8 @@ class IModelLoader
 {
 public:
 	//Define LoadObjModel function after we create surfaceMaterial structure
+
+	//Takes model from filename and loads info into the rndData
 	virtual bool loadObjModel(std::wstring filename,        //.obj filename
 		RenderData* rndData,            //mesh index buffer
 		std::vector<int>& subsetIndexStart,        //start index of each subset
