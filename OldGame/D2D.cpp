@@ -80,6 +80,19 @@ HRESULT D2D::CreateDeviceIndependentResources()
 			(LPVOID*)&this->pIWICFactory
 		);
 	}
+	if (SUCCEEDED(hr))
+	{
+		//Create Geometries
+		this->g_MsgBox.pos = DirectX::XMFLOAT2(50.0f, 50.0f);
+		this->g_MsgBox.size = DirectX::XMFLOAT2(200.0f, 150.0f);
+		this->g_MsgBox.padding = 5.0f;
+		this->g_MsgBox.setRect();
+
+		hr = m_pDirect2dFactory->CreateRectangleGeometry(
+			D2D1::RectF(this->g_MsgBox.pos.x, this->g_MsgBox.pos.y, this->g_MsgBox.pos.x + this->g_MsgBox.size.x, this->g_MsgBox.pos.y + this->g_MsgBox.size.y),
+			&this->g_MsgBox.p_rectGeom
+		);
+	}
 
 	return hr;
 }
@@ -109,6 +122,7 @@ HRESULT D2D::CreateDeviceResources(IDXGISurface1 *sSurface10)
 		
 		//Create the colorBrushes
 		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &this->pTextColor);
+		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::BlueViolet), &this->g_MsgBox.p_colorBrush);
 	}
 
 	return hr;
@@ -158,7 +172,7 @@ HRESULT D2D::OnRender()
 
 		//this->checkFPS();
 
-		std::wstring text = L"Filip: ";
+		std::wstring text = L"FPS: ";
 
 		//Create our string
 		std::wostringstream printString;
@@ -172,13 +186,15 @@ HRESULT D2D::OnRender()
 
 		D2D1_RECT_F targetSq = D2D1::RectF(0, 0, width, height);
 
+		this->m_pRenderTarget->DrawGeometry(this->g_MsgBox.p_rectGeom, this->g_MsgBox.p_colorBrush);
+		this->m_pRenderTarget->FillGeometry(this->g_MsgBox.p_rectGeom, this->g_MsgBox.p_colorBrush);
 
 		//Draw the Text
 		this->m_pRenderTarget->DrawText(
 			printText.c_str(),
 			wcslen(printText.c_str()),
 			this->m_pTextFormat,
-			targetSq,
+			this->g_MsgBox.getRect(),
 			this->pTextColor
 		);
 

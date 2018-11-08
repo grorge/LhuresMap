@@ -8,6 +8,23 @@
 #include "Locator.h"
 #include "CleanupTools.h"
 
+struct BoxGeoData {
+	ID2D1RectangleGeometry* p_rectGeom = nullptr;
+	ID2D1SolidColorBrush* p_colorBrush = nullptr;
+	DirectX::XMFLOAT2 pos = DirectX::XMFLOAT2(0.0f, 0.0f);
+	DirectX::XMFLOAT2 size = DirectX::XMFLOAT2(0.0f, 0.0f);
+	float padding = 0.0f;
+	D2D1_RECT_F rectf;
+
+	void setRect() {
+		this->rectf = D2D1::RectF(pos.x + padding, pos.y + padding, pos.x + size.x - padding, pos.y + size.y - padding);
+	}
+	D2D1_RECT_F getRect() {
+		return this->rectf;
+	}
+};
+
+
 class D2D : public ID2D
 {
 public:
@@ -47,10 +64,9 @@ private:
 
 	//Brushes
 	ID2D1SolidColorBrush * pTextColor = nullptr;
-	ID2D1SolidColorBrush * pMsgBoxColor = nullptr;
 
-	//Geometries
-	ID2D1RectangleGeometry* g_pMsgBoxBackground = nullptr;
+	//Geometries (1: pointer 2: position 3:Size)
+	BoxGeoData g_MsgBox;
 
 	IWICImagingFactory *pIWICFactory = nullptr;
 	//PCWSTR uri = nullptr;
