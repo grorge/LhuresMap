@@ -47,6 +47,11 @@ void BasicRenderState::initScene()
 	newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
 	newObject->SETPosition(XMFLOAT3(-200.0f, 250.0f, 200.0f));
 	this->object.push_back(newObject);
+
+	newObject = new DynObject(this->cam, L"HP_Glock", L"gravel");
+	newObject->SETSizeFloat3(XMFLOAT3(12.0f, 12.0f, 12.0f));
+	newObject->SETPosition(XMFLOAT3(200.0f, 100.0f, 250.0f));
+	this->object.push_back(newObject);
 }
 
 BasicRenderState* BasicRenderState::getInstance() {
