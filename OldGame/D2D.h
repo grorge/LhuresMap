@@ -45,8 +45,12 @@ private:
 	// Release device-dependent resource.
 	void DiscardDeviceResources();
 
-	//Background
-	ID2D1SolidColorBrush * pGridColor = nullptr;
+	//Brushes
+	ID2D1SolidColorBrush * pTextColor = nullptr;
+	ID2D1SolidColorBrush * pMsgBoxColor = nullptr;
+
+	//Geometries
+	ID2D1RectangleGeometry* g_pMsgBoxBackground = nullptr;
 
 	IWICImagingFactory *pIWICFactory = nullptr;
 	//PCWSTR uri = nullptr;

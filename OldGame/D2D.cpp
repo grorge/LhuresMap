@@ -107,8 +107,8 @@ HRESULT D2D::CreateDeviceResources(IDXGISurface1 *sSurface10)
 			&this->m_pRenderTarget
 		);
 		
-		//Create the colorBrush for the grid in the background
-		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &this->pGridColor);
+		//Create the colorBrushes
+		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &this->pTextColor);
 	}
 
 	return hr;
@@ -118,7 +118,7 @@ void D2D::DiscardDeviceResources()
 {
 	SafeRelease(&this->m_pRenderTarget);;
 	SafeRelease(&this->m_pTextFormat);
-	SafeRelease(&this->pGridColor);
+	SafeRelease(&this->pTextColor);
 }
 
 void D2D::checkFPS()
@@ -179,7 +179,7 @@ HRESULT D2D::OnRender()
 			wcslen(printText.c_str()),
 			this->m_pTextFormat,
 			targetSq,
-			this->pGridColor
+			this->pTextColor
 		);
 
 
@@ -215,7 +215,7 @@ void D2D::cleanUp()
 	// Holds formating for text, ea Font
 	SafeRelease(&this->m_pTextFormat);
 	//Background
-	SafeRelease(&this->pGridColor);
+	SafeRelease(&this->pTextColor);
 	// Image factory
 	SafeRelease(&this->pIWICFactory);
 	// Background-screenshot
