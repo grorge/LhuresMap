@@ -19,6 +19,7 @@ class Object
 public:
 	Object(Camera* cam, std::wstring texFile);
 	void setID(int id) { this->id = id; };
+	int getID() { return this->id; };
 	~Object();
 
 	virtual void update() = 0;

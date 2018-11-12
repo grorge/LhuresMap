@@ -60,7 +60,16 @@ inline bool ObjectHandler::addObject(Object * obj, OBJECTLIST type)
 
 inline bool ObjectHandler::removeObject(int ID, OBJECTLIST type)
 {
-	for()
+	for(auto i : this->pObjects.at(type))
+	{
+		int index = 0;
+		if (i->getID() == ID)
+		{
+			this->pObjects.at(type).erase(this->pObjects.at(type).begin + index);
+		}
+		else
+			index++;
+	}
 
 	return false;
 }
