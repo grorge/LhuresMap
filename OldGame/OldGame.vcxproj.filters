@@ -123,6 +123,9 @@
     <ClInclude Include="IModelLoader.h">
       <Filter>Setup\Locator</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectHandler.h">
+      <Filter>GameCont</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Setup">

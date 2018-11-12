@@ -18,6 +18,7 @@ class Object
 {
 public:
 	Object(Camera* cam, std::wstring texFile);
+	void setID(int id) { this->id = id; };
 	~Object();
 
 	virtual void update() = 0;
@@ -54,6 +55,7 @@ protected:
 	void createTextureSRV();
 	Camera* cam = nullptr;
 private:
+	int id;
 	virtual void createVertexData() = 0;
 	std::wstring textureFilename;
 };

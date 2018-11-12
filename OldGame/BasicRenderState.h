@@ -3,7 +3,7 @@
 #define BASICRENDERSTATE_H
 
 #include "State.h"
-#include "Object.h"
+#include "ObjectHandler.h"
 #include "Camera.h"
 #include "ControlCamera.h"
 #include "Renderer.h"
@@ -19,6 +19,7 @@ private:
 	Camera* cam = nullptr;
 	ControlCamera* controlCamera = nullptr;
 	std::vector<Object*> object;
+	ObjectHandler objHandler;
 	//Object* obj;
 	void initScene();
 public:
