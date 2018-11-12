@@ -23,10 +23,11 @@ Object::~Object()
 
 void Object::updateWorld()
 {
-	XMMATRIX mRotationX = XMMatrixRotationX(this->rotXYZ.x);
-	XMMATRIX mRotationY = XMMatrixRotationY(this->rotXYZ.y);
-	XMMATRIX mRotationZ = XMMatrixRotationZ(this->rotXYZ.z);
-	XMMATRIX mRotation = mRotationX * mRotationY * mRotationZ;
+	//XMMATRIX mRotationX = XMMatrixRotationX(this->rotXYZ.x);
+	//XMMATRIX mRotationY = XMMatrixRotationY(this->rotXYZ.y);
+	//XMMATRIX mRotationZ = XMMatrixRotationZ(this->rotXYZ.z);
+	//XMMATRIX mRotation = mRotationX * mRotationY * mRotationZ;
+	XMMATRIX mRotation = XMMatrixRotationX(this->rotXYZ.x) * XMMatrixRotationY(this->rotXYZ.y) * XMMatrixRotationZ(this->rotXYZ.z);
 
 	XMMATRIX mSclaing = XMMatrixScalingFromVector(XMLoadFloat3(&this->size));
 

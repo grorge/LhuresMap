@@ -331,15 +331,7 @@ void Renderer::init()
 
 void Renderer::render(std::vector<Object*> objects)
 {
-	// Clear everything and will be the background that everything will be renderd on
-	Locator::getD3D()->GETgDevCon()->ClearRenderTargetView(this->gFinalRTV, this->clearColor);
-	Locator::getD3D()->GETgDevCon()->ClearDepthStencilView(this->gDSV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-	
-	//Set the default blend state (no blending) for opaque objects
-	Locator::getD3D()->GETgDevCon()->OMSetBlendState(0, 0, 0xffffffff);
 
-	//Sets all nextcomming objects for a transparent
-	//Locator::getD3D()->GETgDevCon()->OMSetBlendState(Locator::getD3D()->GETTransp(), blendFactor, 0xffffffff);
 
 	size_t offset = 0;
 	for (auto i : objects)
@@ -361,6 +353,24 @@ void Renderer::render(std::vector<Object*> objects)
 			Locator::getD3D()->blendedDraw(rndData->numbIndices); 
 		}
 	}
+
+}
+
+void Renderer::startRender()
+{
+	// Clear everything and will be the background that everything will be renderd on
+	Locator::getD3D()->GETgDevCon()->ClearRenderTargetView(this->gFinalRTV, this->clearColor);
+	Locator::getD3D()->GETgDevCon()->ClearDepthStencilView(this->gDSV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
+	//Set the default blend state (no blending) for opaque objects
+	Locator::getD3D()->GETgDevCon()->OMSetBlendState(0, 0, 0xffffffff);
+
+	//Sets all nextcomming objects for a transparent
+	//Locator::getD3D()->GETgDevCon()->OMSetBlendState(Locator::getD3D()->GETTransp(), blendFactor, 0xffffffff);
+}
+
+void Renderer::stopRender()
+{
 
 	this->drawD2D();
 

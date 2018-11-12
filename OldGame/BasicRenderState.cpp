@@ -15,19 +15,19 @@ void BasicRenderState::initScene()
 	newObject = new StaticObject(this->cam, L"dirt");
 	newObject->SETSizeFloat(3000.0f);
 	newObject->SETPositionY(-101.0f);
-	this->object.push_back(newObject);
+	this->objHandler->getObjList(OBJECTLIST::STATIC).push_back(newObject);
 
 	//Boxes
 	newObject = new DynObject(this->cam, L"LP_tree", L"planks");
 	newObject->rotateX(3.14f/2.0f);
 	newObject->SETSizeFloat(10.0f);
 	newObject->SETPosition(XMFLOAT3(700.0f, -100.0f, 1300.0f));
-	this->object.push_back(newObject);
+	this->objHandler->getObjList(OBJECTLIST::STATIC).push_back(newObject);
 
 	newObject = new DynObject(this->cam, L"LP_male", L"bricks");
 	newObject->SETSizeFloat(50.0f);
 	newObject->SETPosition(XMFLOAT3(-100.0f, -100.0f, 1000.0f));
-	this->object.push_back(newObject);
+	this->objHandler->getObjList(OBJECTLIST::MOVING).push_back(newObject);
 
 	//Test for preststandard
 	//for (int i = 0; i < 200; i++)
@@ -41,17 +41,17 @@ void BasicRenderState::initScene()
 	newObject = new DynObject(this->cam, L"bottle", L"gravel");
 	newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
 	newObject->SETPosition(XMFLOAT3(-100.0f, 250.0f, 200.0f));
-	this->object.push_back(newObject);
+	this->objHandler->getObjList(OBJECTLIST::STATIC).push_back(newObject);
 
 	newObject = new DynObject(this->cam, L"bottle", L"gravel");
 	newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
 	newObject->SETPosition(XMFLOAT3(-200.0f, 250.0f, 200.0f));
-	this->object.push_back(newObject);
+	this->objHandler->getObjList(OBJECTLIST::TRANS).push_back(newObject);
 
 	newObject = new DynObject(this->cam, L"HP_Glock", L"gravel");
 	newObject->SETSizeFloat3(XMFLOAT3(12.0f, 12.0f, 12.0f));
 	newObject->SETPosition(XMFLOAT3(200.0f, 100.0f, 250.0f));
-	this->object.push_back(newObject);
+	this->objHandler->getObjList(OBJECTLIST::MOVING).push_back(newObject);
 }
 
 BasicRenderState* BasicRenderState::getInstance() {
@@ -67,6 +67,8 @@ void BasicRenderState::init()
 	this->cam = new Camera();
 	this->cam->init();
 	this->controlCamera = new ControlCamera(this->cam);
+
+	this->objHandler = new ObjectHandler;
 
 	this->initScene();
 }
@@ -121,7 +123,19 @@ void BasicRenderState::update(GameManager * gm)
 
 	this->cam->updateCamera();
 
-	for (auto obj : this->object)
+	for (auto obj : this->objHandler->getObjList(OBJECTLIST::MOVING))
+	{
+		obj->rotateY(0.01f);
+
+		obj->update();
+		obj->updateWorld();
+	}
+	for (auto obj : this->objHandler->getObjList(OBJECTLIST::STATIC))
+	{
+		obj->update();
+		obj->updateWorld();
+	}
+	for (auto obj : this->objHandler->getObjList(OBJECTLIST::TRANS))
 	{
 		obj->update();
 		obj->updateWorld();
@@ -130,5 +144,13 @@ void BasicRenderState::update(GameManager * gm)
 
 void BasicRenderState::render(GameManager * gm)
 {
-	this->renderer.render(this->object);
+	this->renderer.startRender();
+	
+	//this->renderer.render(this->object);
+	this->renderer.render(this->objHandler->getObjList(OBJECTLIST::STATIC));
+	this->renderer.render(this->objHandler->getObjList(OBJECTLIST::MOVING));
+	this->renderer.render(this->objHandler->getObjList(OBJECTLIST::TRANS));
+
+	this->renderer.stopRender();
+
 }

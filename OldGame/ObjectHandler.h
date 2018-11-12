@@ -19,7 +19,8 @@ public:
 	bool addObject(Object* obj, OBJECTLIST type);
 	bool removeObject(int ID, OBJECTLIST type);
 	
-	std::vector<Object*>* getObjList(OBJECTLIST type) { return &this->pObjects.at(type); };
+	std::vector<Object*>& getObjList(OBJECTLIST type) { return this->pObjects.at(type); };
+	std::vector<Object*>& getALL(OBJECTLIST type);
 
 private:
 	std::vector<std::vector<Object* >> pObjects;
@@ -60,18 +61,30 @@ inline bool ObjectHandler::addObject(Object * obj, OBJECTLIST type)
 
 inline bool ObjectHandler::removeObject(int ID, OBJECTLIST type)
 {
+	int index = 0;
 	for(auto i : this->pObjects.at(type))
 	{
-		int index = 0;
 		if (i->getID() == ID)
 		{
-			this->pObjects.at(type).erase(this->pObjects.at(type).begin + index);
+//			this->pObjects.at(type).erase(this->pObjects.at(type).begin + index);
 		}
 		else
 			index++;
 	}
+	bool retVal = true;
+	if (index == this->pObjects.at(type).size())
+	{
+		retVal = false;
+	}
+	return retVal;
+}
 
-	return false;
+inline std::vector<Object*>& ObjectHandler::getALL(OBJECTLIST type)
+{
+	std::vector<Object*> combinedlist;
+	// TODO: insert return statement here
+
+	return combinedlist;
 }
 
 #endif // !OBJECTHANDLER_H
