@@ -18,7 +18,7 @@ private:
 
 	Camera* cam = nullptr;
 	ControlCamera* controlCamera = nullptr;
-	std::vector<Object*> object;
+	//std::vector<Object*> object;
 	ObjectHandler* objHandler;
 	//Object* obj;
 	void initScene();

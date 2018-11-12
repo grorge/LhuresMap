@@ -75,11 +75,14 @@ void BasicRenderState::init()
 
 void BasicRenderState::cleanUp()
 {
-	for (auto i : this->object)
+	for (int i = 0; i < sizeof(OBJECTLIST); i++)
 	{
-		delete i;
+		for (auto k : this->objHandler->getObjList((OBJECTLIST)i))
+		{
+			delete k;
+		}
 	}
-
+		
 	this->renderer.cleanUp();
 	delete this->cam;
 	delete this->controlCamera;
@@ -146,10 +149,15 @@ void BasicRenderState::render(GameManager * gm)
 {
 	this->renderer.startRender();
 	
-	//this->renderer.render(this->object);
-	this->renderer.render(this->objHandler->getObjList(OBJECTLIST::STATIC));
-	this->renderer.render(this->objHandler->getObjList(OBJECTLIST::MOVING));
-	this->renderer.render(this->objHandler->getObjList(OBJECTLIST::TRANS));
+	for (int i = 0; i < sizeof(OBJECTLIST); i++)
+	{
+		this->renderer.render(this->objHandler->getObjList((OBJECTLIST)i));
+	}
+
+	////this->renderer.render(this->object);
+	//this->renderer.render(this->objHandler->getObjList(OBJECTLIST::STATIC));
+	//this->renderer.render(this->objHandler->getObjList(OBJECTLIST::MOVING));
+	//this->renderer.render(this->objHandler->getObjList(OBJECTLIST::TRANS));
 
 	this->renderer.stopRender();
 

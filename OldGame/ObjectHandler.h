@@ -55,8 +55,10 @@ inline ObjectHandler::~ObjectHandler()
 inline bool ObjectHandler::addObject(Object * obj, OBJECTLIST type)
 {
 	this->pObjects.at(type).push_back(obj);
+	obj->setID(this->nextID);
+	this->nextID++;
 
-	return false;
+	return true;
 }
 
 inline bool ObjectHandler::removeObject(int ID, OBJECTLIST type)
@@ -66,7 +68,7 @@ inline bool ObjectHandler::removeObject(int ID, OBJECTLIST type)
 	{
 		if (i->getID() == ID)
 		{
-//			this->pObjects.at(type).erase(this->pObjects.at(type).begin + index);
+			this->pObjects.at(type).erase(this->pObjects.at(type).begin + index);
 		}
 		else
 			index++;
