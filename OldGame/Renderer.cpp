@@ -365,13 +365,16 @@ void Renderer::startRender()
 	//Set the default blend state (no blending) for opaque objects
 	Locator::getD3D()->GETgDevCon()->OMSetBlendState(0, 0, 0xffffffff);
 
+}
+
+void Renderer::startTrans()
+{
 	//Sets all nextcomming objects for a transparent
-	//Locator::getD3D()->GETgDevCon()->OMSetBlendState(Locator::getD3D()->GETTransp(), blendFactor, 0xffffffff);
+	Locator::getD3D()->GETgDevCon()->OMSetBlendState(Locator::getD3D()->GETTransp(), blendFactor, 0xffffffff);
 }
 
 void Renderer::stopRender()
 {
-
 	this->drawD2D();
 
 	Locator::getD3D()->GETswapChain()->Present(0, 0);
