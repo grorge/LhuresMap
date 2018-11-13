@@ -26,8 +26,7 @@ DynObject::~DynObject()
 
 void DynObject::update()
 {
-	//this->rotateX(-0.002f);
-	//this->rotateY(-1.001f * Locator::getTime()->GETCoeff());
+	//HERE VECTOR MOVMENT SHOULD GO
 }
 
 void DynObject::createVertexData()
