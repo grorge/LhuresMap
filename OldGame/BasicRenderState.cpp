@@ -128,6 +128,8 @@ void BasicRenderState::update(GameManager * gm)
 
 	for (auto obj : this->objHandler->getObjList(OBJECTLIST::MOVING))
 	{
+		obj->rotateY(0.01f);
+
 		obj->update();
 		obj->updateWorld();
 	}
