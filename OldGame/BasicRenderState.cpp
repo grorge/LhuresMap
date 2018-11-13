@@ -152,11 +152,9 @@ void BasicRenderState::render(GameManager * gm)
 	this->renderer.render(this->objHandler->getObjList(OBJECTLIST::STATIC));
 	this->renderer.render(this->objHandler->getObjList(OBJECTLIST::MOVING));
 
+	//Switch to transparent blendstate
 	this->renderer.startTrans();
 	this->renderer.render(this->objHandler->getObjList(OBJECTLIST::TRANS));
 	
-
-
 	this->renderer.stopRender();
-
 }

@@ -18,10 +18,10 @@ private:
 
 	Camera* cam = nullptr;
 	ControlCamera* controlCamera = nullptr;
-	//std::vector<Object*> object;
-	ObjectHandler* objHandler;
-	//Object* obj;
 	void initScene();
+
+	//Holds the objects in different lists
+	ObjectHandler* objHandler = nullptr;
 public:
 	static BasicRenderState* getInstance();
 

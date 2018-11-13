@@ -16,15 +16,17 @@ public:
 	ObjectHandler();
 	~ObjectHandler();
 
+	//Adds a item and assigns it a ID
 	bool addObject(Object* obj, OBJECTLIST type);
+	//Removes the said object with the ID
 	bool removeObject(int ID, OBJECTLIST type);
 	
+	//Returns a pointer to the list
 	std::vector<Object*>& getObjList(OBJECTLIST type) { return this->pObjects.at(type); };
 	std::vector<Object*>& getALL(OBJECTLIST type);
 
 private:
 	std::vector<std::vector<Object* >> pObjects;
-	//std::array<<Object*, OBJECTLIST::SIZE> aObjects;
 	int nextID;
 };
 
@@ -54,6 +56,7 @@ inline ObjectHandler::~ObjectHandler()
 
 inline bool ObjectHandler::addObject(Object * obj, OBJECTLIST type)
 {
+	//Adds the object to the list and then sets a ID to be able to remove
 	this->pObjects.at(type).push_back(obj);
 	obj->setID(this->nextID);
 	this->nextID++;

@@ -81,6 +81,7 @@ public:
 	
 	void render(std::vector<Object*> objects);
 	void startRender();
+	//All further renders will be transparent
 	void startTrans();
 	void stopRender();
 	void switchRendermode(int mode);
