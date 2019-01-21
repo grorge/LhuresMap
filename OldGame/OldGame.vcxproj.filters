@@ -126,6 +126,9 @@
     <ClInclude Include="ObjectHandler.h">
       <Filter>GameCont</Filter>
     </ClInclude>
+    <ClInclude Include="MovmentVector.h">
+      <Filter>GameCont</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Setup">

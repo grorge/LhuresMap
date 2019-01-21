@@ -154,6 +154,7 @@
     <ClInclude Include="ITime.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="MouseInput.h" />
+    <ClInclude Include="MovmentVector.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectHandler.h" />
     <ClInclude Include="RenderData.h" />
