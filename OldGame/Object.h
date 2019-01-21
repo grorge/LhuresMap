@@ -10,6 +10,7 @@
 
 #include "RenderData.h"
 #include "ModelLoader.h"
+#include "MovmentVector.h"
 
 
 using namespace DirectX;

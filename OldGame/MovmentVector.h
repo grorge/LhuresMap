@@ -38,7 +38,8 @@ struct moveVector
 
 	// Rotates around y-axis
 	DirectX::XMVECTOR rotate(float input) {
-		DirectX::XMVectorRotateLeft(this->dir, input); return this->dir;
+		XMVectorRotateLeft(this->dir, input); 
+		return this->dir;
 	};
 	// Sets dirsction
 	DirectX::XMVECTOR SETDir(DirectX::XMFLOAT3 input) { this->dir = DirectX::XMLoadFloat3(&input); return this->dir;
