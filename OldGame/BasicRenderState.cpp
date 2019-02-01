@@ -27,6 +27,7 @@ void BasicRenderState::initScene()
 	newObject = new DynObject(this->cam, L"LP_male", L"bricks");
 	newObject->SETSizeFloat(50.0f);
 	newObject->SETPosition(XMFLOAT3(-100.0f, -100.0f, 1000.0f));
+	dynamic_cast<DynObject*>(newObject)->GETmovement().addSpeed(1.0f);
 	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
 
 	//Test for preststandard

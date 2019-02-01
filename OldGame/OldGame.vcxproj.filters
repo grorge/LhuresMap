@@ -52,6 +52,12 @@
     <ClCompile Include="Time.cpp">
       <Filter>Setup</Filter>
     </ClCompile>
+    <ClCompile Include="MovmentVector.cpp">
+      <Filter>GameCont</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjPosition.cpp">
+      <Filter>GameCont</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -127,6 +133,9 @@
       <Filter>GameCont</Filter>
     </ClInclude>
     <ClInclude Include="MovmentVector.h">
+      <Filter>GameCont</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjPosition.h">
       <Filter>GameCont</Filter>
     </ClInclude>
   </ItemGroup>

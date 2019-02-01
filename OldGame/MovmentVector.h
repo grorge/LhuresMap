@@ -6,14 +6,13 @@
 
 using namespace DirectX;
 
-struct moveVector
+struct MoveVector
 {
 	float speed;
 	DirectX::XMVECTOR dir;
 	DirectX::XMFLOAT3 dirf;
-
-	moveVector() : speed(0.0001f), dirf(XMFLOAT3(1.0f, 0.0f, 0.0f)), dir(DirectX::XMVECTOR(XMLoadFloat3(&dirf))) {};
-
+	
+	MoveVector() : speed(0.0f), dirf(XMFLOAT3(1.0f, 0.0f, 0.0f)), dir(DirectX::XMVECTOR(XMLoadFloat3(&dirf))) {};
 
 	/// SPEEED FUNCTIONS
 	float GETSpeed() { return this->speed; };
@@ -44,6 +43,8 @@ struct moveVector
 	// Sets dirsction
 	DirectX::XMVECTOR SETDir(DirectX::XMFLOAT3 input) { this->dir = DirectX::XMLoadFloat3(&input); return this->dir;
 	};
+
+	void update() {};
 };
 
 

@@ -8,6 +8,7 @@
 #include <DirectXMath.h>
 #include "Camera.h"	
 #include "CleanupTools.h"
+#include "ObjPosition.h"
 
 #include "Object.h"
 
@@ -22,6 +23,8 @@ public:
 
 	void update();
 
+	MoveVector GETmovement() { return this->position.movment; };
+
 private:
 	std::wstring meshFile = std::wstring();
 	bool calcNorm;
@@ -31,6 +34,8 @@ private:
 	std::vector<int> meshSubsetTexture;
 
 	virtual void createVertexData();
+
+	ObjPos position;
 };
 
 

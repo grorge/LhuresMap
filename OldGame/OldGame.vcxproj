@@ -148,6 +148,7 @@
     <ClInclude Include="ControlCamera.h" />
     <ClInclude Include="D2D.h" />
     <ClInclude Include="D3D.h" />
+    <ClInclude Include="ObjPosition.h" />
     <ClInclude Include="ID2D.h" />
     <ClInclude Include="ID3D.h" />
     <ClInclude Include="IModelLoader.h" />
@@ -176,7 +177,9 @@
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="MouseInput.cpp" />
+    <ClCompile Include="MovmentVector.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjPosition.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Locator.cpp" />
     <ClCompile Include="main.cpp" />
