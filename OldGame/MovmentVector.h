@@ -3,16 +3,17 @@
 #define MOVMENTVECTOR_H
 
 #include <DirectXMath.h>
+#include <list>
+#include <array>
 
 using namespace DirectX;
 
-struct MoveVector
+class MoveVector
 {
-	float speed;
-	DirectX::XMVECTOR dir;
-	DirectX::XMFLOAT3 dirf;
+public:
 	
-	MoveVector() : speed(0.0f), dirf(XMFLOAT3(1.0f, 0.0f, 0.0f)), dir(DirectX::XMVECTOR(XMLoadFloat3(&dirf))) {};
+	MoveVector();
+	~MoveVector();
 
 	/// SPEEED FUNCTIONS
 	float GETSpeed() { return this->speed; };
@@ -43,8 +44,24 @@ struct MoveVector
 	// Sets dirsction
 	DirectX::XMVECTOR SETDir(DirectX::XMFLOAT3 input) { this->dir = DirectX::XMLoadFloat3(&input); return this->dir;
 	};
+	// Adds the input to the current dir in the dimension
+	bool addDir(float x, float y, float z);
 
-	void update() {};
+	void addVector(XMFLOAT4 newVec);
+	void addPermVector(XMFLOAT4 newVec, unsigned int index);
+
+
+	void update();
+
+private:
+	float speed = 0.0f;
+	DirectX::XMVECTOR dir;
+	DirectX::XMFLOAT3 dirf;
+
+	std::list<DirectX::XMFLOAT4*> moveList;
+
+	int nrOfPermMove = 0;
+	std::array<DirectX::XMFLOAT4*, 3> moveListPerm;
 };
 
 

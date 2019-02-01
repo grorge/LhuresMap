@@ -10,7 +10,7 @@
 
 #include "RenderData.h"
 #include "ModelLoader.h"
-#include "MovmentVector.h"
+#include "ObjPosition.h"
 
 
 using namespace DirectX;
@@ -37,6 +37,7 @@ public:
 	//Move
 	void SETPosition(XMFLOAT3 input) { this->pos = input; };
 	void SETPositionY(float input) { this->pos.y = input; };
+	MoveVector* GETmovement() { return this->position.movment; };
 
 	//Rotatoion
 	void SETUp(XMFLOAT3 input) { this->up = input; };
@@ -44,6 +45,7 @@ public:
 	void rotateX(float rot);
 	void rotateY(float rot);
 	void rotateZ(float rot);
+
 protected:
 	XMFLOAT3 pos = XMFLOAT3(0.000001f, 0.000001f, 0.000001f);
 	XMFLOAT3 size = XMFLOAT3(1.000001f, 1.000001f, 1.000001f);
@@ -56,6 +58,9 @@ protected:
 	RenderData* rndData = nullptr;
 	void createTextureSRV();
 	Camera* cam = nullptr;
+
+
+	ObjPos position;
 private:
 	int id;
 	virtual void createVertexData() = 0;

@@ -16,7 +16,6 @@ DynObject::DynObject(Camera * cam, std::wstring meshFile, std::wstring texFile, 
 	//this->modLod = new ModelLoader();
 	this->calcNorm = calcNorm;
 
-	this->position.SETpos(&this->pos);
 
 	this->init();
 }
@@ -29,9 +28,11 @@ DynObject::~DynObject()
 void DynObject::update()
 {
 	//HERE VECTOR MOVMENT SHOULD GO
+	this->position.SETpos(&this->pos);
 	this->position.update();
 
 	this->position.updatePos(&this->pos);
+
 
 	
 }

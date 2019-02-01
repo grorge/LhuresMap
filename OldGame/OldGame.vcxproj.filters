@@ -58,6 +58,9 @@
     <ClCompile Include="ObjPosition.cpp">
       <Filter>GameCont</Filter>
     </ClCompile>
+    <ClCompile Include="MovementVector.cpp">
+      <Filter>GameCont</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">

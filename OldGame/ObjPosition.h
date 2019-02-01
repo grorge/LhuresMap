@@ -12,7 +12,7 @@ public:
 
 	void SETpos(XMFLOAT3* pos);
 
-	MoveVector movment;
+	MoveVector *movment;
 
 	void update();
 	void updatePos(XMFLOAT3* pos);

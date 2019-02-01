@@ -4,11 +4,12 @@
 
 ObjPos::ObjPos()
 {
-
+	this->movment = new MoveVector();
 }
 
 ObjPos::~ObjPos()
 {
+	delete this->movment;
 }
 
 void ObjPos::SETpos(XMFLOAT3 * pos)
@@ -18,14 +19,11 @@ void ObjPos::SETpos(XMFLOAT3 * pos)
 
 void ObjPos::update()
 {
+	this->pos.x += movment->GETSpeed() * movment->GETDirF3().x;
+	this->pos.y += movment->GETSpeed() * movment->GETDirF3().y;
+	this->pos.z += movment->GETSpeed() * movment->GETDirF3().z;
 
-
-	this->pos.x += movment.speed * movment.dirf.x;
-	this->pos.z += movment.speed * movment.dirf.y;
-	this->pos.z += movment.speed * movment.dirf.z;
-
-
-	this->movment.update();
+	//this->movment->update();
 }
 
 void ObjPos::updatePos(XMFLOAT3* pos)

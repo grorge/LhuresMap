@@ -177,6 +177,7 @@
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="MouseInput.cpp" />
+    <ClCompile Include="MovementVector.cpp" />
     <ClCompile Include="MovmentVector.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjPosition.cpp" />

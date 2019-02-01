@@ -28,6 +28,9 @@ void Object::updateWorld()
 	//XMMATRIX mRotationZ = XMMatrixRotationZ(this->rotXYZ.z);
 	//XMMATRIX mRotation = mRotationX * mRotationY * mRotationZ;
 	XMMATRIX mRotation = XMMatrixRotationX(this->rotXYZ.x) * XMMatrixRotationY(this->rotXYZ.y) * XMMatrixRotationZ(this->rotXYZ.z);
+	//XMMATRIX mRotation = XMMatrixRotationAxis(this->position.movment->GETDir(), 0.00001f);
+
+	
 
 	XMMATRIX mSclaing = XMMatrixScalingFromVector(XMLoadFloat3(&this->size));
 
