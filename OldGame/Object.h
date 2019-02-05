@@ -35,9 +35,9 @@ public:
 	void SETSizeFloat3(XMFLOAT3 input) { this->size = input; };
 
 	//Move
-	void SETPosition(XMFLOAT3 input) { this->pos = input; };
-	void SETPositionY(float input) { this->pos.y = input; };
-	MoveVector* GETmovement() { return this->position.movment; };
+	void SETPosition(XMFLOAT3 input) { this->pos = input; this->position.SETpos(&this->pos); };
+	void SETPositionY(float input) { this->pos.y = input; this->position.SETpos(&this->pos); };
+	MoveVector* GETmovement() { return this->position.movement; };
 
 	//Rotatoion
 	void SETUp(XMFLOAT3 input) { this->up = input; };

@@ -9,8 +9,11 @@ MoveVector::MoveVector()
 
 	for (auto vec : this->moveListPerm)
 	{
-		vec = nullptr;//new XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
-		//vec = new XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
+		vec = nullptr;
+	}
+	for (auto vec : this->moveListSingle)
+	{
+		vec = nullptr;
 	}
 
 }
@@ -45,8 +48,21 @@ void MoveVector::addPermVector(XMFLOAT4 newVec, unsigned int index)
 
 	this->nrOfPermMove++;
 
-	//delete this->moveListPerm.at(index);
+	//if (this->moveListPerm.at(index) != nullptr)
+	//	delete this->moveListPerm.at(index);
+
 	this->moveListPerm.at(index) = temp;
+
+}
+void MoveVector::addSingleVector(XMFLOAT4 newVec, unsigned int index)
+{
+	XMFLOAT4* temp = new XMFLOAT4(newVec);
+
+	//this->nrOfPermMove++;
+	//if (this->moveListSingle.at(index) != nullptr)
+	//	delete this->moveListSingle.at(index);
+
+	this->moveListSingle.at(index) = temp;
 
 }
 
@@ -74,13 +90,36 @@ void MoveVector::update() {
 			this->dirf.y += vec->y * vec->w;
 			this->dirf.z += vec->z * vec->w;
 		}
-
 	}
-	// TODO: Remove low movment
+	for (auto vec : this->moveListSingle)
+	{
+		if (vec != nullptr)
+		{
+			this->dirf.x += vec->x * vec->w;
+			this->dirf.y += vec->y * vec->w;
+			this->dirf.z += vec->z * vec->w;
+
+			vec->w *= 0.99f;// *Locator::getTime()->GETCoeff();
+			if (vec->w < 0.01f)
+			{
+				vec->w = 0.0f;
+			}
+		}
+	}
+	// TODO: Remove low movment from the list
 
 	this->dir = XMLoadFloat3(&this->dirf);
 	XMStoreFloat(&this->speed, XMVector3LengthEst(this->dir));
 
 	this->dir = XMVector3Normalize(this->dir);
 	XMStoreFloat3(&this->dirf, this->dir);
+}
+
+void MoveVector::update(XMFLOAT3* parentPos)
+{
+	this->update();
+
+	parentPos->x += dirf.x * speed;
+	parentPos->y += dirf.y * speed;
+	parentPos->z += dirf.z * speed;
 }

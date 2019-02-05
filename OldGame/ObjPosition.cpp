@@ -1,15 +1,15 @@
 #include "ObjPosition.h"
 
-
+#define GROUD_LEVEL -100.0f
 
 ObjPos::ObjPos()
 {
-	this->movment = new MoveVector();
+	this->movement = new MoveVector();
 }
 
 ObjPos::~ObjPos()
 {
-	delete this->movment;
+	delete this->movement;
 }
 
 void ObjPos::SETpos(XMFLOAT3 * pos)
@@ -17,11 +17,22 @@ void ObjPos::SETpos(XMFLOAT3 * pos)
 	this->pos = *pos;
 }
 
+void ObjPos::SETheight(float input)
+{
+	this->height = input;
+}
+
 void ObjPos::update()
 {
-	this->pos.x += movment->GETSpeed() * movment->GETDirF3().x;
-	this->pos.y += movment->GETSpeed() * movment->GETDirF3().y;
-	this->pos.z += movment->GETSpeed() * movment->GETDirF3().z;
+	this->pos.x += movement->GETSpeed() * movement->GETDirF3().x;
+	this->pos.z += movement->GETSpeed() * movement->GETDirF3().z;
+
+	float yPos = this->pos.y + movement->GETSpeed() * movement->GETDirF3().y;
+
+	if (yPos - height >= GROUD_LEVEL)
+		this->pos.y = yPos;
+	else
+		this->pos.y = GROUD_LEVEL + height;
 
 	//this->movment->update();
 }

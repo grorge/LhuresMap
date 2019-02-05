@@ -49,9 +49,11 @@ public:
 
 	void addVector(XMFLOAT4 newVec);
 	void addPermVector(XMFLOAT4 newVec, unsigned int index);
+	void addSingleVector(XMFLOAT4 newVec, unsigned int index);
 
 
 	void update();
+	void update(XMFLOAT3 *parentPos);
 
 private:
 	float speed = 0.0f;
@@ -61,7 +63,8 @@ private:
 	std::list<DirectX::XMFLOAT4*> moveList;
 
 	int nrOfPermMove = 0;
-	std::array<DirectX::XMFLOAT4*, 3> moveListPerm;
+	std::array<DirectX::XMFLOAT4*, 4> moveListPerm;
+	std::array<DirectX::XMFLOAT4*, 4> moveListSingle;
 };
 
 

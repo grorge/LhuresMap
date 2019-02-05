@@ -11,6 +11,7 @@ public:
 	~ControlCamera();
 
 	void updateCamera(WPARAM wParam);
+	void stopCamera(WPARAM wParam);
 
 private:
 	Camera* pCam;

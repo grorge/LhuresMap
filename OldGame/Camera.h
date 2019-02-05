@@ -6,8 +6,14 @@
 #include "Locator.h"
 #include <d3d11.h>
 #include <DirectXMath.h>
+#include "ObjPosition.h"
 
 using namespace DirectX;
+
+#define FORWARD_INDEX 0
+#define BACKWARDS_INDEX 1
+#define RIGTH_INDEX 2
+#define LEFT_INDEX 3
 
 /* _+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_
   |                                     |
@@ -58,6 +64,10 @@ private:
 	//void rotateCameraVertically(POINT mouseMovement);
 	//void rotateCameraHorizontally(POINT mouseMovement);
 
+	//MoveVector movement;
+	ObjPos objPos;
+	//float cameraHeight;
+
 public:
 	void init();
 	/*- - - - - - - -<INFORMATION>- - - - - - - -
@@ -95,6 +105,8 @@ public:
 	DirectX::XMFLOAT3       GETfacingDir();
 	DirectX::XMFLOAT4X4&	GETviewMatrix();
 	DirectX::XMFLOAT4X4&	GETprojMatrix();
+
+	//MoveVector* GETmovement() { return &movement; };
 };
 
 //______________________________________________//

@@ -31,6 +31,13 @@ void BasicRenderState::initScene()
 	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 12.0f));
 	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
 
+	newObject = new DynObject(this->cam, L"LP_male", L"bricks");
+	newObject->SETSizeFloat(10.0f);
+	newObject->SETPosition(XMFLOAT3(-100.0f, -100.0f, 1000.0f));
+	newObject->GETmovement()->addPermVector(XMFLOAT4(0.0f, -1.0f, 0.0f, 3.0f), 0);
+	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 12.0f));
+	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
+
 	//Test for preststandard
 	//for (int i = 0; i < 200; i++)
 	//{
@@ -125,6 +132,9 @@ void BasicRenderState::handleEvents(GameManager * gm)
 				this->rndMode %= int(RENDERMODE::SIZE);
 				this->renderer.switchRendermode(this->rndMode);
 			}
+		}
+		else if ( msg.message == WM_KEYUP) {
+			this->controlCamera->stopCamera(msg.wParam);
 		}
 
 		TranslateMessage(&msg);

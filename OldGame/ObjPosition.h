@@ -11,8 +11,9 @@ public:
 	~ObjPos();
 
 	void SETpos(XMFLOAT3* pos);
+	void SETheight(float input);
 
-	MoveVector *movment;
+	MoveVector *movement;
 
 	void update();
 	void updatePos(XMFLOAT3* pos);
@@ -24,6 +25,8 @@ private:
 	XMFLOAT3 dir = XMFLOAT3(0.000001f, 0.000001f, 0.000001f);
 	XMFLOAT3 rotXYZ = XMFLOAT3(0.000001f, 0.000001f, 0.000001f);
 	float rotation = 0.0f;
+
+	float height = 0.0f;
 };
 
 
