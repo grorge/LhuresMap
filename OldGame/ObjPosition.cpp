@@ -4,7 +4,7 @@
 
 ObjPos::ObjPos()
 {
-	this->movement = new MoveVector();
+	this->movement = new MoveVector(this);
 }
 
 ObjPos::~ObjPos()
@@ -29,11 +29,13 @@ void ObjPos::update()
 
 	float yPos = this->pos.y + movement->GETSpeed() * movement->GETDirF3().y;
 
+	// hardcoded ground level, should be improved with a heigthmap
 	if (yPos - height >= GROUD_LEVEL)
 		this->pos.y = yPos;
 	else
 		this->pos.y = GROUD_LEVEL + height;
 
+	// This was copied out to only use on moving objects
 	//this->movment->update();
 }
 

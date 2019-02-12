@@ -339,11 +339,10 @@ void Camera::updateCamera() {
 	DirectX::XMVECTOR cameraFacingDir;
 	DirectX::XMVECTOR cameraUpDir;
 
-	this->objPos.update();
-	//this->objPos.movment->update(&this->cameraPos);
 	this->objPos.movement->update();
-
+	this->objPos.update();
 	this->objPos.updatePos(&this->cameraPos);
+
 
 
 	cameraPos = DirectX::XMLoadFloat3(&this->cameraPos);

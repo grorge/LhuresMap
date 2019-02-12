@@ -6,16 +6,21 @@
 
 class ObjPos
 {
+	friend MoveVector;
 public:
 	ObjPos();
 	~ObjPos();
 
+	// Gets the position from its parent
 	void SETpos(XMFLOAT3* pos);
+	// Sets the heigth to determin heigth over the ground
 	void SETheight(float input);
 
+	// Handels the diferent vectors affecting the position
 	MoveVector *movement;
 
 	void update();
+	// applies the objPos.position to the input
 	void updatePos(XMFLOAT3* pos);
 private:
 

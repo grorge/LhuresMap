@@ -8,11 +8,14 @@
 
 using namespace DirectX;
 
+class ObjPos;
+
 class MoveVector
 {
 public:
 	
 	MoveVector();
+	MoveVector(ObjPos* parent);
 	~MoveVector();
 
 	/// SPEEED FUNCTIONS
@@ -47,23 +50,33 @@ public:
 	// Adds the input to the current dir in the dimension
 	bool addDir(float x, float y, float z);
 
+	// Adds a vector to a stack that will decrease 
 	void addVector(XMFLOAT4 newVec);
+	// Adds a vector to the index that will NOT decrease
 	void addPermVector(XMFLOAT4 newVec, unsigned int index);
+	// Adds a vector to the index that will decrease
 	void addSingleVector(XMFLOAT4 newVec, unsigned int index);
 
 
 	void update();
-	void update(XMFLOAT3 *parentPos);
 
 private:
+	// Pointer to parent that will be used to update the position
+	ObjPos* parent;
+
+	// VAribles to calculate the final movement
 	float speed = 0.0f;
 	DirectX::XMVECTOR dir;
 	DirectX::XMFLOAT3 dirf;
 
+	// Stack of brief vectors that will affect movment
 	std::list<DirectX::XMFLOAT4*> moveList;
 
+	// Permanent vectors affecting the movement, will not decrease
+	std::array<DirectX::XMFLOAT4*, 16> moveListPerm;
 	int nrOfPermMove = 0;
-	std::array<DirectX::XMFLOAT4*, 4> moveListPerm;
+
+	// Indexed movement that will decrease, size 
 	std::array<DirectX::XMFLOAT4*, 4> moveListSingle;
 };
 
