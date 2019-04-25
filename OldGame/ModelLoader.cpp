@@ -36,7 +36,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 				Locator::getD3D()->createVertexBuffer(&rndData->vertBuffer, this->savedData.at(i)->vertices.data(), stride, offset, this->savedData.at(i)->vertices.size());
 
 				rndData->stride = stride;
-				rndData->numbIndices = this->savedData.at(i)->indices.size();
+				rndData->numbIndices = this->savedData.at(i)->numIndices;
 			}
 		}
 
@@ -640,6 +640,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 
 			// Save the data for future models.
 			newSave->indices = indices;
+			newSave->numIndices = sizeof(indices) * meshTriangles * 3;
 			newSave->indexBufferDesc = indexBufferDesc;
 			newSave->vertices = vertices;
 

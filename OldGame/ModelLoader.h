@@ -9,6 +9,7 @@ struct savedMeshData
 	std::wstring meshName;
 	D3D11_BUFFER_DESC indexBufferDesc;
 	std::vector<DWORD> indices;
+	size_t numIndices;
 	std::vector<Vertex> vertices;
 
 	savedMeshData() :

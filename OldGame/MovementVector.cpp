@@ -24,7 +24,19 @@ MoveVector::MoveVector(ObjPos* parent)
 {
 	this->parent = parent;
 
-	MoveVector();
+	speed = (0.0f);
+	dirf = (XMFLOAT3(1.0f, 0.0f, 0.0f));
+	dir = (DirectX::XMVECTOR(XMLoadFloat3(&dirf)));
+	//this->parent = nullptr
+
+	for (auto vec : this->moveListPerm)
+	{
+		vec = nullptr;
+	}
+	for (auto vec : this->moveListSingle)
+	{
+		vec = nullptr;
+	}
 }
 
 MoveVector::~MoveVector()

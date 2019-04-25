@@ -227,6 +227,11 @@ void Camera::updateRightDir() {
    -_-_-_-_-_-_-_-_-_-_-_-_-_-*/
 
 
+Camera::Camera()
+{
+
+}
+
 void Camera::init()
 {
 	DirectX::XMVECTOR cameraStartPos;

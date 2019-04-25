@@ -69,6 +69,7 @@ private:
 	//float cameraHeight;
 
 public:
+	Camera();
 	void init();
 	/*- - - - - - - -<INFORMATION>- - - - - - - -
 	1. Receives a 'characterMessage' of type 'TCHAR', which can result in:
