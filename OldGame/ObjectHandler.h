@@ -57,7 +57,7 @@ inline ObjectHandler::~ObjectHandler()
 
 inline bool ObjectHandler::addObject(Object * obj, OBJECTLIST type)
 {
-	//Adds the object to the list and then sets a ID to be able to remove
+	//Adds the object to the list and then sets a ID to be able to remove it later
 	this->pObjects.at(type).push_back(obj);
 	obj->setID(this->nextID);
 	this->nextID++;

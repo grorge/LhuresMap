@@ -11,6 +11,7 @@
 #include "RenderData.h"
 
 #include <sstream>
+#define DIRECTINPUT_VERSION 0x080
 #include <dwrite.h>
 #include <dinput.h>
 #include <vector>

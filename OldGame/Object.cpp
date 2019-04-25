@@ -15,11 +15,12 @@ Object::Object(Camera* cam, std::wstring texFile)
 
 Object::~Object()
 {
-	if (this->okToRender)
-	{
-		this->rndData->~RenderData();
-	}
-	//delete this->rndData;
+	//if (this->okToRender)
+	//{
+	//	this->rndData->~RenderData();
+	//}
+	delete this->rndData;
+	
 }
 
 void Object::updateWorld()

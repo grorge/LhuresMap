@@ -233,7 +233,7 @@ void D2D::cleanUp()
 	//Background
 	SafeRelease(&this->pTextColor);
 	// Image factory
-	SafeRelease(&this->pIWICFactory);
+	//SafeRelease(&this->pIWICFactory);
 	// Background-screenshot
 	this->closeMenu();
 }

@@ -37,6 +37,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	Locator::provide(time);
 	Locator::provide(mod);
 
+	// somethign is wrong here but hardcoding the value into the DVS in Renderer.cpp after changing ti works
 	Locator::getD3D()->initializeWindow(hInstance, true, 1200, 800, true);
 	Locator::getD3D()->createSwapChain();
 

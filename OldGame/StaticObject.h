@@ -23,15 +23,15 @@ public:
 	void update();
 
 private:
-	ID3D11Buffer* meshVertBuff;
-	ID3D11Buffer* meshIndexBuff;
-	XMMATRIX meshWorld;
-	int meshSubsets = 0;
-	std::vector<int> meshSubsetIndexStart;
-	std::vector<int> meshSubsetTexture;
+	//ID3D11Buffer* meshVertBuff;
+	//ID3D11Buffer* meshIndexBuff;
+	//XMMATRIX meshWorld;
+	//int meshSubsets = 0;
+	//std::vector<int> meshSubsetIndexStart;
+	//std::vector<int> meshSubsetTexture;
 
-	std::vector<ID3D11ShaderResourceView*> meshSRV;
-	std::vector<std::wstring> textureNameArray;
+	//std::vector<ID3D11ShaderResourceView*> meshSRV;
+	//std::vector<std::wstring> textureNameArray;
 
 	virtual void createVertexData();
 };

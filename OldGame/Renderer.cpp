@@ -241,12 +241,11 @@ void Renderer::createBackBufferRTV()
 	DXGI_MODE_DESC bufferDesc;
 	memset(&bufferDesc, 0, sizeof(DXGI_MODE_DESC));
 
-	bufferDesc.Width = (UINT)Locator::getD3D()->GETwWidth();
-	bufferDesc.Height = (UINT)Locator::getD3D()->GETwHeight();
+	bufferDesc.Width = 100;//(UINT)Locator::getD3D()->GETwWidth();
+	bufferDesc.Height = 100;//(UINT)Locator::getD3D()->GETwHeight();
 	bufferDesc.RefreshRate.Numerator = 60;
 	bufferDesc.RefreshRate.Denominator = 1;
 	bufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-	//bufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	bufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	bufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
@@ -275,8 +274,10 @@ void Renderer::createDepthStencilView(/*size_t width, size_t height, ID3D11Depth
 	D3D11_TEXTURE2D_DESC depthStencilDesc;
 	memset(&depthStencilDesc, 0, sizeof(D3D11_TEXTURE2D_DESC));
 
-	depthStencilDesc.Width = (UINT)Locator::getD3D()->GETwWidth();
-	depthStencilDesc.Height = (UINT)Locator::getD3D()->GETwHeight();
+
+	// somethign is wrong here but hardcoding the value after changing ti works
+	depthStencilDesc.Width = 1184;//(UINT)Locator::getD3D()->GETwWidth();
+	depthStencilDesc.Height = 761; //(UINT)Locator::getD3D()->GETwHeight();
 	depthStencilDesc.MipLevels = 1;
 	depthStencilDesc.ArraySize = 1;
 	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;

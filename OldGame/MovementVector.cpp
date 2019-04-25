@@ -11,11 +11,11 @@ MoveVector::MoveVector()
 
 	for (auto vec : this->moveListPerm)
 	{
-		vec = nullptr;
+		vec = new XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 	}
 	for (auto vec : this->moveListSingle)
 	{
-		vec = nullptr;
+		vec = new XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 	}
 
 }
@@ -31,11 +31,11 @@ MoveVector::MoveVector(ObjPos* parent)
 
 	for (auto vec : this->moveListPerm)
 	{
-		vec = nullptr;
+		vec = new XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 	}
 	for (auto vec : this->moveListSingle)
 	{
-		vec = nullptr;
+		vec = new XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 	}
 }
 
@@ -43,6 +43,7 @@ MoveVector::~MoveVector()
 {
 	this->moveList.clear();
 	
+	//this->moveListPerm.empty();
 	for (auto vec : this->moveListPerm)
 	{
 		if (vec != nullptr)
