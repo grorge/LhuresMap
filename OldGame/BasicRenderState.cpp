@@ -19,10 +19,10 @@ void BasicRenderState::initScene()
 
 	////MODLES
 	//PreLoad modles
-	newObject = new DynObject(this->cam, L"LP_tree", L"planks");
-	newObject = new DynObject(this->cam, L"LP_male", L"planks");
-	newObject = new DynObject(this->cam, L"bottle", L"planks");
-	newObject = new DynObject(this->cam, L"HP_Glock", L"planks");
+	DynObject(this->cam, L"LP_tree", L"planks");
+	DynObject(this->cam, L"LP_male", L"planks");
+	DynObject(this->cam, L"bottle", L"planks");
+	DynObject(this->cam, L"HP_Glock", L"planks");
 
 	//Add modles
 	newObject = new DynObject(this->cam, L"LP_tree", L"planks");
