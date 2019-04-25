@@ -9,81 +9,78 @@ BasicRenderState BasicRenderState::sBasicRenderState;
 void BasicRenderState::initScene()
 {
 
-	//Object* newObject;
+	Object* newObject;
 
 	//Gound
-	//newObject = new StaticObject(this->cam, L"dirt");
-	//newObject->SETSizeFloat(3000.0f);
-	//newObject->SETPositionY(-101.0f);
-	//this->objHandler->addObject(newObject, OBJECTLIST::STATIC);
+	newObject = new StaticObject(this->cam, L"dirt");
+	newObject->SETSizeFloat(3000.0f);
+	newObject->SETPositionY(-101.0f);
+	this->objHandler->addObject(newObject, OBJECTLIST::STATIC);
 
-	//////MODLES
-	////PreLoad modles
-	//newObject = new DynObject(this->cam, L"LP_tree", L"planks");
-	//newObject = new DynObject(this->cam, L"LP_male", L"planks");
-	//newObject = new DynObject(this->cam, L"bottle", L"planks");
-	//newObject = new DynObject(this->cam, L"HP_Glock", L"planks");
+	////MODLES
+	//PreLoad modles
+	newObject = new DynObject(this->cam, L"LP_tree", L"planks");
+	newObject = new DynObject(this->cam, L"LP_male", L"planks");
+	newObject = new DynObject(this->cam, L"bottle", L"planks");
+	newObject = new DynObject(this->cam, L"HP_Glock", L"planks");
 
-	////Add modles
-	//newObject = new DynObject(this->cam, L"LP_tree", L"planks");
-	//newObject->rotateX(3.14f/2.0f);
-	//newObject->SETSizeFloat(10.0f);
-	//newObject->SETPosition(XMFLOAT3(700.0f, -100.0f, 1300.0f));
-	//this->objHandler->addObject(newObject, OBJECTLIST::STATIC);
+	//Add modles
+	newObject = new DynObject(this->cam, L"LP_tree", L"planks");
+	newObject->rotateX(3.14f/2.0f);
+	newObject->SETSizeFloat(10.0f);
+	newObject->SETPosition(XMFLOAT3(700.0f, -100.0f, 1300.0f));
+	this->objHandler->addObject(newObject, OBJECTLIST::STATIC);
 
-	//newObject = new DynObject(this->cam, L"LP_male", L"bricks");
-	//newObject->SETSizeFloat(50.0f);
-	//newObject->SETPosition(XMFLOAT3(-100.0f, -100.0f, 1000.0f));
-	//newObject->GETmovement()->addPermVector(XMFLOAT4(0.0f, -1.0f, 0.0f, 3.0f), 0);
-	//newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 12.0f));
-	//this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
+	newObject = new DynObject(this->cam, L"LP_male", L"bricks");
+	newObject->SETSizeFloat(50.0f);
+	newObject->SETPosition(XMFLOAT3(-100.0f, -100.0f, 1000.0f));
+	newObject->GETmovement()->addPermVector(XMFLOAT4(0.0f, -1.0f, 0.0f, 3.0f), 0);
+	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 12.0f));
+	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
 
-	//newObject = new DynObject(this->cam, L"LP_male", L"bricks");
-	//newObject->SETSizeFloat(10.0f);
-	//newObject->SETPosition(XMFLOAT3(-100.0f, -100.0f, 1000.0f));
-	//newObject->GETmovement()->addPermVector(XMFLOAT4(0.0f, -1.0f, 0.0f, 3.0f), 0);
-	//newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 12.0f));
-	//this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
+	newObject = new DynObject(this->cam, L"LP_male", L"bricks");
+	newObject->SETSizeFloat(10.0f);
+	newObject->SETPosition(XMFLOAT3(-100.0f, -100.0f, 1000.0f));
+	newObject->GETmovement()->addPermVector(XMFLOAT4(0.0f, -1.0f, 0.0f, 3.0f), 0);
+	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 12.0f));
+	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
 
-	////Test for preststandard
-	////{
-	////	float tempXaxis = -3000.0f;
-	////	for (int i = 0; i < 200; i++)
-	////	{
-	////		newObject = new DynObject(this->cam, L"LP_male", L"bricks");
-	////		newObject->SETSizeFloat(50.0f);
-	////		newObject->SETPosition(XMFLOAT3(tempXaxis, -100.0f, 2000.0f));
-	////		this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
-	////		tempXaxis += 200.0f;
-	////	}
-	////}
-	//
+	//Test for preststandard
+	//{
+	//	float tempXaxis = -3000.0f;
+	//	for (int i = 0; i < 200; i++)
+	//	{
+	//		newObject = new DynObject(this->cam, L"LP_male", L"bricks");
+	//		newObject->SETSizeFloat(50.0f);
+	//		newObject->SETPosition(XMFLOAT3(tempXaxis, -100.0f, 2000.0f));
+	//		this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
+	//		tempXaxis += 200.0f;
+	//	}
+	//}
+	
 
-	//newObject = new DynObject(this->cam, L"bottle", L"gravel");
-	//newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
-	//newObject->SETPosition(XMFLOAT3(-100.0f, 250.0f, 200.0f));
-	//newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 3.0f));
-	//this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
+	newObject = new DynObject(this->cam, L"bottle", L"gravel");
+	newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
+	newObject->SETPosition(XMFLOAT3(-100.0f, 250.0f, 200.0f));
+	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 3.0f));
+	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
 
-	//newObject = new DynObject(this->cam, L"bottle", L"gravel");
-	//newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
-	//newObject->SETPosition(XMFLOAT3(-50.0f, 250.0f, 200.0f));
-	//newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.5f));
-	//this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
+	newObject = new DynObject(this->cam, L"bottle", L"gravel");
+	newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
+	newObject->SETPosition(XMFLOAT3(-50.0f, 250.0f, 200.0f));
+	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.5f));
+	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
 
-	//newObject = new DynObject(this->cam, L"bottle", L"gravel");
-	//newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
-	//newObject->SETPosition(XMFLOAT3(-200.0f, 250.0f, 200.0f));
-	//newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
-	//this->objHandler->addObject(newObject, OBJECTLIST::TRANS);
+	newObject = new DynObject(this->cam, L"bottle", L"gravel");
+	newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
+	newObject->SETPosition(XMFLOAT3(-200.0f, 250.0f, 200.0f));
+	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
+	this->objHandler->addObject(newObject, OBJECTLIST::TRANS);
 
-	//newObject = new DynObject(this->cam, L"HP_Glock", L"gravel");
-	//newObject->SETSizeFloat3(XMFLOAT3(12.0f, 12.0f, 12.0f));
-	//newObject->SETPosition(XMFLOAT3(200.0f, 100.0f, 250.0f));
-	//this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
-
-
-	//delete newObject;
+	newObject = new DynObject(this->cam, L"HP_Glock", L"gravel");
+	newObject->SETSizeFloat3(XMFLOAT3(12.0f, 12.0f, 12.0f));
+	newObject->SETPosition(XMFLOAT3(200.0f, 100.0f, 250.0f));
+	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
 }
 
 BasicRenderState* BasicRenderState::getInstance() {

@@ -69,6 +69,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	delete d3d;
 	delete d2d;
 	delete time;
+	delete mod;
 
 #ifdef _DEBUG
 	//_CrtDumpMemoryLeaks();

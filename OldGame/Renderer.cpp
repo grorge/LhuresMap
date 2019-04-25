@@ -241,8 +241,8 @@ void Renderer::createBackBufferRTV()
 	DXGI_MODE_DESC bufferDesc;
 	memset(&bufferDesc, 0, sizeof(DXGI_MODE_DESC));
 
-	bufferDesc.Width = 100;//(UINT)Locator::getD3D()->GETwWidth();
-	bufferDesc.Height = 100;//(UINT)Locator::getD3D()->GETwHeight();
+	bufferDesc.Width = (UINT)Locator::getD3D()->GETwWidth();
+	bufferDesc.Height = (UINT)Locator::getD3D()->GETwHeight();
 	bufferDesc.RefreshRate.Numerator = 60;
 	bufferDesc.RefreshRate.Denominator = 1;
 	bufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
@@ -376,7 +376,7 @@ void Renderer::startTrans()
 
 void Renderer::stopRender()
 {
-	//this->drawD2D();
+	this->drawD2D();
 
 	Locator::getD3D()->GETswapChain()->Present(0, 0);
 }
@@ -413,7 +413,7 @@ void Renderer::drawD2D()
 	WVP = XMMatrixTranspose(WVP);
 	XMStoreFloat4x4(&this->guiRndData->objBuffData.WVP, WVP);
 	XMStoreFloat4x4(&this->guiRndData->objBuffData.world, WVP);
-	Locator::getD3D()->GETgDevCon()->UpdateSubresource(this->constBuff, 0, NULL, &this->guiRndData->objBuffData, 0, 0);
+	//Locator::getD3D()->GETgDevCon()->UpdateSubresource(this->constBuff, 0, NULL, &this->guiRndData->objBuffData, 0, 0);
 	Locator::getD3D()->GETgDevCon()->VSSetConstantBuffers(0, 1, &this->constBuff);
 
 	Locator::getD3D()->GETgDevCon()->PSSetShaderResources(0, 1, &this->guiRndData->texSRV);
