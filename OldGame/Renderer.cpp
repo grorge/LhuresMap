@@ -241,8 +241,8 @@ void Renderer::createBackBufferRTV()
 	DXGI_MODE_DESC bufferDesc;
 	memset(&bufferDesc, 0, sizeof(DXGI_MODE_DESC));
 
-	bufferDesc.Width = Locator::getD3D()->GETwWidth();
-	bufferDesc.Height = Locator::getD3D()->GETwHeight();
+	bufferDesc.Width = (UINT)Locator::getD3D()->GETwWidth();
+	bufferDesc.Height = (UINT)Locator::getD3D()->GETwHeight();
 	bufferDesc.RefreshRate.Numerator = 60;
 	bufferDesc.RefreshRate.Denominator = 1;
 	bufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
@@ -275,8 +275,8 @@ void Renderer::createDepthStencilView(/*size_t width, size_t height, ID3D11Depth
 	D3D11_TEXTURE2D_DESC depthStencilDesc;
 	memset(&depthStencilDesc, 0, sizeof(D3D11_TEXTURE2D_DESC));
 
-	depthStencilDesc.Width = Locator::getD3D()->GETwWidth();
-	depthStencilDesc.Height = Locator::getD3D()->GETwHeight();
+	depthStencilDesc.Width = (UINT)Locator::getD3D()->GETwWidth();
+	depthStencilDesc.Height = (UINT)Locator::getD3D()->GETwHeight();
 	depthStencilDesc.MipLevels = 1;
 	depthStencilDesc.ArraySize = 1;
 	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -375,7 +375,7 @@ void Renderer::startTrans()
 
 void Renderer::stopRender()
 {
-	this->drawD2D();
+	//this->drawD2D();
 
 	Locator::getD3D()->GETswapChain()->Present(0, 0);
 }

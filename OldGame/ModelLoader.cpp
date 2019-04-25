@@ -5,6 +5,18 @@
 
 ModelLoader::ModelLoader()
 {
+	//RenderData* rndData = new RenderData();
+	//std::wstring meshFile = std::wstring();
+	//bool calcNorm = false;
+
+	//int meshSubsets = 0;
+	//std::vector<int> meshSubsetIndexStart;
+	//std::vector<int> meshSubsetTexture;
+	//loadObjModel(L"Resources\\Meshes\\LP_tree.obj", rndData, meshSubsetIndexStart, meshSubsetTexture, meshSubsets, true, calcNorm);
+	//loadObjModel(L"Resources\\Meshes\\LP_male.obj", rndData, meshSubsetIndexStart, meshSubsetTexture, meshSubsets, true, calcNorm);
+	//loadObjModel(L"Resources\\Meshes\\bottle.obj", rndData, meshSubsetIndexStart, meshSubsetTexture, meshSubsets, true, calcNorm);
+	//loadObjModel(L"Resources\\Meshes\\HP_Glock.obj", rndData, meshSubsetIndexStart, meshSubsetTexture, meshSubsets, true, calcNorm);
+	//delete rndData;
 }
 
 ModelLoader::~ModelLoader()
@@ -36,7 +48,7 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 				Locator::getD3D()->createVertexBuffer(&rndData->vertBuffer, this->savedData.at(i)->vertices.data(), stride, offset, this->savedData.at(i)->vertices.size());
 
 				rndData->stride = stride;
-				rndData->numbIndices = this->savedData.at(i)->numIndices;
+				rndData->numbIndices = this->savedData.at(i)->indices.size();
 			}
 		}
 
@@ -614,8 +626,8 @@ bool ModelLoader::loadObjModel(std::wstring filename, RenderData* rndData, std::
 
 			//Create index buffer
 
-			rndData->numbIndices = sizeof(indices) * meshTriangles * 3;
-			////this->rndData->numbIndices = this->numIndices;
+			//rndData->numbIndices = sizeof(indices) * meshTriangles * 3;
+			rndData->numbIndices = sizeof(indices);
 			//Locator::getD3D()->createIndexBuffer(&rndData->indexBuffer, indices.data(), rndData->numbIndices);
 
 

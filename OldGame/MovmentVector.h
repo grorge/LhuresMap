@@ -41,7 +41,7 @@ public:
 
 	// Rotates around y-axis
 	DirectX::XMVECTOR rotate(float input) {
-		XMVectorRotateLeft(this->dir, input); 
+		XMVectorRotateLeft(this->dir, (uint32_t)input);
 		return this->dir;
 	};
 	// Sets dirsction
