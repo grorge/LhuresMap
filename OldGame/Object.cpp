@@ -19,6 +19,7 @@ Object::~Object()
 	{
 		this->rndData->~RenderData();
 	}
+	//delete this->rndData;
 }
 
 void Object::updateWorld()

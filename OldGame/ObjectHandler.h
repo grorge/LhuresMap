@@ -45,11 +45,12 @@ inline ObjectHandler::~ObjectHandler()
 {
 	for (auto j : this->pObjects)
 	{
-		j.clear();
-		//for (auto i : j)
-		//{
-		//	i.clear();
-		//}
+		//j.clear();
+		for (auto i : j)
+		{
+			delete i;
+			//SafeRelease(&i);
+		}
 	}
 	this->pObjects.clear();
 }
