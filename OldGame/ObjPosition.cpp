@@ -4,12 +4,10 @@
 
 ObjPos::ObjPos()
 {
-	this->movement = new MoveVector(this);
 }
 
 ObjPos::~ObjPos()
 {
-	delete this->movement;
 }
 
 void ObjPos::SETpos(XMFLOAT3 * pos)
@@ -24,10 +22,10 @@ void ObjPos::SETheight(float input)
 
 void ObjPos::update()
 {
-	this->pos.x += movement->GETSpeed() * movement->GETDirF3().x;
-	this->pos.z += movement->GETSpeed() * movement->GETDirF3().z;
+	//this->pos.x += movement->GETSpeed() * movement->GETDirF3().x;
+	//this->pos.z += movement->GETSpeed() * movement->GETDirF3().z;
 
-	float yPos = this->pos.y + movement->GETSpeed() * movement->GETDirF3().y;
+	float yPos = this->pos.y /*+ movement->GETSpeed() * movement->GETDirF3().y*/;
 
 	// hardcoded ground level, should be improved with a heigthmap
 	if (yPos - height >= GROUD_LEVEL)

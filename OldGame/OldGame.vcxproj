@@ -155,7 +155,6 @@
     <ClInclude Include="ITime.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="MouseInput.h" />
-    <ClInclude Include="MovmentVector.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectHandler.h" />
     <ClInclude Include="RenderData.h" />
@@ -177,8 +176,6 @@
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="MouseInput.cpp" />
-    <ClCompile Include="MovementVector.cpp" />
-    <ClCompile Include="MovmentVector.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjPosition.cpp" />
     <ClCompile Include="Renderer.cpp" />

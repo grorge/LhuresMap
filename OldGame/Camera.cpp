@@ -83,17 +83,16 @@ void Camera::moveCameraLeft() {
 	moveVecNormalized = DirectX::XMVector3Normalize(moveVecNormalized);
 
 	//// Scale the vector based on the 'cameraMoveSpeed' variable
-	//moveVecNormalized = DirectX::XMVectorScale(
-	//	moveVecNormalized,
-	//	this->cameraMoveSpeed  * Locator::getTime()->GETCoeff()
-	//);
+	moveVecNormalized = DirectX::XMVectorScale(
+		moveVecNormalized,
+		this->cameraMoveSpeed  * Locator::getTime()->GETCoeff()
+	);
 
 	//// MOVE!!
-	//cameraPos = DirectX::XMVectorAdd(cameraPos, moveVecNormalized);
+	cameraPos = DirectX::XMVectorAdd(cameraPos, moveVecNormalized);
 
 
-	this->objPos.movement->addSingleVector(XMFLOAT4(this->cameraFacingDir.z * -1, this->cameraFacingDir.y, this->cameraFacingDir.x, 1.0f), LEFT_INDEX);
-
+	
 	// Store the new cameraPos
 	DirectX::XMStoreFloat3(&this->cameraPos, cameraPos);
 }
@@ -118,16 +117,15 @@ void Camera::moveCameraRight() {
 	moveVecNormalized = DirectX::XMVector3Normalize(moveVecNormalized);
 
 	//// Scale the vector based on the 'cameraMoveSpeed' variable
-	//moveVecNormalized = DirectX::XMVectorScale(
-	//	moveVecNormalized,
-	//	this->cameraMoveSpeed  * Locator::getTime()->GETCoeff()
-	//);
+	moveVecNormalized = DirectX::XMVectorScale(
+		moveVecNormalized,
+		this->cameraMoveSpeed  * Locator::getTime()->GETCoeff()
+	);
 
 	//// MOVE!!
-	//cameraPos = DirectX::XMVectorAdd(cameraPos, moveVecNormalized);
+	cameraPos = DirectX::XMVectorAdd(cameraPos, moveVecNormalized);
 
-	this->objPos.movement->addSingleVector(XMFLOAT4(this->cameraFacingDir.z, this->cameraFacingDir.y, this->cameraFacingDir.x * -1, 1.0f), RIGTH_INDEX);
-
+	
 
 	// Store the new cameraPos
 	DirectX::XMStoreFloat3(&this->cameraPos, cameraPos);
@@ -148,16 +146,15 @@ void Camera::moveCameraForward() {
 	moveVecNormalized = DirectX::XMVector3Normalize(moveVecNormalized);
 
 	// Scale the vector based on the 'cameraMoveSpeed' variable
-	//moveVecNormalized = DirectX::XMVectorScale(
-	//	moveVecNormalized,
-	//	this->cameraMoveSpeed * Locator::getTime()->GETCoeff()
-	//);
+	moveVecNormalized = DirectX::XMVectorScale(
+		moveVecNormalized,
+		this->cameraMoveSpeed * Locator::getTime()->GETCoeff()
+	);
 
 	//// MOVE!!
-	//cameraPos = DirectX::XMVectorAdd(cameraPos, moveVecNormalized);
+	cameraPos = DirectX::XMVectorAdd(cameraPos, moveVecNormalized);
 
-	this->objPos.movement->addSingleVector(XMFLOAT4(this->cameraFacingDir.x,this->cameraFacingDir.y,this->cameraFacingDir.z, 1.0f), FORWARD_INDEX);
-
+	
 	// Store the new cameraPos
 	DirectX::XMStoreFloat3(&this->cameraPos, cameraPos);
 }
@@ -178,17 +175,15 @@ void Camera::moveCameraBackward() {
 
 	// Scale the vector based on the 'cameraMoveSpeed' variable
 	// NOTE: We're scaling with NEGATIVE 'cameraMoveSpeed' to go backwards!!
-	//moveVecNormalized = DirectX::XMVectorScale(
-	//	moveVecNormalized,
-	//	(this->cameraMoveSpeed * -1 * Locator::getTime()->GETCoeff())
-	//);
+	moveVecNormalized = DirectX::XMVectorScale(
+		moveVecNormalized,
+		(this->cameraMoveSpeed * -1 * Locator::getTime()->GETCoeff())
+	);
 
 	//// MOVE!!
-	//cameraPos = DirectX::XMVectorAdd(cameraPos, moveVecNormalized);
+	cameraPos = DirectX::XMVectorAdd(cameraPos, moveVecNormalized);
 
-
-	this->objPos.movement->addSingleVector(XMFLOAT4(this->cameraFacingDir.x * -1, this->cameraFacingDir.y * -1, this->cameraFacingDir.z * -1, 1.0f), BACKWARDS_INDEX);
-
+	
 
 	// Store the new cameraPos
 	DirectX::XMStoreFloat3(&this->cameraPos, cameraPos);
@@ -240,8 +235,8 @@ void Camera::init()
 	//cameraStartPos = DirectX::XMVECTOR{ static_cast<float>(arenaWidth * 0.5f), static_cast<float>(sqrt((arenaWidth * arenaWidth + arenaDepth * arenaDepth) / 4)), static_cast<float>((arenaDepth * 0.5f) * 0.30f) };
 	//cameraStartPos = DirectX::XMVECTOR{ arenaWidth * 0.5f, 1000.0f, arenaDepth * 0.5f };
 
-	cameraStartPos = DirectX::XMVECTOR{ -2.0f, 100.0f, 1.0f};
-	DirectX::XMVECTOR cameraLookAtPos = DirectX::XMVECTOR{ 0.0f, 100.0f, 100.0f };
+	cameraStartPos = DirectX::XMVECTOR{ 1.0f, 4000.0f, 1.0f};
+	DirectX::XMVECTOR cameraLookAtPos = DirectX::XMVECTOR{ 0.0f, 100.0f, 1.0f };
 	cameraStartFacingDir = DirectX::XMVectorSubtract(cameraLookAtPos, cameraStartPos);
 	cameraStartFacingDir = DirectX::XMVector3Normalize(cameraStartFacingDir);
 
@@ -283,7 +278,6 @@ void Camera::init()
 	DirectX::XMStoreFloat4x4(&this->projection, proj);
 
 
-	this->objPos.movement->addPermVector(XMFLOAT4(0.0f, -1.0f, 0.0f, 4.0f), 0);
 	this->objPos.SETheight(200.0f);
 }
 
@@ -292,6 +286,7 @@ void Camera::updateCamera() {
 	
 	// makes the movespeed depend on coefficient
 	//this->cameraMoveSpeed = * Locator::getTime()->GETCoeff();
+	this->objPos.SETpos(&this->cameraPos);
 
 	/*
 	// POSITIONAL MOVEMENT
@@ -344,7 +339,6 @@ void Camera::updateCamera() {
 	DirectX::XMVECTOR cameraFacingDir;
 	DirectX::XMVECTOR cameraUpDir;
 
-	this->objPos.movement->update();
 	this->objPos.update();
 	this->objPos.updatePos(&this->cameraPos);
 

@@ -2,11 +2,11 @@
 #ifndef OBJPOSITION_H
 #define OBJPOSITION
 
-#include "MovmentVector.h"
+#include <DirectXMath.h>
+using namespace DirectX;
 
 class ObjPos
 {
-	friend MoveVector;
 public:
 	ObjPos();
 	~ObjPos();
@@ -17,7 +17,7 @@ public:
 	void SETheight(float input);
 
 	// Handels the diferent vectors affecting the position
-	MoveVector *movement;
+	//MoveVector *movement;
 
 	void update();
 	// applies the objPos.position to the input

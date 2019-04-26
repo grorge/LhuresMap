@@ -34,47 +34,41 @@ void BasicRenderState::initScene()
 	newObject = new DynObject(this->cam, L"LP_male", L"bricks");
 	newObject->SETSizeFloat(50.0f);
 	newObject->SETPosition(XMFLOAT3(-100.0f, -100.0f, 1000.0f));
-	newObject->GETmovement()->addPermVector(XMFLOAT4(0.0f, -1.0f, 0.0f, 3.0f), 0);
-	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 12.0f));
 	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
 
 	newObject = new DynObject(this->cam, L"LP_male", L"bricks");
 	newObject->SETSizeFloat(10.0f);
 	newObject->SETPosition(XMFLOAT3(-100.0f, -100.0f, 1000.0f));
-	newObject->GETmovement()->addPermVector(XMFLOAT4(0.0f, -1.0f, 0.0f, 3.0f), 0);
-	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 12.0f));
+
 	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
 
 	//Test for preststandard
-	//{
-	//	float tempXaxis = -3000.0f;
-	//	for (int i = 0; i < 200; i++)
-	//	{
-	//		newObject = new DynObject(this->cam, L"LP_male", L"bricks");
-	//		newObject->SETSizeFloat(50.0f);
-	//		newObject->SETPosition(XMFLOAT3(tempXaxis, -100.0f, 2000.0f));
-	//		this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
-	//		tempXaxis += 200.0f;
-	//	}
-	//}
+	{
+		float tempXaxis = -3000.0f;
+		for (int i = 0; i < 200; i++)
+		{
+			newObject = new DynObject(this->cam, L"LP_male", L"bricks");
+			newObject->SETSizeFloat(50.0f);
+			newObject->SETPosition(XMFLOAT3(tempXaxis, -100.0f, 2000.0f));
+			this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
+			tempXaxis += 200.0f;
+		}
+	}
 	
 
 	newObject = new DynObject(this->cam, L"bottle", L"gravel");
 	newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
 	newObject->SETPosition(XMFLOAT3(-100.0f, 250.0f, 200.0f));
-	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 3.0f));
 	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
 
 	newObject = new DynObject(this->cam, L"bottle", L"gravel");
 	newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
-	newObject->SETPosition(XMFLOAT3(-50.0f, 250.0f, 200.0f));
-	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.5f));
+	newObject->SETPosition(XMFLOAT3(-50.0f, 250.0f, 200.0f));;
 	this->objHandler->addObject(newObject, OBJECTLIST::MOVING);
 
 	newObject = new DynObject(this->cam, L"bottle", L"gravel");
 	newObject->SETSizeFloat3(XMFLOAT3(100.0f, 150.0f, 50.0f));
 	newObject->SETPosition(XMFLOAT3(-200.0f, 250.0f, 200.0f));
-	newObject->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
 	this->objHandler->addObject(newObject, OBJECTLIST::TRANS);
 
 	newObject = new DynObject(this->cam, L"HP_Glock", L"gravel");
@@ -138,7 +132,7 @@ void BasicRenderState::handleEvents(GameManager * gm)
 			this->controlCamera->updateCamera(msg.wParam);
 			if (msg.wParam == 0x52) // R
 			{
-				this->objHandler->getObjList(OBJECTLIST::MOVING).at(0)->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 3.5f));
+				//this->objHandler->getObjList(OBJECTLIST::MOVING).at(0)->GETmovement()->addVector(XMFLOAT4(0.0f, 1.0f, 0.0f, 3.5f));
 
 				this->rndMode++;
 				this->rndMode %= int(RENDERMODE::SIZE);
@@ -164,7 +158,7 @@ void BasicRenderState::update(GameManager * gm)
 	{
 		obj->rotateY(0.01f);
 
-		obj->GETmovement()->update();
+		//obj->GETmovement()->update();
 
 		obj->update();
 		obj->updateWorld();
