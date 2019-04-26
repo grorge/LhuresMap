@@ -1,21 +1,5 @@
 #include "Camera.h"
 
-
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//                              CAMERA                   /
-/////////////////////////////////////////////////////////
-//////////////////////////////
-///////////////
-///////
-//
-
-
-/* _+_+_+_+_+_+_+_+_+_+_+_+_+_+_
-  |                             |
-  |           PRIVATE           |
-   -_-_-_-_-_-_-_-_-_-_-_-_-_-*/
-
-
 void Camera::moveCameraUp() {
 	DirectX::XMVECTOR upVecNormalized;
 	DirectX::XMVECTOR cameraPos;
@@ -91,8 +75,6 @@ void Camera::moveCameraLeft() {
 	//// MOVE!!
 	cameraPos = DirectX::XMVectorAdd(cameraPos, moveVecNormalized);
 
-
-	
 	// Store the new cameraPos
 	DirectX::XMStoreFloat3(&this->cameraPos, cameraPos);
 }
@@ -124,8 +106,6 @@ void Camera::moveCameraRight() {
 
 	//// MOVE!!
 	cameraPos = DirectX::XMVectorAdd(cameraPos, moveVecNormalized);
-
-	
 
 	// Store the new cameraPos
 	DirectX::XMStoreFloat3(&this->cameraPos, cameraPos);
@@ -183,8 +163,6 @@ void Camera::moveCameraBackward() {
 	//// MOVE!!
 	cameraPos = DirectX::XMVectorAdd(cameraPos, moveVecNormalized);
 
-	
-
 	// Store the new cameraPos
 	DirectX::XMStoreFloat3(&this->cameraPos, cameraPos);
 }
@@ -206,22 +184,6 @@ void Camera::updateRightDir() {
 	DirectX::XMStoreFloat3(&this->cameraRightDir, cameraRightDir);
 }
 
-//_________________________________________//
-//                                         //
-//             END OF PRIVATE              //
-//_________________________________________//
-/////////////////////////////////////////////
-
-
-
-
-
-/* _+_+_+_+_+_+_+_+_+_+_+_+_+_+_
-  |                             |
-  |           PUBLIC            |
-   -_-_-_-_-_-_-_-_-_-_-_-_-_-*/
-
-
 Camera::Camera()
 {
 
@@ -232,11 +194,12 @@ void Camera::init()
 	DirectX::XMVECTOR cameraStartPos;
 	DirectX::XMVECTOR cameraStartFacingDir;
 
+	// Usefull math to set the camera depending on size of map
 	//cameraStartPos = DirectX::XMVECTOR{ static_cast<float>(arenaWidth * 0.5f), static_cast<float>(sqrt((arenaWidth * arenaWidth + arenaDepth * arenaDepth) / 4)), static_cast<float>((arenaDepth * 0.5f) * 0.30f) };
 	//cameraStartPos = DirectX::XMVECTOR{ arenaWidth * 0.5f, 1000.0f, arenaDepth * 0.5f };
 
-	cameraStartPos = DirectX::XMVECTOR{ 1.0f, 4000.0f, 1.0f};
-	DirectX::XMVECTOR cameraLookAtPos = DirectX::XMVECTOR{ 0.0f, 100.0f, 1.0f };
+	cameraStartPos = DirectX::XMVECTOR{ 0.0001f, 45000.0f, 0.0001f };
+	DirectX::XMVECTOR cameraLookAtPos = DirectX::XMVECTOR{ 0.0001f, 100.0f, 0.0001f };
 	cameraStartFacingDir = DirectX::XMVectorSubtract(cameraLookAtPos, cameraStartPos);
 	cameraStartFacingDir = DirectX::XMVector3Normalize(cameraStartFacingDir);
 
@@ -255,9 +218,9 @@ void Camera::init()
 	cameraUpDir = DirectX::XMVector3Normalize(cameraUpDir);
 	DirectX::XMStoreFloat3(&this->cameraUpDir, cameraUpDir);
 
-	this->angle = 0.45f * DirectX::XM_PI;
-	this->nearPlane = 0.5;
-	this->farPlane = 10000.0; //200
+	this->angle = 0.05f * DirectX::XM_PI;
+	this->nearPlane = 10.5;
+	this->farPlane = 50000.0; //200
 
 	DirectX::XMMATRIX view = DirectX::XMMatrixLookToLH(
 		cameraStartPos,

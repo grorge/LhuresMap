@@ -15,11 +15,6 @@ using namespace DirectX;
 #define RIGTH_INDEX 2
 #define LEFT_INDEX 3
 
-/* _+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_
-  |                                     |
-  |               CAMERA                |
-   -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-*/
-
 class Camera {
 private:
 	float			cameraMoveSpeed = 2000.0f;
@@ -38,48 +33,32 @@ private:
 
 	DirectX::XMFLOAT4X4 view;
 	DirectX::XMFLOAT4X4 projection;
-	//DirectX::XMMATRIX view;
-	//DirectX::XMMATRIX projection;
 
-	/// ---------- UPDATE-FUNCTION VARIABLES ---------
-	// ------------- POSITION MOVEMENT ---------------
+
 	DirectX::XMFLOAT3	upVecNormalized;
 	DirectX::XMFLOAT3	moveVecNormalized;
 	DirectX::XMFLOAT3	rightAxis;
-	// _______________________________________________
-	// --------------- LOOK-AT MOVEMENT --------------
+
+
 	float				rotationAngle;
 	DirectX::XMFLOAT3	rotationQuaternion;
 	bool				isMouseMovingUp;
 	DirectX::XMFLOAT3	newRotation_Float3;
 	DirectX::XMFLOAT3	oldRotation_Float3;
 	DirectX::XMFLOAT3	tempRotationDifference_Float3;
-	// _______________________________________________
-	///_______________________________________________
+
 
 	bool updateRequired = false;
 
 	void updateRightDir();
 
-	//void rotateCameraVertically(POINT mouseMovement);
-	//void rotateCameraHorizontally(POINT mouseMovement);
 
-	//MoveVector movement;
 	ObjPos objPos;
-	//float cameraHeight;
 
 public:
 	Camera();
 	void init();
-	/*- - - - - - - -<INFORMATION>- - - - - - - -
-	1. Receives a 'characterMessage' of type 'TCHAR', which can result in:
-	--- Camera Positional Movement: 'W', 'A', 'S', 'D', '32(SpaceBar)' = Up, 'R' = Reset Camera, 'H'.
-	--- NOTE: See internal comment in regards to the 'H'.
-	2. Receives 'mouseCoordinates' of type 'POINT', which can result in:
-	--- Camera Rotational Movement: Y-Axis and/or X-Axis.
-	3. Uses the 'updateRequired' bool to see if updating the Camera is necessary.
-	--- Should an update be required, then the constant buffers will be edited here.
-	*/
+
 	void updateCamera();
 
 	void turnCameraLeft();
@@ -95,25 +74,12 @@ public:
 
 	void SETangle(float angleInput);
 
-	/*- - - - - - - -<INFORMATION>- - - - - - - -
-	1. Converts the 'cameraPos' (XMVECTOR) to the XMFLOAT3 format.
-	2. Stores the converted 'cameraPos' in 'cameraPos_Float3'.
-	3. Returns 'cameraPos_Float3'.
-	*/
-	//DirectX::XMFLOAT3	GETcameraPosFloat3();
-	//DirectX::XMVECTOR	GETcameraStartPos();
+
 	DirectX::XMFLOAT3		GETcameraPos();
 	DirectX::XMFLOAT3       GETfacingDir();
 	DirectX::XMFLOAT4X4&	GETviewMatrix();
 	DirectX::XMFLOAT4X4&	GETprojMatrix();
 
-	//MoveVector* GETmovement() { return &movement; };
 };
-
-//______________________________________________//
-//                                              //
-//                END OF CAMERA                 //
-//______________________________________________//
-//////////////////////////////////////////////////
 
 #endif
