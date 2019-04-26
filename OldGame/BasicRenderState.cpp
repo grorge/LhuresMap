@@ -113,7 +113,7 @@ BasicRenderState* BasicRenderState::getInstance() {
 void BasicRenderState::init()
 {
 	this->renderer.init();
-	this->rndMode = int(RENDERMODE::LIGHTNORMAL);
+	this->rndMode = int(RENDERMODE::LIGHTDIST);
 	this->renderer.switchRendermode(this->rndMode);
 
 	this->cam = new Camera();

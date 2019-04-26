@@ -14,7 +14,7 @@ using namespace DirectX;
 
 
 enum  class RENDERMODE {
-	TEXTURE, NORMALS, LIGHTDIST, LIGHTNORMAL, // -1 = GUI - used for exceptiongs
+	TEXTURE, NORMALS, LIGHTDIST, //LIGHTNORMAL, // -1 = GUI - used for exceptiongs
 	SIZE
 };
 
