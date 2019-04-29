@@ -168,9 +168,18 @@ void BasicRenderState::handleEvents(GameManager * gm)
 				this->rndMode %= int(RENDERMODE::SIZE);
 				this->renderer.switchRendermode(this->rndMode);
 			}
+			
 		}
 		else if ( msg.message == WM_KEYUP) {
 			this->controlCamera->stopCamera(msg.wParam);
+		}
+		else if (msg.wParam == 0x01)
+		{
+			POINT mPoint;
+			GetCursorPos(&mPoint);
+			// Converts it to the pixels in the window
+			ScreenToClient(Locator::getD3D()->GEThwnd(), &mPoint);
+			Locator::getD2D()->openMenu(XMFLOAT2(mPoint.x, mPoint.y));
 		}
 
 		TranslateMessage(&msg);

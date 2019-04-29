@@ -16,6 +16,8 @@
 #pragma comment(lib, "Dwrite")
 #pragma comment(lib, "Windowscodecs")
 
+#include <DirectXMath.h>
+
 #ifndef Assert
 #if defined( DEBUG ) || defined( _DEBUG )
 #define Assert(b) do {if (!(b)) {OutputDebugStringA("Assert: " #b "\n");}} while(0)
@@ -43,7 +45,7 @@ public:
 	// Sends a wstring to be written to the screen
 	virtual void SETTextFormat(std::wstring input) = 0;
 
-	// Clears the screenshot
+	virtual void openMenu(DirectX::XMFLOAT2 centerPos) = 0;
 	virtual void closeMenu() = 0;
 	// Cleans memory
 	virtual void cleanUp() = 0;

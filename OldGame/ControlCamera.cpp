@@ -22,6 +22,7 @@ void ControlCamera::updateCamera(WPARAM wParam)
 		this->pCam->moveCameraDown();
 		break;
 
+
 	case 0x57: //W
 		this->pCam->moveCameraForward();
 		break;

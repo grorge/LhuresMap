@@ -16,7 +16,7 @@ HRESULT D2D::Initialize(IDXGISurface1 *sSurface10)
 		this->CreateDeviceResources(sSurface10);
 	}
 
-	this->openMenu(DirectX::XMFLOAT2(50.0f, 100.0f));
+	this->openMenu(DirectX::XMFLOAT2(350.0f, 100.0f));
 
 	return E_NOTIMPL;
 }
@@ -95,15 +95,10 @@ HRESULT D2D::CreateDeviceIndependentResources()
 		);
 
 		// Create Menu default box
-		this->g_Menu.boxStyle.pos = DirectX::XMFLOAT2(500.0f, 50.0f);
+		this->g_Menu.boxStyle.pos = DirectX::XMFLOAT2(0.0f, 0.0f);
 		this->g_Menu.boxStyle.size = DirectX::XMFLOAT2(200.0f, 150.0f);
 		this->g_Menu.boxStyle.padding = 5.0f;
 		this->g_Menu.boxStyle.setRect();
-		
-		hr = m_pDirect2dFactory->CreateRectangleGeometry(
-			this->g_Menu.boxStyle.getRect(),
-			&this->g_Menu.boxStyle.p_rectGeom
-		);
 		
 
 		// Set the default position for the menu, can be changed later 
@@ -140,7 +135,7 @@ HRESULT D2D::CreateDeviceResources(IDXGISurface1 *sSurface10)
 		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &this->pTextColor);
 		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::BlueViolet), &this->g_MsgBox.p_colorBrush);
 
-		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::BlueViolet), &this->g_Menu.boxStyle.p_colorBrush);
+		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::GreenYellow), &this->g_Menu.boxStyle.p_colorBrush);
 	}
 
 	return hr;
@@ -155,10 +150,13 @@ void D2D::DiscardDeviceResources()
 
 void D2D::openMenu(DirectX::XMFLOAT2 centerPos)
 {
+	this->g_Menu.v_Box.clear();
+	this->g_Menu.v_renderBox.clear();
+
 
 	for (size_t i = 0; i < 3; i++)
 	{
-		this->g_Menu.boxStyle.pos = DirectX::XMFLOAT2(200.0f  + (i * 2.0f), 50.0f);
+		this->g_Menu.boxStyle.pos = DirectX::XMFLOAT2(centerPos.x  + (i * this->g_Menu.boxStyle.size.x), centerPos.y);
 		this->g_Menu.boxStyle.setRect();
 
 		m_pDirect2dFactory->CreateRectangleGeometry(
@@ -229,10 +227,15 @@ HRESULT D2D::OnRender()
 		this->m_pRenderTarget->DrawGeometry(this->g_MsgBox.p_rectGeom, this->g_MsgBox.p_colorBrush);
 		this->m_pRenderTarget->FillGeometry(this->g_MsgBox.p_rectGeom, this->g_MsgBox.p_colorBrush);
 
+
+
 		for (size_t i = 0; i < this->g_Menu.v_Box.size(); i++)
 		{
-			this->m_pRenderTarget->DrawGeometry(this->g_MsgBox.p_rectGeom, this->g_Menu.v_Box.at(i).p_colorBrush);
-			this->m_pRenderTarget->FillGeometry(this->g_MsgBox.p_rectGeom, this->g_Menu.v_Box.at(i).p_colorBrush);
+			if (this->g_Menu.v_renderBox.at(i))
+			{
+				this->m_pRenderTarget->DrawGeometry(this->g_Menu.v_Box.at(i).p_rectGeom, this->g_Menu.v_Box.at(i).p_colorBrush);
+				this->m_pRenderTarget->FillGeometry(this->g_Menu.v_Box.at(i).p_rectGeom, this->g_Menu.v_Box.at(i).p_colorBrush);
+			}
 		}
 
 		//Draw the Text

@@ -24,7 +24,6 @@ struct BoxGeoData {
 	}
 };
 
-
 struct MenuInfo
 {
 	DirectX::XMFLOAT2 pos = DirectX::XMFLOAT2(0.0f, 0.0f);
@@ -48,6 +47,7 @@ public:
 	virtual ID2D1RenderTarget* GETRenderTarget() { return this->m_pRenderTarget; }
 	virtual IDWriteTextFormat* GETTextFormat() { return this->m_pTextFormat; }
 	virtual void SETTextFormat(std::wstring input) { this->msgText = input; }
+	virtual void openMenu(DirectX::XMFLOAT2 centerPos);
 	virtual void closeMenu();
 	virtual void cleanUp();
 	virtual void setBackbuffer(ID3D11Texture2D* pBB);
@@ -83,7 +83,6 @@ private:
 	BoxGeoData g_MsgBox;
 	//std::vector<BoxGeoData*> v_BoxVector;
 
-	void openMenu(DirectX::XMFLOAT2 centerPos);
 
 	IWICImagingFactory *pIWICFactory = nullptr;
 	//PCWSTR uri = nullptr;
