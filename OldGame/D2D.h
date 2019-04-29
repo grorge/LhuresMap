@@ -25,6 +25,17 @@ struct BoxGeoData {
 };
 
 
+struct MenuInfo
+{
+	DirectX::XMFLOAT2 pos = DirectX::XMFLOAT2(0.0f, 0.0f);
+
+	BoxGeoData boxStyle;
+
+	std::vector<BoxGeoData> v_Box;
+	std::vector<bool> v_renderBox;
+};
+
+
 class D2D : public ID2D
 {
 public:
@@ -40,6 +51,8 @@ public:
 	virtual void closeMenu();
 	virtual void cleanUp();
 	virtual void setBackbuffer(ID3D11Texture2D* pBB);
+
+
 private:
 	// D3D backbuffer
 	ID3D11Texture2D * r_pBackBuffer;
@@ -66,7 +79,11 @@ private:
 	ID2D1SolidColorBrush * pTextColor = nullptr;
 
 	//Geometries (1: pointer 2: position 3:Size)
+	MenuInfo g_Menu;
 	BoxGeoData g_MsgBox;
+	//std::vector<BoxGeoData*> v_BoxVector;
+
+	void openMenu(DirectX::XMFLOAT2 centerPos);
 
 	IWICImagingFactory *pIWICFactory = nullptr;
 	//PCWSTR uri = nullptr;

@@ -16,6 +16,7 @@ HRESULT D2D::Initialize(IDXGISurface1 *sSurface10)
 		this->CreateDeviceResources(sSurface10);
 	}
 
+	this->openMenu(DirectX::XMFLOAT2(50.0f, 100.0f));
 
 	return E_NOTIMPL;
 }
@@ -89,9 +90,24 @@ HRESULT D2D::CreateDeviceIndependentResources()
 		this->g_MsgBox.setRect();
 
 		hr = m_pDirect2dFactory->CreateRectangleGeometry(
-			D2D1::RectF(this->g_MsgBox.pos.x, this->g_MsgBox.pos.y, this->g_MsgBox.pos.x + this->g_MsgBox.size.x, this->g_MsgBox.pos.y + this->g_MsgBox.size.y),
+			this->g_MsgBox.getRect(),//D2D1::RectF(this->g_MsgBox.pos.x, this->g_MsgBox.pos.y, this->g_MsgBox.pos.x + this->g_MsgBox.size.x, this->g_MsgBox.pos.y + this->g_MsgBox.size.y),
 			&this->g_MsgBox.p_rectGeom
 		);
+
+		// Create Menu default box
+		this->g_Menu.boxStyle.pos = DirectX::XMFLOAT2(500.0f, 50.0f);
+		this->g_Menu.boxStyle.size = DirectX::XMFLOAT2(200.0f, 150.0f);
+		this->g_Menu.boxStyle.padding = 5.0f;
+		this->g_Menu.boxStyle.setRect();
+		
+		hr = m_pDirect2dFactory->CreateRectangleGeometry(
+			this->g_Menu.boxStyle.getRect(),
+			&this->g_Menu.boxStyle.p_rectGeom
+		);
+		
+
+		// Set the default position for the menu, can be changed later 
+		this->g_Menu.pos = DirectX::XMFLOAT2(200.0f, 200.0f);
 	}
 
 	return hr;
@@ -123,6 +139,8 @@ HRESULT D2D::CreateDeviceResources(IDXGISurface1 *sSurface10)
 		//Create the colorBrushes
 		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &this->pTextColor);
 		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::BlueViolet), &this->g_MsgBox.p_colorBrush);
+
+		this->m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::BlueViolet), &this->g_Menu.boxStyle.p_colorBrush);
 	}
 
 	return hr;
@@ -133,6 +151,28 @@ void D2D::DiscardDeviceResources()
 	SafeRelease(&this->m_pRenderTarget);;
 	SafeRelease(&this->m_pTextFormat);
 	SafeRelease(&this->pTextColor);
+}
+
+void D2D::openMenu(DirectX::XMFLOAT2 centerPos)
+{
+
+	for (size_t i = 0; i < 3; i++)
+	{
+		this->g_Menu.boxStyle.pos = DirectX::XMFLOAT2(200.0f  + (i * 2.0f), 50.0f);
+		this->g_Menu.boxStyle.setRect();
+
+		m_pDirect2dFactory->CreateRectangleGeometry(
+			this->g_Menu.boxStyle.getRect(),
+			&this->g_Menu.boxStyle.p_rectGeom
+		);
+
+		this->g_Menu.v_Box.push_back(this->g_Menu.boxStyle);
+		this->g_Menu.v_renderBox.push_back(true);
+	}
+
+
+
+
 }
 
 void D2D::checkFPS()
@@ -188,6 +228,12 @@ HRESULT D2D::OnRender()
 
 		this->m_pRenderTarget->DrawGeometry(this->g_MsgBox.p_rectGeom, this->g_MsgBox.p_colorBrush);
 		this->m_pRenderTarget->FillGeometry(this->g_MsgBox.p_rectGeom, this->g_MsgBox.p_colorBrush);
+
+		for (size_t i = 0; i < this->g_Menu.v_Box.size(); i++)
+		{
+			this->m_pRenderTarget->DrawGeometry(this->g_MsgBox.p_rectGeom, this->g_Menu.v_Box.at(i).p_colorBrush);
+			this->m_pRenderTarget->FillGeometry(this->g_MsgBox.p_rectGeom, this->g_Menu.v_Box.at(i).p_colorBrush);
+		}
 
 		//Draw the Text
 		this->m_pRenderTarget->DrawText(
